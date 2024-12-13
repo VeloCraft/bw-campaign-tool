@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,14 +16,14 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="/" className="text-xl font-bold">Brand</a>
+            <Link href="/" className="text-xl font-bold">Brand</Link>
           </div>
 
           {/* Menu (hidden on small screens) */}
           <div className="hidden md:flex space-x-4">
-            <a href="/" className="hover:bg-blue-600 px-3 py-2 rounded-md">Home</a>
-            <a href="/campaigns" className="hover:bg-blue-600 px-3 py-2 rounded-md">Campaigns</a>
-            <a href="/admin" className="hover:bg-blue-600 px-3 py-2 rounded-md">Admin</a>
+            <Link href="/" className="hover:bg-blue-600 px-3 py-2 rounded-md">Home</Link>
+            <Link href="/campaigns" className="hover:bg-blue-600 px-3 py-2 rounded-md">Campaigns</Link>
+            <Link href="/admin" className="hover:bg-blue-600 px-3 py-2 rounded-md">Admin</Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -43,9 +44,9 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-blue-500">
-          <a href="/" className="block px-3 py-2 hover:bg-blue-600">Home</a>
-          <a href="/campaigns" className="block px-3 py-2 hover:bg-blue-600">Campaigns</a>
-          <a href="/adming" className="block px-3 py-2 hover:bg-blue-600">Admin</a>
+          <Link href="/" className="block px-3 py-2 hover:bg-blue-600">Home</Link>
+          <Link href="/campaigns" className="block px-3 py-2 hover:bg-blue-600">Campaigns</Link>
+          <Link href="/admin" className="block px-3 py-2 hover:bg-blue-600">Admin</Link>
         </div>
       )}
     </nav>

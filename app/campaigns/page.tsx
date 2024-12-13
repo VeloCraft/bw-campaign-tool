@@ -1,5 +1,3 @@
-import Template from "@/components/page";
-
 export default function CampaignsPage() {
   return (
     <div>
