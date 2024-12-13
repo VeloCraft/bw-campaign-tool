@@ -16,7 +16,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/" className="text-xl font-bold">Brand</Link>
+            <Link href="/" className="text-xl font-bold">Bike Worcester Campaigns</Link>
           </div>
 
           {/* Menu (hidden on small screens) */}
