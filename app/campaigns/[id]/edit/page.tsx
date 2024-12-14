@@ -5,7 +5,7 @@ import EditCampaignForm from "@/components/edit-campaign";
 export default async function editCampaignPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>
 }) {
   const { id } = await params;
 

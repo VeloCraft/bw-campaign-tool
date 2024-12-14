@@ -1,8 +1,8 @@
 //use neon database to fetch campaigns
 //define sql entity to interact with the database
 import { neon } from '@neondatabase/serverless';
-
-export async function createCampaign(campaign) {
+import {Campaign} from './definitions';
+export async function createCampaign(campaign: Campaign) {
   try {
     const sql = neon(process.env.DATABASE_URL!);
     const [newCampaign] = await sql`INSERT INTO campaigns (name, description, status, contribution) VALUES (${campaign.name},${campaign.description},${campaign.status},${campaign.contribution} ) RETURNING id`;
@@ -17,7 +17,7 @@ export async function createCampaign(campaign) {
   }
  }
 
- export async function fetchCampaigns() {
+export async function fetchCampaigns(): Promise<Record<string, number>[]> {
 try {
     const sql = neon(process.env.DATABASE_URL!);
     const data = await sql`SELECT * FROM campaigns`;
@@ -28,7 +28,7 @@ try {
   }
 }
 
-export async function fetchCampaign(id) {
+export async function fetchCampaign(id: string) {
   try {
     const sql = neon(process.env.DATABASE_URL!);
     const data = await sql`SELECT * FROM campaigns WHERE id = ${id}`;
@@ -39,7 +39,7 @@ export async function fetchCampaign(id) {
   }
 }
 
-export async function updateCampaign(campaign) {
+export async function updateCampaign(campaign: Campaign) {
   try {
     console.log(campaign)
     const sql = neon(process.env.DATABASE_URL!);
@@ -58,7 +58,7 @@ export async function updateCampaign(campaign) {
   }
 }
 
-export async function deleteCampaign(id) {
+export async function deleteCampaign(id: string) {
   try {
     const sql = neon(process.env.DATABASE_URL!);
     await sql`DELETE FROM campaigns WHERE id = ${id}`;

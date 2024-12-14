@@ -19,7 +19,7 @@ export default async function CampaignsPage() {
     </div>
     {/* button to add a new campaign*/}
     <div className="max-w-7xl mx-auto mt-4">
-      <Link href="/campaigns/create"><button href="/campaigns/create" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">
+      <Link href="/campaigns/create"><button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">
         Add campaign
       </button></Link>
     </div>

@@ -1,11 +1,13 @@
 import { fetchCampaign } from "@/app/lib/action";
 import Link from "next/link"; // Import the Link component from Next.js
 
+
+
 export default async function CampaignsDetailsPage({
   params,
 }: {
-  params: { id: string };
-}) {
+  params: Promise<{ id: string }>
+}){
   const { id } = await params;
 
   // Fetch campaign data

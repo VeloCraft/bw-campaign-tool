@@ -1,13 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import { redirect } from 'next/navigation';
 import { EditorState, convertFromHTML, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import { stateToHTML } from 'draft-js-export-html'; // Import convertToHTML
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-export default function EditCampaignForm({ campaign }) {
+export default function EditCampaignForm({ campaign } : {campaign: Record<string, string>}) {
   // Convert HTML content into EditorState
   const createEditorState = (htmlContent: string) => {
     const blocksFromHTML = convertFromHTML(htmlContent);
@@ -20,7 +20,7 @@ export default function EditCampaignForm({ campaign }) {
   const [status, setStatus] = useState(createEditorState(campaign.status || ""));
   const [contribution, setContribution] = useState(createEditorState(campaign.contribution || ""));
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     // Convert the editor content to HTML using convertToHTML

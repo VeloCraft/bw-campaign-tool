@@ -9,14 +9,13 @@ export async function DELETE(req: NextRequest) {
 // storing user_id in the id var
     const id=data.id; // get campaign id from request
   //const id = await ().id;
-  console.log('delete', id);
   // delete campaign from database
   try {
-  const campaign = await deleteCampaign(id);  
+    await deleteCampaign(id);  
   // return success Response
   return NextResponse.json({ message: 'Campaign deleted successfully' });
   } catch (error) {
     console.error('Database Error:', error);
-    return NextResponse.error('Failed to delete campaign');
+    return NextResponse.error();
   }
 }

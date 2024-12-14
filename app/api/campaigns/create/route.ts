@@ -6,9 +6,7 @@
 //
 //The database URL is stored in the DATABASE_URL environment variable
 
-import { neon } from '@neondatabase/serverless';
 import {createCampaign} from '@/app/lib/action';
-import {redirect} from 'next/navigation'
 import { NextRequest, NextResponse } from 'next/server';
 
 export  async function POST(req: NextRequest) {
@@ -24,7 +22,7 @@ export  async function POST(req: NextRequest) {
       //res.status(201).end();
     } catch (error) {
       console.error('Database Error:', error);
-      return Response.error('Failed to create campaign');
+      return Response.error();
       //res.status(500).end();
     }
   } 

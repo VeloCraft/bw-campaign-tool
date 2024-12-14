@@ -3,10 +3,10 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline'; // Importing Heroicons
 
-export default function CampaignTable({ campaigns }) {
+export default function CampaignTable({ campaigns } : {campaigns: Record<string, number>[]}) {
   const [data, setData] = useState(campaigns);
 
-  function HandleDelete(id) {
+  function HandleDelete(id: string) {
     console.log(`Deleting campaign with id ${id}`);
     fetch('/api/campaigns/delete', {
       method: 'DELETE',
@@ -17,7 +17,7 @@ export default function CampaignTable({ campaigns }) {
     }).then((res) => {
       if (res.ok) {
         console.log('deleted');
-        setData(data.filter((campaign) => campaign.id !== id));
+        setData(data.filter((campaign) => String(campaign.id) !== id));
       }
     });
   }
@@ -37,7 +37,7 @@ export default function CampaignTable({ campaigns }) {
             <tr key={campaign.id} className="hover:bg-gray-50">
               <td className="border border-gray-300 px-6 py-2"><Link href={`/campaigns/${campaign.id}`}>{campaign.name}</Link></td>
               <td className="border border-gray-300 px-6 py-2">
-                <Link href={`/campaigns/${campaign.id}/edit`} c                  className="text-green-700 hover:text-green-500"
+                <Link href={`/campaigns/${campaign.id}/edit`}                  className="text-green-700 hover:text-green-500"
                   aria-label="Edit"
                 >
                   <PencilSquareIcon className="h-5 w-5" />
@@ -45,7 +45,7 @@ export default function CampaignTable({ campaigns }) {
               </td>
               <td className="border border-gray-300 px-6 py-2">
                 <button
-                  onClick={() => HandleDelete(campaign.id)}
+                  onClick={() => HandleDelete(String(campaign.id))}
                   className="text-red-500 hover:text-red-700"
                   aria-label="Delete"
                 >

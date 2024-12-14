@@ -4,7 +4,10 @@
 import { updateCampaign } from '@/app/lib/action'; // Adjust the import based on your file structure
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, {
+  params,
+}: {
+  params: Promise<{ id: string }>}) {
   const { id } = await params;  // Get campaign ID from the URL parameters
   const { name, description, status, contribution } = await req.json(); // Get request body
 
