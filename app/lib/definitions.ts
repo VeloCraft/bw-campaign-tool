@@ -19,3 +19,9 @@ export type Goal = {
 export interface CampaignWithGoals extends Campaign {
   goals: Goal[];
 }
+
+export type User = {
+  email: string;
+  id: string;
+  name: string;
+}

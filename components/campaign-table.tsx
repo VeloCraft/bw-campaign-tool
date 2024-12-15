@@ -1,9 +1,10 @@
 'use client';
 import { useState } from 'react';
+import {Campaign} from '@/app/lib/definitions';
 import Link from 'next/link';
 import { TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline'; // Importing Heroicons
 
-export default function CampaignTable({ campaigns } : {campaigns: Record<string, number>[]}) {
+export default function CampaignTable({ campaigns } : {campaigns: Campaign[]}) {
   const [data, setData] = useState(campaigns);
 
   function HandleDelete(id: string) {

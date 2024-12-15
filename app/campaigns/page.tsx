@@ -1,5 +1,5 @@
 
-import { fetchCampaigns } from '@/app/lib/data';
+import { fetchCampaigns } from '@/app/lib/campaign';
 import CampaignsTable from '@/components/campaign-table';
 import Link from 'next/link';
 
