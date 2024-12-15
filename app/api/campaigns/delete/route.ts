@@ -1,6 +1,6 @@
 
 
-import {deleteCampaign} from '@/app/lib/action';
+import {deleteCampaign} from '@/app/lib/campaign';
 import {NextRequest, NextResponse} from 'next/server';
 
 export async function DELETE(req: NextRequest) {

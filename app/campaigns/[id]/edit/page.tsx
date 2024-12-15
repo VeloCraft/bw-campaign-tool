@@ -1,4 +1,4 @@
-import { fetchCampaign } from "@/app/lib/action";
+import { fetchCampaign } from "@/app/lib/campaign";
 import EditCampaignForm from "@/components/edit-campaign";
 
 
@@ -12,10 +12,11 @@ export default async function editCampaignPage({
   // Fetch campaign data
   const campaign = await fetchCampaign(id);
 
+
   //console.log(campaign[0])
 
   return (
-    <EditCampaignForm campaign={campaign[0]} />
+    <EditCampaignForm campaign={campaign} />
   )
 }
 

@@ -6,7 +6,7 @@
 //
 //The database URL is stored in the DATABASE_URL environment variable
 
-import {createCampaign} from '@/app/lib/action';
+import {createCampaign} from '@/app/lib/campaign';
 import { NextRequest, NextResponse } from 'next/server';
 
 export  async function POST(req: NextRequest) {

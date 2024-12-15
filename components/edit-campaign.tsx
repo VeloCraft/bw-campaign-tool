@@ -5,9 +5,10 @@ import { redirect } from 'next/navigation';
 import { EditorState, convertFromHTML, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import { stateToHTML } from 'draft-js-export-html'; // Import convertToHTML
+import { CampaignWithGoals } from '@/app/lib/definitions'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-export default function EditCampaignForm({ campaign } : {campaign: Record<string, string>}) {
+export default function EditCampaignForm({ campaign } : {campaign: CampaignWithGoals | null}) {
   // Convert HTML content into EditorState
   const createEditorState = (htmlContent: string) => {
     const blocksFromHTML = convertFromHTML(htmlContent);
@@ -15,10 +16,10 @@ export default function EditCampaignForm({ campaign } : {campaign: Record<string
     return EditorState.createWithContent(contentState);
   };
 
-  const [name, setName] = useState(campaign.name);
-  const [description, setDescription] = useState(createEditorState(campaign.description || ""));
-  const [status, setStatus] = useState(createEditorState(campaign.status || ""));
-  const [contribution, setContribution] = useState(createEditorState(campaign.contribution || ""));
+  const [name, setName] = useState(campaign?.name);
+  const [description, setDescription] = useState(createEditorState(campaign?.description || ""));
+  const [status, setStatus] = useState(createEditorState(campaign?.status || ""));
+  const [contribution, setContribution] = useState(createEditorState(campaign?.contribution || ""));
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -37,7 +38,7 @@ export default function EditCampaignForm({ campaign } : {campaign: Record<string
       contribution: contributionHtml,  // Store HTML content
     };
 
-    const response = await fetch(`/api/campaigns/${campaign.id}/update`, {
+    const response = await fetch(`/api/campaigns/${campaign?.id}/update`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -46,7 +47,7 @@ export default function EditCampaignForm({ campaign } : {campaign: Record<string
     });
 
     if (response.ok) {
-      redirect(`/campaigns/${campaign.id}`);
+      redirect(`/campaigns/${campaign?.id}`);
       alert('Campaign updated successfully!');
 
       // Optionally redirect or handle success state here

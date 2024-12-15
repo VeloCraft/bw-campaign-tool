@@ -1,7 +1,7 @@
 
 // app/api/campaigns/[id]/update/route.js
 
-import { updateCampaign } from '@/app/lib/action'; // Adjust the import based on your file structure
+import { updateCampaign } from '@/app/lib/campaign'; // Adjust the import based on your file structure
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function PUT(req: NextRequest, {
