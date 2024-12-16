@@ -1,10 +1,10 @@
-'use client'
+'use client';
 'use client';
 
 import { useState } from 'react';
 import Link from 'next/link';
 import Avatar from '@/components/admin/avatar';
-import { signOut, useSession } from "next-auth/react"
+import { signOut, useSession } from 'next-auth/react';
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAvatarMenuOpen, setIsAvatarMenuOpen] = useState(false);
@@ -13,27 +13,25 @@ export default function Navbar() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  let closeMenuTimeout: NodeJS.Timeout | null = null;
 
-let closeMenuTimeout: NodeJS.Timeout | null = null;
+  const session = useSession();
 
-const session = useSession()
+  const status = session.status === 'authenticated' ? true : false;
 
-const status = session.status === "authenticated" ? true : false
+  const handleMouseLeave = () => {
+    closeMenuTimeout = setTimeout(() => {
+      setIsAvatarMenuOpen(false);
+    }, 200); // 200ms delay before closing
+  };
 
-const handleMouseLeave = () => {
-  closeMenuTimeout = setTimeout(() => {
-    setIsAvatarMenuOpen(false);
-  }, 200); // 200ms delay before closing
-};
-
-const handleMouseEnter = () => {
-  if (closeMenuTimeout) {
-    clearTimeout(closeMenuTimeout); // Cancel the timeout if user re-enters
-    closeMenuTimeout = null;
-  }
-  setIsAvatarMenuOpen(true);
-};
-
+  const handleMouseEnter = () => {
+    if (closeMenuTimeout) {
+      clearTimeout(closeMenuTimeout); // Cancel the timeout if user re-enters
+      closeMenuTimeout = null;
+    }
+    setIsAvatarMenuOpen(true);
+  };
 
   return (
     <nav className="bg-blue-500 text-white">
@@ -83,7 +81,10 @@ const handleMouseEnter = () => {
             >
               Campaigns
             </Link>
-            <Link href="/admin" className="hover:bg-blue-600 px-3 py-2 rounded-md">
+            <Link
+              href="/admin"
+              className="hover:bg-blue-600 px-3 py-2 rounded-md"
+            >
               Admin
             </Link>
           </div>
@@ -157,4 +158,3 @@ const handleMouseEnter = () => {
     </nav>
   );
 }
-
