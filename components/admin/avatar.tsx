@@ -6,7 +6,6 @@ import Image from 'next/image';
  
 const Avatar = () => {
   const session = useSession();
-  console.log(session);
   const fallbackURL = "https://www.gravatar.com/avatar/"
 
  
