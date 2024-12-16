@@ -12,7 +12,7 @@ export async function fetchUsers(): Promise<User[]> {
         id: user.id,
         name: user.name,
         email: user.email,
-        //role: user.role
+        image: user.image,
       }
     })
     //return data;

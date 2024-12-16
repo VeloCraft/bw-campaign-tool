@@ -1,6 +1,5 @@
 import React from 'react';
 import  Link  from 'next/link';
-import SignIn from '@/components/signin-button';
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
@@ -32,7 +31,7 @@ export default function HomePage() {
           >
             View Campaigns
           </Link>
-          <SignIn />
+
         </div>
       </div>
     </div>
