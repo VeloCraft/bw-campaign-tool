@@ -12,7 +12,7 @@ const Avatar = () => {
  
   return (
     <SessionProvider>
-     {(session.status === "authenticated") ? ( <Image className="h-8 w-8 rounded-full border border-gray-300 shadow-sm" src={session?.data?.user?.image || fallbackURL } alt={session?.data?.user?.name || "User"}/>
+     {(session.status === "authenticated") ? ( <Image className="h-8 w-8 rounded-full border border-gray-300 shadow-sm" width={32} height={32} src={session?.data?.user?.image || fallbackURL } alt={session?.data?.user?.name || "User"}/>
 
 
                 ) : (
