@@ -1,6 +1,5 @@
 import EditCampaignForm from '@/components/edit-campaign';
 import useFirestoreDoc from '@/hooks/useFirestoreDoc';
-import { useParams } from 'next/navigation';
 
 const Component = () => {
   const { id } = useParams();

@@ -1,23 +1,29 @@
-
 'use client';
-import { useState, useEffect, FormEvent } from "react";
-import { Campaign, Goal } from '@/app/lib/definitions';
+import { useState, useEffect, FormEvent } from 'react';
 
-export default function EditGoalForm({ goal, campaigns } : {goal: Goal, campaigns: Campaign[]}) {
-  const [name, setName] = useState(goal.name || "");
-  const [description, setDescription] = useState(goal.description || "");
-  const [status, setStatus] = useState(goal.status || "pending");
+export default function EditGoalForm({
+  goal,
+  campaigns,
+}: {
+  goal: Goal;
+  campaigns: Campaign[];
+}) {
+  const [name, setName] = useState(goal.name || '');
+  const [description, setDescription] = useState(goal.description || '');
+  const [status, setStatus] = useState(goal.status || 'pending');
   const [targetDate, setTargetDate] = useState(
-    goal.target_date ? new Date(goal.target_date).toISOString().split("T")[0] : ""
+    goal.targetDate ? goal.targetDate.toISOString().split('T')[0] : '',
   );
-  const [selectedCampaignId, setSelectedCampaignId] = useState(goal.campaign_id || "");
+  const [selectedCampaignId, setSelectedCampaignId] = useState(
+    goal.campaignId || '',
+  );
 
-  const handleSubmit = async (e : FormEvent ) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const response = await fetch(`/api/goals/${goal.id}/edit`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         id: goal.id,
         name,
@@ -29,44 +35,52 @@ export default function EditGoalForm({ goal, campaigns } : {goal: Goal, campaign
     });
 
     if (response.ok) {
-      alert("Goal updated successfully!");
+      alert('Goal updated successfully!');
     } else {
-      alert("Failed to update goal.");
+      alert('Failed to update goal.');
     }
   };
 
   const handleDelete = async () => {
-    const confirmed = confirm("Are you sure you want to delete this goal?");
+    const confirmed = confirm('Are you sure you want to delete this goal?');
     if (!confirmed) return;
 
     const response = await fetch(`/api/goals/delete?id=${goal.id}`, {
-      method: "DELETE",
+      method: 'DELETE',
     });
 
     if (response.ok) {
-      alert("Goal deleted successfully!");
+      alert('Goal deleted successfully!');
       // Optionally, redirect or update the parent state to remove the goal from the list
     } else {
-      alert("Failed to delete goal.");
+      alert('Failed to delete goal.');
     }
   };
 
   useEffect(() => {
     // Update form fields if the goal prop changes
-    setName(goal.name || "");
-    setDescription(goal.description || "");
-    setStatus(goal.status || "pending");
-    setTargetDate(goal.target_date ? new Date(goal.target_date).toISOString().split("T")[0] : "");
-    setSelectedCampaignId(goal.campaign_id || "");
+    setName(goal.name || '');
+    setDescription(goal.description || '');
+    setStatus(goal.status || 'pending');
+    setTargetDate(
+      goal.targetDate ? goal.targetDate.toISOString().split('T')[0] : '',
+    );
+    setSelectedCampaignId(goal.campaignId || '');
   }, [goal]);
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 shadow rounded">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-4 bg-white p-6 shadow rounded"
+    >
       <h2 className="text-xl font-bold text-gray-800">Edit Goal</h2>
 
       {/* Campaign Selector */}
       <div>
-        <label htmlFor="campaign" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="campaign"
+          className="block text-sm font-medium text-gray-700"
+        >
           Campaign
         </label>
         <select
@@ -75,7 +89,9 @@ export default function EditGoalForm({ goal, campaigns } : {goal: Goal, campaign
           onChange={(e) => setSelectedCampaignId(e.target.value)}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
         >
-          <option value="" disabled>Select a campaign</option>
+          <option value="" disabled>
+            Select a campaign
+          </option>
           {campaigns.map((campaign) => (
             <option key={campaign.id} value={campaign.id}>
               {campaign.name}
@@ -86,7 +102,10 @@ export default function EditGoalForm({ goal, campaigns } : {goal: Goal, campaign
 
       {/* Goal Name */}
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="name"
+          className="block text-sm font-medium text-gray-700"
+        >
           Goal Name
         </label>
         <input
@@ -101,7 +120,10 @@ export default function EditGoalForm({ goal, campaigns } : {goal: Goal, campaign
 
       {/* Description */}
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="description"
+          className="block text-sm font-medium text-gray-700"
+        >
           Description
         </label>
         <textarea
@@ -115,7 +137,10 @@ export default function EditGoalForm({ goal, campaigns } : {goal: Goal, campaign
 
       {/* Status */}
       <div>
-        <label htmlFor="status" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="status"
+          className="block text-sm font-medium text-gray-700"
+        >
           Status
         </label>
         <select
@@ -132,7 +157,10 @@ export default function EditGoalForm({ goal, campaigns } : {goal: Goal, campaign
 
       {/* Target Date */}
       <div>
-        <label htmlFor="targetDate" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="targetDate"
+          className="block text-sm font-medium text-gray-700"
+        >
           Target Date
         </label>
         <input
@@ -166,4 +194,3 @@ export default function EditGoalForm({ goal, campaigns } : {goal: Goal, campaign
     </form>
   );
 }
-

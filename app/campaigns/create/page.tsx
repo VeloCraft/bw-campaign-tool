@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { redirect } from 'next/navigation';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '@/helpers/firebase';
 
 export default function CreateCampaignPage() {
   const [name, setName] = useState('');
@@ -9,22 +11,25 @@ export default function CreateCampaignPage() {
   const [status, setStatus] = useState('');
   const [contribution, setContribution] = useState('');
   const [success, setSuccess] = useState(false);
+  const [, setSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await fetch('/api/campaigns/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, description, status, contribution }),
-    });
-
-    if (response.ok) {
+    setSubmitting(true);
+    try {
+      const ref = await addDoc(collection(db, 'campaigns'), {
+        name,
+        description,
+        status,
+        contribution,
+      } satisfies Omit<Campaign, 'id'>);
       setSuccess(true);
-      const data = await response.json();
-      redirect(`/campaigns/${data.id}`);
+      redirect(`/campaigns/${ref.id}`);
+    } catch (error) {
+      console.error('Error creating campaign:', error);
+      setSuccess(false);
     }
+    setSubmitting(false);
   };
 
   return (

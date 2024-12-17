@@ -1,12 +1,17 @@
+'use client';
 
-import { fetchCampaigns } from '@/app/lib/campaign';
 import CampaignsTable from '@/components/campaign-table';
 import Link from 'next/link';
+import useFirestoreCollection from '@/hooks/useFirestoreCollection';
 
-export default async function CampaignsPage() {
-  const data = await fetchCampaigns();
-  if (!data) {
-    return <div className="flex justify-center items-center min-h-screen text-gray-500">Loading...</div>;
+export default function CampaignsPage() {
+  const { data, loading } = useFirestoreCollection<Campaign>('campaigns');
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen text-gray-500">
+        Loading...
+      </div>
+    );
   }
 
   return (
@@ -16,16 +21,15 @@ export default async function CampaignsPage() {
         <div className="bg-white shadow rounded-lg p-4">
           <CampaignsTable campaigns={data} />
         </div>
-    </div>
-    {/* button to add a new campaign*/}
-    <div className="max-w-7xl mx-auto mt-4">
-      <Link href="/campaigns/create"><button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">
-        Add campaign
-      </button></Link>
-    </div>
+      </div>
+      {/* button to add a new campaign*/}
+      <div className="max-w-7xl mx-auto mt-4">
+        <Link href="/campaigns/create">
+          <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">
+            Add campaign
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
-
-
-

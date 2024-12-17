@@ -1,23 +1,21 @@
-//edit goal
-// goals/[id]/edit/page.tsx
-//
-import {fetchGoal} from "@/app/lib/goal";
-import {fetchCampaigns} from "@/app/lib/campaign";
+'use client';
+import EditGoalForm from '@/components/goals/edit-goal-form';
+import useFirestoreCollection from '@/hooks/useFirestoreCollection';
+import useFirestoreDoc from '@/hooks/useFirestoreDoc';
+import { useParams } from 'next/navigation';
 
-import EditGoalForm from "@/components/goals/edit-goal-form";
-
-export default async function editGoalPage({
-  params,
-}: {
-  params: Promise<{ id: string }>
-}) {
-  const { id } = await params;
+const Component = () => {
+  const { id } = useParams();
 
   // Fetch goal data
-  const goal = await fetchGoal(id);
-  const campaigns = await fetchCampaigns();
+  const { data: goal } = useFirestoreDoc<Goal>(`goals/${id}`, true);
+  const { data: campaigns } = useFirestoreCollection<Campaign>('campaigns');
 
-  return (
-    <EditGoalForm goal={goal} campaigns={campaigns} />
-  )
-}
+  if (!goal || !campaigns) {
+    return <div>Loading...</div>;
+  }
+
+  return <EditGoalForm goal={goal} campaigns={campaigns} />;
+};
+
+export default Component;

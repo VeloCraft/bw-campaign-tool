@@ -5,21 +5,33 @@ import { redirect } from 'next/navigation';
 import { EditorState, convertFromHTML, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import { stateToHTML } from 'draft-js-export-html'; // Import convertToHTML
-import { CampaignWithGoals } from '@/app/lib/definitions'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-export default function EditCampaignForm({ campaign } : {campaign: CampaignWithGoals | null}) {
+export default function EditCampaignForm({
+  campaign,
+}: {
+  campaign: Campaign | null;
+}) {
   // Convert HTML content into EditorState
   const createEditorState = (htmlContent: string) => {
     const blocksFromHTML = convertFromHTML(htmlContent);
-    const contentState = ContentState.createFromBlockArray(blocksFromHTML.contentBlocks, blocksFromHTML.entityMap);
+    const contentState = ContentState.createFromBlockArray(
+      blocksFromHTML.contentBlocks,
+      blocksFromHTML.entityMap,
+    );
     return EditorState.createWithContent(contentState);
   };
 
   const [name, setName] = useState(campaign?.name);
-  const [description, setDescription] = useState(createEditorState(campaign?.description || ""));
-  const [status, setStatus] = useState(createEditorState(campaign?.status || ""));
-  const [contribution, setContribution] = useState(createEditorState(campaign?.contribution || ""));
+  const [description, setDescription] = useState(
+    createEditorState(campaign?.description || ''),
+  );
+  const [status, setStatus] = useState(
+    createEditorState(campaign?.status || ''),
+  );
+  const [contribution, setContribution] = useState(
+    createEditorState(campaign?.contribution || ''),
+  );
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -33,9 +45,9 @@ export default function EditCampaignForm({ campaign } : {campaign: CampaignWithG
 
     const updatedCampaign = {
       name,
-      description: descriptionHtml,  // Store HTML content
-      status: statusHtml,            // Store HTML content
-      contribution: contributionHtml,  // Store HTML content
+      description: descriptionHtml, // Store HTML content
+      status: statusHtml, // Store HTML content
+      contribution: contributionHtml, // Store HTML content
     };
 
     const response = await fetch(`/api/campaigns/${campaign?.id}/update`, {
@@ -48,8 +60,6 @@ export default function EditCampaignForm({ campaign } : {campaign: CampaignWithG
 
     if (response.ok) {
       redirect(`/campaigns/${campaign?.id}`);
-      alert('Campaign updated successfully!');
-
       // Optionally redirect or handle success state here
     } else {
       alert('Failed to update campaign. Please try again.');
@@ -63,7 +73,12 @@ export default function EditCampaignForm({ campaign } : {campaign: CampaignWithG
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Name Field */}
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Name
+            </label>
             <input
               id="name"
               type="text"
@@ -77,7 +92,12 @@ export default function EditCampaignForm({ campaign } : {campaign: CampaignWithG
 
           {/* Description Field */}
           <div>
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
+            <label
+              htmlFor="description"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Description
+            </label>
             <Editor
               editorState={description}
               onEditorStateChange={setDescription}
@@ -88,7 +108,12 @@ export default function EditCampaignForm({ campaign } : {campaign: CampaignWithG
 
           {/* Status Field */}
           <div>
-            <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status</label>
+            <label
+              htmlFor="status"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Status
+            </label>
             <Editor
               editorState={status}
               onEditorStateChange={setStatus}
@@ -99,7 +124,12 @@ export default function EditCampaignForm({ campaign } : {campaign: CampaignWithG
 
           {/* Contribution Field */}
           <div>
-            <label htmlFor="contribution" className="block text-sm font-medium text-gray-700">How Can Others Help?</label>
+            <label
+              htmlFor="contribution"
+              className="block text-sm font-medium text-gray-700"
+            >
+              How Can Others Help?
+            </label>
             <Editor
               editorState={contribution}
               onEditorStateChange={setContribution}
