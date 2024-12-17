@@ -7,8 +7,10 @@ import UserMenu from '@/components/Users/Menu';
 export default function HomePage() {
   return (
     <AppWrapper actions={<UserMenu />}>
-      <Container>
-        <Heading size="8">Welcome to the Campaign Management Tool</Heading>
+      <Container size="3" mt="8">
+        <Heading size="8" mb="2">
+          Welcome to the Campaign Management Tool
+        </Heading>
         <Text size="4" mt="4">
           This platform allows you to manage and track your campaigns with ease.
           You can create new campaigns, edit existing ones, and see all the
@@ -38,7 +40,7 @@ export default function HomePage() {
           </ul>
         </Text>
 
-        <Heading size="6" mt="8">
+        <Heading size="6" mt="8" mb="2">
           Need Help?
         </Heading>
 

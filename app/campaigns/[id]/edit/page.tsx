@@ -1,22 +1,16 @@
-import { fetchCampaign } from "@/app/lib/campaign";
-import EditCampaignForm from "@/components/edit-campaign";
+'use client';
+import EditCampaignForm from '@/components/edit-campaign';
+import useFirestoreDoc from '@/hooks/useFirestoreDoc';
+import { useParams } from 'next/navigation';
 
+const Component = () => {
+  const { id } = useParams();
 
-export default async function editCampaignPage({
-  params,
-}: {
-  params: Promise<{ id: string }>
-}) {
-  const { id } = await params;
+  const { data, loading } = useFirestoreDoc<Campaign>(`campaigns/${id}`, true);
 
-  // Fetch campaign data
-  const campaign = await fetchCampaign(id);
+  if (loading) return <div>Loading...</div>;
 
+  return <EditCampaignForm campaign={data} />;
+};
 
-  //console.log(campaign[0])
-
-  return (
-    <EditCampaignForm campaign={campaign} />
-  )
-}
-
+export default Component;

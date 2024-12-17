@@ -1,13 +1,18 @@
-import {fetchUsers} from '@/app/lib/user'
-import UserTable from '@/components/admin/user-table'
+'use client';
+import UserTable from '@/components/admin/user-table';
+import useFirestoreDoc from '@/hooks/useFirestoreDoc';
 
-export default async function Admin() {
+const Component = () => {
+  const { data: app, loading } = useFirestoreDoc<App>('app/root', true);
 
-  const users = await fetchUsers();
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div>
       <h1>Admin</h1>
-      <UserTable users={users} />
-  </div>);
-}
+      <UserTable users={app?.users || []} />
+    </div>
+  );
+};
+
+export default Component;

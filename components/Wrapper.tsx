@@ -1,10 +1,32 @@
+'use client';
+import React from 'react';
+import { Provider as StatusProvider } from '@/contexts/Status';
+import { Provider as UserProvider } from '@/contexts/User';
+import useUser from '@/hooks/useUser';
 import { Flex } from '@radix-ui/themes';
+import '@radix-ui/themes/styles.css';
 
-type WrapperProps = {
+type WrapperProps = React.PropsWithChildren<{
   variant?: 'centered' | 'top';
-  children: React.ReactNode;
+  withUser?: boolean;
+}>;
+
+const Inner = ({
+  withUser,
+  children,
+}: React.PropsWithChildren<{ withUser?: boolean }>) => {
+  const [user] = useUser(true);
+
+  if (!withUser) return <StatusProvider>{children}</StatusProvider>;
+
+  return (
+    <StatusProvider>
+      <UserProvider value={user}>{children}</UserProvider>
+    </StatusProvider>
+  );
 };
-const Wrapper = ({ variant = 'top', children }: WrapperProps) => {
+
+const Wrapper = ({ variant = 'top', children, withUser }: WrapperProps) => {
   return (
     <Flex
       width="100%"
@@ -13,7 +35,7 @@ const Wrapper = ({ variant = 'top', children }: WrapperProps) => {
       justify={variant === 'centered' ? 'center' : 'start'}
       align={variant === 'centered' ? 'center' : 'start'}
     >
-      {children}
+      <Inner withUser={withUser}>{children}</Inner>
     </Flex>
   );
 };
