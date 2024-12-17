@@ -9,6 +9,20 @@ import { addDoc, collection } from 'firebase/firestore';
 import { db } from '@/helpers/firebase';
 import { UploadIcon } from '@radix-ui/react-icons';
 
+
+type Media = {
+  public_id: string; // Unique identifier for the media in Cloudinary
+  original_filename: string; // Original name of the uploaded file
+  secure_url: string; // URL to access the uploaded media
+  resource_type: 'image' | 'video'; // Type of resource
+  width?: number; // Media width (for images/videos)
+  height?: number; // Media height (for images/videos)
+  format?: string; // File format, e.g., jpg, mp4
+  bytes?: number; // File size in bytes
+  created_at?: string; // Upload timestamp
+  //[key: string]: any; // Allow for additional properties returned by Cloudinary
+};
+
 type MediaProps = {
   value?: Media;
   disabled?: boolean;
