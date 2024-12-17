@@ -1,10 +1,13 @@
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '@/helpers/firebase';
 import { Flex, Button, type ButtonProps, AlertDialog } from '@radix-ui/themes';
+import useStatusUpdate from '@/hooks/useStatusUpdate';
 
 const Delete = ({ docId, ...props }: ButtonProps & { docId: string }) => {
+  const onAddMessage = useStatusUpdate();
   const onDelete = async () => {
     await deleteDoc(doc(db, `campaigns/${docId}`));
+    onAddMessage({ message: 'Campaign deleted', variant: 'success' });
   };
   return (
     <AlertDialog.Root>

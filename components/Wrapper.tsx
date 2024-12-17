@@ -4,6 +4,7 @@ import { Provider as StatusProvider } from '@/contexts/Status';
 import { Provider as UserProvider } from '@/contexts/User';
 import useUser from '@/hooks/useUser';
 import { Flex } from '@radix-ui/themes';
+import Status from '@/components/Status';
 import '@radix-ui/themes/styles.css';
 
 type WrapperProps = React.PropsWithChildren<{
@@ -21,7 +22,10 @@ const Inner = ({
 
   return (
     <StatusProvider>
-      <UserProvider value={user}>{children}</UserProvider>
+      <UserProvider value={user}>
+        {children}
+        <Status />
+      </UserProvider>
     </StatusProvider>
   );
 };
