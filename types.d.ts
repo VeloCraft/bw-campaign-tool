@@ -29,3 +29,7 @@ type Goal = {
   campaignName: string;
   targetDate: Date;
 };
+
+type App = {
+  users: string[];
+};
