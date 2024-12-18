@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import { SessionProvider } from 'next-auth/react'; // Import SessionProvider
 import Wrapper from '@/components/Wrapper';
 import Theme from '@/components/Theme';
 
@@ -26,13 +25,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+
       <Theme
         wrapper="body"
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SessionProvider>
           <Wrapper withUser>{children}</Wrapper>
-        </SessionProvider>
+
       </Theme>
     </html>
   );

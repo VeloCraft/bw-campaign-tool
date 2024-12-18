@@ -10,6 +10,7 @@
     "grep": "sh scripts/grep.sh"
   },
   "dependencies": {
+    "@auth/firebase-adapter": "^2.7.4",
     "@auth/pg-adapter": "^1.7.4",
     "@heroicons/react": "^2.2.0",
     "@neondatabase/serverless": "^0.10.4",
@@ -21,6 +22,7 @@
     "draft-js": "^0.11.7",
     "draft-js-export-html": "^1.4.1",
     "firebase": "^11.1.0",
+    "firebase-admin": "^13.0.1",
     "next": "15.1.0",
     "next-auth": "^5.0.0-beta.25",
     "next-cloudinary": "^6.16.0",

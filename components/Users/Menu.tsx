@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   DropdownMenu,
@@ -10,21 +10,38 @@ import {
   Box,
 } from '@radix-ui/themes';
 import Link from 'next/link';
-import { useSession, signOut } from 'next-auth/react';
 import SignInMenu from '@/components/Users/SignInMenu';
+import {auth} from '@/helpers/firebase'
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+
+//what is equivalent of session in firebase auth? 
+
 
 const Menu = () => {
-  const session = useSession();
-  const signedIn = session.status === 'authenticated' ? true : false;
+  const [authUser, setAuthUser] = useState(null);
 
-  const user = session.data?.user;
-  if (!signedIn) return <SignInMenu />;
+
+  useEffect(() => {
+    const authlistener = onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setAuthUser(user);
+    } else {
+      setAuthUser(null);}
+  });
+    return () => {
+      authlistener();
+    }
+  },[])
+  
+  const user = authUser;
+  console.log(user)
+  if (!authUser) return <SignInMenu />;
 
   const letter =
-    user?.name?.charAt(0) || user?.email?.charAt(0) || user?.id?.charAt(0);
+    user?.displayName?.charAt(0) || user?.email?.charAt(0) || user?.id?.charAt(0);
 
   const onSignOut = async () => {
-    await signOut();
+    await signOut(auth);
   };
 
   return (
@@ -41,9 +58,9 @@ const Menu = () => {
               <Avatar size="3" fallback={letter} src={user.image} />
               <Box>
                 <Text as="div" size="2" weight="bold">
-                  {user.name || user.email}
+                  {user.displayName || user.email}
                 </Text>
-                {!!user.name && (
+                {!!user.displayName && (
                   <Text as="div" size="2" color="gray">
                     {user.email}
                   </Text>
