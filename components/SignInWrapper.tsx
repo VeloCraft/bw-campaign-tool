@@ -114,4 +114,11 @@ const SignInWrapper = ({ children, force, loading }: SignInWrapperProps) => {
   );
 };
 
-export default SignInWrapper;
+const Wrapper = (props: SignInWrapperProps) => {
+  return (
+    <React.Suspense>
+      <SignInWrapper {...props} />
+    </React.Suspense>
+  );
+};
+export default Wrapper;
