@@ -1,18 +1,12 @@
 'use client';
 import React from 'react';
-import SignIn from './SignIn'; 
-import  Register  from './Register';
+import SignIn from './SignIn';
+// import  Register  from './Register';
 
 const SignInMenu = () => {
-
   return (
     <>
-    <Register>
-    Register
-    </Register>
-    <SignIn> 
-      Sign in
-    </SignIn>
+      <SignIn>Sign in</SignIn>
     </>
   );
 };
