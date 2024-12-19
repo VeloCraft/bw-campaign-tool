@@ -3,15 +3,14 @@
 import { Heading, Flex, Box, Container } from '@radix-ui/themes';
 import useFirestoreCollection from '@/hooks/useFirestoreCollection';
 import Add from '@/components/Campaigns/Add';
-import AppWrapper from '@/components/AppWrapper';
-import UserMenu from '@/components/Users/Menu';
 import List from '@/components/Campaigns/List';
+import SignInWrapper from '@/components/SignInWrapper';
 
 export default function CampaignsPage() {
   const { data, loading } = useFirestoreCollection<Campaign>('campaigns', true);
 
   return (
-    <AppWrapper loading={loading} actions={<UserMenu />}>
+    <SignInWrapper force loading={loading}>
       <Container size="3">
         <Flex direction="row" align="center" justify="center" mt="8">
           <Heading>Campaigns</Heading>
@@ -20,6 +19,6 @@ export default function CampaignsPage() {
         </Flex>
         <List campaigns={data} loading={loading} />
       </Container>
-    </AppWrapper>
+    </SignInWrapper>
   );
 }

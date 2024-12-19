@@ -16,10 +16,11 @@ import useStatusUpdate from '@/hooks/useStatusUpdate';
 type SignInWrapperProps = {
   children: React.ReactNode;
   force?: boolean;
+  loading?: boolean;
 };
 
-const SignInWrapper = ({ children, force }: SignInWrapperProps) => {
-  const [user, loading] = useUser(true);
+const SignInWrapper = ({ children, force, loading }: SignInWrapperProps) => {
+  const [user, _loading] = useUser(true);
   const searchParams = useSearchParams();
   const [sent, setSent] = React.useState(false);
   const [email, setEmail] = useLocalstorageState('bikebusradio:email', '');
@@ -31,7 +32,6 @@ const SignInWrapper = ({ children, force }: SignInWrapperProps) => {
   const onSignedIn = React.useCallback(() => {
     if (isSignInWithEmailLink(auth, window.location.href)) {
       signInWithEmailLink(auth, email, window.location.href).then(() => {
-        window.location.href = window.location.origin;
         onAddMessage({ message: 'You are now signed in', variant: 'success' });
       });
     }
@@ -52,15 +52,15 @@ const SignInWrapper = ({ children, force }: SignInWrapperProps) => {
     !!searchParams.get('oobCode') && !!email,
   );
 
-  if (loading) {
+  if (_loading) {
     return <AppWrapper variant="centered" loading />;
   }
 
   if (sent) {
     return (
-      <AppWrapper variant="centered">
+      <AppWrapper loading={loading} variant="centered">
         <Container size="1" align="center">
-          <Heading align="center" as="h1">
+          <Heading align="center" my="8" as="h1">
             Check your inbox
           </Heading>
           <Text as="div" align="center">
@@ -73,9 +73,9 @@ const SignInWrapper = ({ children, force }: SignInWrapperProps) => {
 
   if (!isSignedIn && force) {
     return (
-      <AppWrapper variant="centered">
+      <AppWrapper loading={loading} variant="centered">
         <Container size="1" align="center">
-          <Heading as="h1" mb="8" align="center">
+          <Heading as="h1" my="8" align="center">
             Please sign in to continue
           </Heading>
           <SignIn
@@ -91,6 +91,7 @@ const SignInWrapper = ({ children, force }: SignInWrapperProps) => {
   return (
     <UserProvider value={user}>
       <AppWrapper
+        loading={loading}
         actions={
           <>
             {!isSignedIn && (

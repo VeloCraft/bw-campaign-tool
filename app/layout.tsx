@@ -25,13 +25,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-
       <Theme
         wrapper="body"
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        style={{ margin: 0 }}
       >
-          <Wrapper withUser>{children}</Wrapper>
-
+        <Wrapper withUser>{children}</Wrapper>
       </Theme>
     </html>
   );

@@ -9,7 +9,6 @@ import {
   Card,
   Box,
 } from '@radix-ui/themes';
-import SignInMenu from '@/components/Users/SignInMenu';
 import { auth } from '@/helpers/firebase';
 import { signOut } from 'firebase/auth';
 import { redirect } from 'next/navigation';
@@ -20,7 +19,7 @@ const Menu = () => {
   const signedIn = !!user;
   const onAddMessage = useStatusUpdate();
 
-  if (!signedIn) return <SignInMenu />;
+  if (!signedIn) return null;
 
   const letter =
     user?.displayName?.charAt(0) ||

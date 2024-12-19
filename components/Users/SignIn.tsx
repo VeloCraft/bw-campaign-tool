@@ -1,27 +1,40 @@
 import React from 'react';
-import Form from '@/components/Users/SignInForm';
-import { type ButtonProps } from '@radix-ui/themes';
-import { signInWithEmailAndPassword} from 'firebase/auth';
+import { sendSignInLinkToEmail } from 'firebase/auth';
+import { Card } from '@radix-ui/themes';
+import Form, { Field } from '@/components/Form';
 import { auth } from '@/helpers/firebase';
 
-const SignIn = ({ ...props }: ButtonProps ) => {
-  const [open, setOpen] = React.useState(false);
+type SignInProps = {
+  email?: string;
+  onComplete: (data: { email: string }) => void;
+  style?: React.CSSProperties;
+};
 
-  const onSubmit = async (values: FormSubmission) => {
-    await signInWithEmailAndPassword(auth, values.email as string, values.password as string)
-    setOpen(false);
+const SignIn = ({ email, onComplete, style = {} }: SignInProps) => {
+  const onSignIn = async (data: FormSubmission) => {
+    await sendSignInLinkToEmail(auth, data.email as string, {
+      url: window.location.href,
+      handleCodeInApp: true,
+    }).then(() => onComplete({ email: data.email as string }));
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-
   return (
-    <Form
-      open={open}
-      setOpen={setOpen}
-      onSubmit={onSubmit as any} // eslint-disable-line
-      title={`Sign in`}
-      {...props}
-    />
+    <Card size="3" style={{ width: '300px', ...style }}>
+      <Form
+        onSubmit={onSignIn}
+        initialValues={{ email }}
+        noCancel
+        submitLabel="Send sign in link"
+      >
+        <Field
+          name="email"
+          label="Email"
+          type="email"
+          defaultValue={email}
+          required
+        />
+      </Form>
+    </Card>
   );
 };
 
