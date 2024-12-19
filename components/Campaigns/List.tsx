@@ -1,6 +1,6 @@
 'use client';
 
-import { Table, Flex } from '@radix-ui/themes';
+import { Table, Flex, Link } from '@radix-ui/themes';
 import Edit from '@/components/Campaigns/Edit';
 import Delete from '@/components/Campaigns/Delete';
 import { Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
@@ -25,7 +25,7 @@ const List = ({ campaigns = [], loading }: ListProps) => {
       <Table.Body>
         {campaigns?.map((campaign) => (
           <Table.Row key={campaign.id}>
-            <Table.Cell>{campaign.name}</Table.Cell>
+            <Table.Cell><Link href={`/campaigns/${campaign.id}`}>{campaign.name}</Link></Table.Cell>
             <Table.Cell>{campaign.status}</Table.Cell>
             <Table.Cell>
               <Flex direction="row" align="center" gap="2">

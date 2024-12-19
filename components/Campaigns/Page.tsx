@@ -1,16 +1,13 @@
-
 'use client'
 
 import useFirestoreDoc from '@/hooks/useFirestoreDoc';
 import { Container, Flex, Box, Heading, Text } from '@radix-ui/themes';
-import React from 'react';
 import SignInWrapper from '@/components/SignInWrapper';
-//import Page from '@/components/Campaigns/Page';
 
-const Page = ({ params }: { params: string }) => {
-  const newParams = React.use(params)
+const Page = ( {docId} : {docId : string} ) => {
+  console.log(docId)
 
-  const { data: campaign, loading } = useFirestoreDoc<Campaign>(`campaigns/${newParams.id}`);
+  const { campaign, loading } = useFirestoreDoc<Campaign>(`campaigns/${docId}`);
 
   if (loading) return <Text>Loading...</Text>; 
   if (!campaign) return <Text>No campaign found.</Text>
@@ -51,7 +48,6 @@ const Page = ({ params }: { params: string }) => {
         >
           <Heading size="4">Campaign Goals</Heading>
           {/* Render campaign goals */}
-          <Text>{campaign.goals?.join(', ') || 'No goals defined.'}</Text>
         </Box>
       </Flex>
     </Container>
