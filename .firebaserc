@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "bike-worcester",
+    "dev": "bike-worcester-testing"
+  }
+}

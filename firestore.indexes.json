@@ -1,0 +1,19 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "listeners",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "broadcasterId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

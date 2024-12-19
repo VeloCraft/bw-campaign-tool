@@ -9,22 +9,28 @@ import {
   Card,
   Box,
 } from '@radix-ui/themes';
-import Link from 'next/link';
-import { useSession, signOut } from 'next-auth/react';
 import SignInMenu from '@/components/Users/SignInMenu';
+import { auth } from '@/helpers/firebase';
+import { signOut } from 'firebase/auth';
+import { redirect } from 'next/navigation';
+import useStatusUpdate from '@/hooks/useStatusUpdate';
 
 const Menu = () => {
-  const session = useSession();
-  const signedIn = session.status === 'authenticated' ? true : false;
+  const user = auth.currentUser;
+  const signedIn = !!user;
+  const onAddMessage = useStatusUpdate();
 
-  const user = session.data?.user;
   if (!signedIn) return <SignInMenu />;
 
   const letter =
-    user?.name?.charAt(0) || user?.email?.charAt(0) || user?.id?.charAt(0);
+    user?.displayName?.charAt(0) ||
+    user?.email?.charAt(0) ||
+    user?.uid?.charAt(0);
 
   const onSignOut = async () => {
-    await signOut();
+    await signOut(auth);
+    onAddMessage({ message: 'You are now signed out', variant: 'success' });
+    redirect('/');
   };
 
   return (
@@ -32,18 +38,18 @@ const Menu = () => {
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
           <IconButton>
-            <Avatar fallback={letter} src={user.image} />
+            <Avatar fallback={letter} src={user.photoURL} />
           </IconButton>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content size="1">
           <Card>
             <Flex gap="3" align="center">
-              <Avatar size="3" fallback={letter} src={user.image} />
+              <Avatar size="3" fallback={letter} src={user.photoURL} />
               <Box>
                 <Text as="div" size="2" weight="bold">
-                  {user.name || user.email}
+                  {user.displayName || user.email}
                 </Text>
-                {!!user.name && (
+                {!!user.displayName && (
                   <Text as="div" size="2" color="gray">
                     {user.email}
                   </Text>
@@ -51,12 +57,6 @@ const Menu = () => {
               </Box>
             </Flex>
           </Card>
-          <DropdownMenu.Separator />
-          <DropdownMenu.Item asChild>
-            <Link shallow href="/profile">
-              Edit profile
-            </Link>
-          </DropdownMenu.Item>
           <DropdownMenu.Separator />
           <DropdownMenu.Item onClick={onSignOut}>Sign out</DropdownMenu.Item>
         </DropdownMenu.Content>
