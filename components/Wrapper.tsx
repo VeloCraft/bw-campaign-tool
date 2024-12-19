@@ -21,12 +21,14 @@ const Inner = ({
   if (!withUser) return <StatusProvider>{children}</StatusProvider>;
 
   return (
+
     <StatusProvider>
       <UserProvider value={user}>
         {children}
         <Status />
       </UserProvider>
     </StatusProvider>
+
   );
 };
 
