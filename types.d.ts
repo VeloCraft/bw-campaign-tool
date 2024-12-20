@@ -28,6 +28,7 @@ type Campaign = {
   description?: string;
   status?: string;
   contribution?: string;
+  goals?: Goal[]
 };
 
 /*
@@ -40,7 +41,6 @@ type Goal = {
   status?: string;
   campaignId: string;
   campaignName: string;
-  targetDate: Date;
 };
 
 /*
