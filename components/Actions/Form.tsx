@@ -34,6 +34,7 @@ const Component = ({
           initialValues={initialValues}
         >
           <Field
+            label="Record your action"
             name="action"
             type="textarea"
             required
