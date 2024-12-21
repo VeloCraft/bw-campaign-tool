@@ -43,6 +43,21 @@ type Goal = {
   campaignName: string;
 };
 
+type Action = {
+  id: string;
+  action?: string;
+  creadtedAt?: string;
+  campaign?: {
+    id?: string;
+    name?: string;
+  };
+  user?: {
+    id?: string;
+    name?: string | null;
+    email?: string;
+  };
+};
+
 /*
  * Global app settings saved at 'app/root')
  * in Firestore including a list of
