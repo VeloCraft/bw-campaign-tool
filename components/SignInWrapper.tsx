@@ -110,7 +110,7 @@ const SignInWrapper = ({
 
   if (
     isSignedIn &&
-    ((role && !user.roles.includes(role)) || (permissions && !isAllowed))
+    ((role && !user?.roles.includes(role)) || (permissions && !isAllowed))
   ) {
     return (
       <AppWrapper
