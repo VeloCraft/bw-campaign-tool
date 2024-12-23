@@ -1,6 +1,6 @@
 import React from 'react';
 import { Progress, Separator, Box, Flex } from '@radix-ui/themes';
-import Breadcrumbs, { type Breadcrumb } from '@/components/Breadcrumbs';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import Wrapper from '@/components/Wrapper';
 import Logo from '@/components/Logo';
 import Navigation from '@/components/Navigation';

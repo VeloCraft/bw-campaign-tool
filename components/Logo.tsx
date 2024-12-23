@@ -11,10 +11,13 @@ const Logo = () => {
         alt="Bike Worcester logo"
         width={48}
         height={48}
+        priority
       />
       <Heading size="5" asChild>
         <Link asChild>
-          <NextLink href="/">Campaigns</NextLink>
+          <NextLink as="/" href="/">
+            Campaigns
+          </NextLink>
         </Link>
       </Heading>
     </Flex>
