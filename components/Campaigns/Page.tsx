@@ -4,13 +4,17 @@ import useFirestoreDoc from '@/hooks/useFirestoreDoc';
 import useFirestoreCollection from '@/hooks/useFirestoreCollection';
 
 import { where} from "firebase/firestore";
-import { Container, Flex, Box, Heading, Text } from '@radix-ui/themes';
+import { Container, Flex, Box, Heading} from '@radix-ui/themes';
 import SignInWrapper from '@/components/SignInWrapper';
 import { useParams } from 'next/navigation';
 import GoalList from '@/components/Goals/List';
 import AddAction from '@/components/Actions/Add';
 import ActionList from '@/components/Actions/List';
 import { auth } from '@/helpers/firebase';
+import ReactMarkdown from 'react-markdown';
+import Edit from '@/components/Campaigns/Edit'
+import StatusBadge from '@/components/StatusBadge'
+
 
 const Page = () => {
   const { id }: { id: string } = useParams();
@@ -20,16 +24,23 @@ const Page = () => {
 
   const {data: actions, loading: loadingActions} = useFirestoreCollection<Action>('actions', true, where("campaign.id", "==", id))
   
-
-
   const user = auth.currentUser;
 
   return (
     <SignInWrapper force loading={loading}>
       <Container size="3">
-        <Flex direction="row" justify="center" mt="8">
+        <Flex direction="row" align="center" gap="2" mt="8">
+
           <Heading>Campaign: {campaign?.name}</Heading>
+
           <Box flexGrow="1" />
+          <StatusBadge status={campaign?.status}/>
+
+
+
+            <Edit ml="auto" docId={campaign?.id} variant="outline" color="green" size="1" loading={loading}>
+              Edit campaign
+            </Edit>
         </Flex>
 
         <Flex
@@ -38,31 +49,37 @@ const Page = () => {
           gap="4"
           mt="4"
         >
-          <Box
-            flexGrow={{ initial: 'none', md: '2' }} // Full width when stacked, takes two-thirds on large viewports
+          <Flex
+            flexGrow={'1'}
+            wrap="nowrap"
+            direction="column"
+            maxWidth={{initial: "100%", md: "60%"}}
+/// Full width when stacked, takes two-thirds on large viewports
           >
             <Box mb="4">
               <Heading size="4">Background</Heading>
-              <Text>{campaign?.description}</Text>
+              <ReactMarkdown>{campaign?.description}</ReactMarkdown>
             </Box>
-            <Box mb="4">
-              <Heading size="4">Status</Heading>
-              <Text>{campaign?.status}</Text>
-            </Box>
+
             <Box>
               <Heading size="4">How can you help?</Heading>
-              <Text>{campaign?.contribution}</Text>
+              <ReactMarkdown>{campaign?.contribution}</ReactMarkdown>
             </Box>
-          </Box>
+          </Flex>
 
           <Box
-            flexGrow={{ initial: 'none', md: '1' }} // Full width when stacked, takes one-third on large viewports
+          flexShrink={'5'}
+          flexGrow={'5'}
+          mb="4"
+
           >
           <GoalList goals={campaign?.goals} loading={loading} docId={id} />
           </Box>
 
         </Flex>
-        <Flex direction="row" justify="center" mt="4">
+        <Box p="2" 
+          style={{backgroundColor:'var(--accent-2)', borderRadius: 'var(--radius-4)'}} >
+        <Flex direction="row" justify="center">
           <Heading size="4">Actions</Heading>
           <Box flexGrow="1" />
         </Flex>
@@ -71,10 +88,11 @@ const Page = () => {
           <Box flexGrow="1"/>
         </Flex>
           <Box>
-            <AddAction size="1" mt="2" campaign={{id: id, name: campaign?.name}} user={{id: user?.uid, name: user?.displayName, email: user?.email}}>
+            <AddAction color="var(--accent-2)" size="1" mt="2" campaign={{id: id, name: campaign?.name}} user={{id: user?.uid, name: user?.displayName, email: user?.email}}>
               Add action
             </AddAction>
             </Box>
+        </Box>
       </Container>
     </SignInWrapper>
   );

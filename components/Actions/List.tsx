@@ -15,7 +15,6 @@ type ListProps = {
 const List = ({ actions, loading }: ListProps) => {
   if (loading) return null;
 
-  console.log(actions[0])
 
 return (
     <Table.Root> 

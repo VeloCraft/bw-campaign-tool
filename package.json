@@ -32,6 +32,7 @@
     "react-dom": "^18.3.1",
     "react-draft-wysiwyg": "^1.15.0",
     "react-hook-form": "^7.54.1",
+    "react-markdown": "^9.0.1",
     "react-quill": "^2.0.0",
     "rooks": "^7.14.1",
     "swr": "^2.2.5"

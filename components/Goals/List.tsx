@@ -15,7 +15,6 @@ type ListProps = {
 
 const List = ({ goals = [], loading, docId }: ListProps) => {
   if (loading) return null;
-  console.log('Goals', docId)
 
 return (
 <>

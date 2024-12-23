@@ -36,7 +36,6 @@ const Wrapper = ({ variant = 'top', children, withUser }: WrapperProps) => {
   return (
     <Flex
       width="100%"
-      height="100dvh"
       direction="column"
       justify={variant === 'centered' ? 'center' : 'start'}
       align={variant === 'centered' ? 'center' : 'start'}

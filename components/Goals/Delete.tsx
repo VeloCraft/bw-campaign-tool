@@ -15,14 +15,17 @@ const Delete = ({ docId, goalId, ...props }: ButtonProps & { docId: string, goal
     return null;
   }
   //get the goals
-  const goals = data?.goals;
-
-  const newGoals = goals.filter((goal) => goal.id !== goalId);
-
-  //update the doc with the new goals
-  const updatedData = { ...data, goals: newGoals };
 
   const onDelete = async () => {
+    const goals = data?.goals;
+    console.log('oldData', data)
+
+    const newGoals = goals.filter((goal) => goal.id !== goalId);
+  
+    //update the doc with the new goals
+    const updatedData = { ...data, goals: newGoals };
+
+    console.log('newData', updatedData)
     await onUpdate(updatedData); // Update Firestore data
     onAddMessage({ message: 'Goal deleted', variant: 'success' });
   };

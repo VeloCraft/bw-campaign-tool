@@ -33,42 +33,7 @@
   --green-track: #92cba9;
 }
 
-@supports (color: color(display-p3 1 1 1)) {
-  @media (color-gamut: p3) {
-    .dark, .dark-theme {
-      --green-1: oklch(17.8% 0.0074 157.9);
-      --green-2: oklch(20.9% 0.0101 157.9);
-      --green-3: oklch(26.8% 0.0227 157.9);
-      --green-4: oklch(31.4% 0.0344 157.9);
-      --green-5: oklch(36.1% 0.0383 157.9);
-      --green-6: oklch(41.1% 0.0412 157.9);
-      --green-7: oklch(47% 0.0458 157.9);
-      --green-8: oklch(53.7% 0.0539 157.9);
-      --green-9: oklch(79.3% 0.0763 157.9);
-      --green-10: oklch(76% 0.0763 157.9);
-      --green-11: oklch(79.2% 0.0763 157.9);
-      --green-12: oklch(92.7% 0.0381 157.9);
 
-      --green-a1: color(display-p3 0 0.8549 0 / 0.005);
-      --green-a2: color(display-p3 0.5294 0.9922 0.6471 / 0.034);
-      --green-a3: color(display-p3 0.6118 1 0.7294 / 0.101);
-      --green-a4: color(display-p3 0.6235 1 0.749 / 0.156);
-      --green-a5: color(display-p3 0.6627 0.9961 0.7765 / 0.211);
-      --green-a6: color(display-p3 0.7255 1 0.7961 / 0.269);
-      --green-a7: color(display-p3 0.7373 1 0.8157 / 0.341);
-      --green-a8: color(display-p3 0.7412 1 0.8235 / 0.429);
-      --green-a9: color(display-p3 0.7804 1 0.8471 / 0.774);
-      --green-a10: color(display-p3 0.7725 1 0.8431 / 0.727);
-      --green-a11: color(display-p3 0.7804 1 0.8471 / 0.774);
-      --green-a12: color(display-p3 0.9059 1 0.9333 / 0.929);
-
-      --green-contrast: #0f271a;
-      --green-surface: color(display-p3 0.0941 0.1255 0.102 / 0.5);
-      --green-indicator: oklch(79.3% 0.0763 157.9);
-      --green-track: oklch(79.3% 0.0763 157.9);
-    }
-  }
-}
 
 .light, .light-theme {
   --green-1: #fbfefc;
@@ -103,39 +68,4 @@
   --green-track: #1ea769;
 }
 
-@supports (color: color(display-p3 1 1 1)) {
-  @media (color-gamut: p3) {
-    :root, .light, .light-theme {
-      --green-1: oklch(99.4% 0.0051 157.4);
-      --green-2: oklch(98.2% 0.0101 157.4);
-      --green-3: oklch(95.9% 0.0255 157.4);
-      --green-4: oklch(93.3% 0.0406 157.4);
-      --green-5: oklch(90% 0.056 157.4);
-      --green-6: oklch(85.7% 0.0735 157.4);
-      --green-7: oklch(79.8% 0.0961 157.4);
-      --green-8: oklch(71.5% 0.1294 157.4);
-      --green-9: oklch(64.3% 0.1441 157.4);
-      --green-10: oklch(60.3% 0.1441 157.4);
-      --green-11: oklch(52.8% 0.1441 157.4);
-      --green-12: oklch(32.3% 0.054 157.4);
 
-      --green-a1: color(display-p3 0.0235 0.6745 0.0235 / 0.012);
-      --green-a2: color(display-p3 0.0235 0.6118 0.1216 / 0.04);
-      --green-a3: color(display-p3 0.0118 0.6157 0.1843 / 0.091);
-      --green-a4: color(display-p3 0.0078 0.6275 0.1412 / 0.146);
-      --green-a5: color(display-p3 0.0039 0.6039 0.1843 / 0.216);
-      --green-a6: color(display-p3 0.0039 0.5569 0.1608 / 0.299);
-      --green-a7: color(display-p3 0.0039 0.5294 0.1647 / 0.408);
-      --green-a8: color(display-p3 0 0.5176 0.1725 / 0.569);
-      --green-a9: color(display-p3 0 0.4863 0.1725 / 0.687);
-      --green-a10: color(display-p3 0 0.451 0.1647 / 0.734);
-      --green-a11: color(display-p3 0 0.3647 0.1059 / 0.777);
-      --green-a12: color(display-p3 0 0.1137 0.0353 / 0.867);
-
-      --green-contrast: #fff;
-      --green-surface: color(display-p3 0.9529 0.9804 0.9608 / 0.8);
-      --green-indicator: oklch(64.3% 0.1441 157.4);
-      --green-track: oklch(64.3% 0.1441 157.4);
-    }
-  }
-}
