@@ -12,15 +12,12 @@ import AppWrapper from '@/components/AppWrapper';
 import Menu from '@/components/Users/Menu';
 import { Provider as UserProvider } from '@/contexts/User';
 import useStatusUpdate from '@/hooks/useStatusUpdate';
-import usePermissions from '@/hooks/usePermissions';
 
 type SignInWrapperProps = {
   children: React.ReactNode;
   force?: boolean;
   loading?: boolean;
   role?: string;
-  breadcrumbs?: Breadcrumb[];
-  permissions?: string[];
 };
 
 const SignInWrapper = ({
@@ -28,16 +25,13 @@ const SignInWrapper = ({
   force,
   loading,
   role,
-  breadcrumbs,
-  permissions,
 }: SignInWrapperProps) => {
   const [user, _loading] = useUser(true);
   const searchParams = useSearchParams();
   const [sent, setSent] = React.useState(false);
-  const [email, setEmail] = useLocalstorageState('bwcampaigns:email', '');
+  const [email, setEmail] = useLocalstorageState('bikebusradio:email', '');
   const [open, setOpen] = React.useState(false);
   const onAddMessage = useStatusUpdate();
-  const [isAllowed, permsLoading] = usePermissions(permissions, user);
 
   const isSignedIn = !!user?.id;
 
@@ -64,17 +58,13 @@ const SignInWrapper = ({
     !!searchParams.get('oobCode') && !!email,
   );
 
-  if (_loading || permsLoading) {
-    return <AppWrapper breadcrumbs={breadcrumbs} variant="centered" loading />;
+  if (_loading) {
+    return <AppWrapper variant="centered" loading />;
   }
 
   if (sent) {
     return (
-      <AppWrapper
-        breadcrumbs={breadcrumbs}
-        loading={loading}
-        variant="centered"
-      >
+      <AppWrapper loading={loading} variant="centered">
         <Container size="1" align="center">
           <Heading align="center" my="8" as="h1">
             Check your inbox
@@ -89,11 +79,7 @@ const SignInWrapper = ({
 
   if (!isSignedIn && force) {
     return (
-      <AppWrapper
-        breadcrumbs={breadcrumbs}
-        loading={loading}
-        variant="centered"
-      >
+      <AppWrapper loading={loading} variant="centered">
         <Container size="1" align="center">
           <Heading as="h1" my="8" align="center">
             Please sign in to continue
@@ -108,16 +94,9 @@ const SignInWrapper = ({
     );
   }
 
-  if (
-    isSignedIn &&
-    ((role && !user.roles.includes(role)) || (permissions && !isAllowed))
-  ) {
+  if (isSignedIn && role && !user.roles.includes(role)) {
     return (
-      <AppWrapper
-        breadcrumbs={breadcrumbs}
-        loading={loading}
-        variant="centered"
-      >
+      <AppWrapper loading={loading} variant="centered">
         <Container size="1" align="center">
           <Heading as="h1" my="8" align="center">
             You do not have permission to view this page
@@ -130,7 +109,6 @@ const SignInWrapper = ({
   return (
     <UserProvider value={user}>
       <AppWrapper
-        breadcrumbs={breadcrumbs}
         loading={loading}
         actions={
           <>

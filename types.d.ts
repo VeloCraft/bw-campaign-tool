@@ -1,10 +1,20 @@
 /*
+ * Breadcrumbs used in the AppWrapper component
+ */
+
+type Breadcrumb = {
+  label: string;
+  href?: string;
+};
+
+/*
  * The user type returned from Firebase Auth
  */
 
 type User = {
   id: string;
   email: string;
+  roles: string[];
   displayName: string;
   photoURL: string;
   avatar?: string;
@@ -28,7 +38,7 @@ type Campaign = {
   description?: string;
   status?: string;
   contribution?: string;
-  goals?: Goal[]
+  goals?: Goal[];
 };
 
 /*
@@ -59,14 +69,18 @@ type Action = {
 };
 
 /*
- * Global app settings saved at 'app/root')
+ * Global app settings saved at 'app/{docId}')
  * in Firestore including a list of
  * authorised users allowed to edit
- * campaign documents
+ * campaign documents, and a definition of roles and permissions
  */
-type App = {
-  users: string[];
-};
+type AppRoles = Partial<{
+  [role: string]: string[];
+}>;
+
+type AppPermissions = Partial<{
+  [role: string]: string[];
+}>;
 
 /*
  * Form submission and value types

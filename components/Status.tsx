@@ -2,13 +2,14 @@
 import React from 'react';
 import StatusContext, { type StatusContextProps } from '@/contexts/Status';
 import { useTimeoutWhen } from 'rooks';
-import { Box, Callout } from '@radix-ui/themes';
+import { Box, Callout, Portal } from '@radix-ui/themes';
 import * as Toast from '@radix-ui/react-toast';
 import {
   ExclamationTriangleIcon as ErrorIcon,
   CheckIcon,
   InfoCircledIcon as InfoIcon,
 } from '@radix-ui/react-icons';
+import Theme from '@/components/Theme';
 
 const Messages = () => {
   const [message, setMessage] = React.useState<Status['message'] | null>(null);
@@ -59,21 +60,29 @@ const Messages = () => {
     }, [variant]);
 
   return (
-    <Toast.Provider duration={duration || 3000} swipeDirection="right">
-      <Toast.Root className="ToastRoot" open={open} asChild>
-        <Box position="fixed" bottom="0" right="0" p="4">
-          <Toast.Description asChild>
-            <Callout.Root size="3" color={color}>
-              <Callout.Icon>
-                <Icon />
-              </Callout.Icon>
-              <Callout.Text>{message}</Callout.Text>
-            </Callout.Root>
-          </Toast.Description>
-        </Box>
-      </Toast.Root>
-      <Toast.Viewport className="ToastViewport" />
-    </Toast.Provider>
+    <Theme wrapper={Portal} asChild>
+      <Toast.Provider duration={duration || 3000} swipeDirection="right">
+        <Toast.Root className="ToastRoot" open={open} asChild>
+          <Box
+            position="fixed"
+            bottom="0"
+            right="0"
+            p="4"
+            style={{ zIndex: 1000 }}
+          >
+            <Toast.Description asChild>
+              <Callout.Root size="3" color={color}>
+                <Callout.Icon>
+                  <Icon />
+                </Callout.Icon>
+                <Callout.Text>{message}</Callout.Text>
+              </Callout.Root>
+            </Toast.Description>
+          </Box>
+        </Toast.Root>
+        <Toast.Viewport className="ToastViewport" />
+      </Toast.Provider>
+    </Theme>
   );
 };
 

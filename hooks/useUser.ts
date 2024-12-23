@@ -11,13 +11,6 @@ const useUser = (subscribe: boolean): [User | null, boolean] => {
     subscribe,
   );
 
-  React.useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user: AuthUser | null) => {
-      setUser(user);
-    });
-    return () => unsubscribe();
-  }, []);
-
   useEffectOnceWhen(() => {
     const unsubscribe = onAuthStateChanged(auth, (user: AuthUser | null) => {
       setUser(user);
