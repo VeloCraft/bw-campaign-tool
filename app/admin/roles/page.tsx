@@ -1,7 +1,9 @@
 // import List from '@/components/Users/List';
-import Admin from '@/components/Admin';
+import Admin from '@/components/admin';
 
 // const Component = () => <List />;
-const Component = () => <Admin />;
+const Component = () => {
+  return <Admin />;
+}
 
 export default Component;

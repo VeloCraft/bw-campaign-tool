@@ -88,7 +88,7 @@ const Page = () => {
           <Box flexGrow="1"/>
         </Flex>
           <Box>
-            <AddAction color="var(--accent-2)" size="1" mt="2" campaign={{id: id, name: campaign?.name}} user={{id: user?.uid, name: user?.displayName, email: user?.email}}>
+            <AddAction size="1" mt="2" campaign={{id: id, name: campaign?.name}} user={{id: user?.uid, name: user?.displayName, email: user?.email}}>
               Add action
             </AddAction>
             </Box>
