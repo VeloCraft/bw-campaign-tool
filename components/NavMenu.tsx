@@ -54,8 +54,8 @@ const NavMenu = ({ links }: NavMenuProps) => {
         }}
       >
         {links.map(({ href, label }) => (
-          <Box asChild key={href}>
-            <Link asChild>
+          <Box asChild key={href} >
+            <Link asChild >
               <NextLink href={href}>{label}</NextLink>
             </Link>
           </Box>

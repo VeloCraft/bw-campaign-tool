@@ -19,7 +19,7 @@ const Edit = ({ docId, ...props }: ButtonProps & { docId: string }) => {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { id, ...initialValues } = (data || {}) as Campaign;
+  const { id, goals, ...initialValues } = (data || {}) as Campaign;
 
   return (
     <Form
