@@ -1,7 +1,7 @@
 
 'use client';
 
-import { Flex, Heading, Box, Text } from '@radix-ui/themes';
+import { Flex, Heading, Table, Strong } from '@radix-ui/themes';
 import { Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
 import Delete from '@/components/Goals/Delete'
 import AddGoal from '@/components/Goals/Add'
@@ -18,30 +18,36 @@ const List = ({ goals = [], loading, docId }: ListProps) => {
 
 return (
 <>
-<Heading size="4">Campaign Goals</Heading>
+<Heading size="4">Goals</Heading>
             {/* Render campaign goals */}
-            <Box flexGrow="1">
-              {goals?.map((goal) => (
-                <Flex 
-                direction="row" 
-                style={{
-                  borderBottom: '0.5px solid gray',
-
-                }}
-                align="center" key={goal.id} my="2" px="0" pb="2">
-                  <Text mr="0.5em" size="5">{goal.name}</Text>
-                  <Text size="1">{goal.description}</Text>
-
+    <Table.Root>
+    {/*<Table.Header>
+        <Table.Row>
+          <Table.ColumnHeaderCell>Action</Table.ColumnHeaderCell>
+          {/*<Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Actions</Table.ColumnHeaderCell>
+        </Table.Row>
+      </Table.Header>*/}
+      <Table.Body>
+        {goals?.map((goal) => (
+          <Table.Row align="center" key={goal?.id}>
+            <Table.Cell width="100%"><Strong>{goal.name}</Strong></Table.Cell>
+            {/*<Table.Cell>{goal.description}</Table.Cell>*/}
+            <Table.Cell>
+              <Flex direction="row" align="center" gap="2">
                   <Edit size="1" ml="auto" docId={docId} goalId={goal.id} variant="outline" >
                     <Pencil2Icon />
                   </Edit>
                   <Delete size="1" ml="2px" docId={docId} goalId={goal.id} variant="outline" color="red" >
                     <TrashIcon />
                   </Delete>
-                </Flex>
-              ))}
-              <AddGoal size="1" docId={docId}>Add goal</AddGoal>
-              </Box>
+              </Flex>
+            </Table.Cell>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table.Root>
+              <AddGoal mt="2" size="1" docId={docId}>Add goal</AddGoal>
               </>
 )
 }

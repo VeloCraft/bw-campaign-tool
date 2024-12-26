@@ -4,6 +4,7 @@ import { Table, Flex, Link } from '@radix-ui/themes';
 import Edit from '@/components/Campaigns/Edit';
 import Delete from '@/components/Campaigns/Delete';
 import { Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
+import StatusBadge from '@/components/StatusBadge';
 
 type ListProps = {
   campaigns?: Campaign[];
@@ -24,9 +25,9 @@ const List = ({ campaigns = [], loading }: ListProps) => {
       </Table.Header>
       <Table.Body>
         {campaigns?.map((campaign) => (
-          <Table.Row key={campaign.id}>
-            <Table.Cell><Link href={`/campaigns/${campaign.id}`}>{campaign.name}</Link></Table.Cell>
-            <Table.Cell>{campaign.status}</Table.Cell>
+          <Table.Row align="center" key={campaign.id}>
+            <Table.Cell width="100%"><Link href={`/campaigns/${campaign.id}`}>{campaign.name}</Link></Table.Cell>
+            <Table.Cell><StatusBadge status={campaign.status} /></Table.Cell>
             <Table.Cell>
               <Flex direction="row" align="center" gap="2">
                 <Edit docId={campaign.id} variant="soft">
