@@ -68,6 +68,25 @@ type Action = {
   };
 };
 
+type Document = {
+  notification_type: string; // assuming it's always "upload"
+  original_filename: string;
+  pages?: number;
+  placeholder?: boolean;
+  public_id: string;
+  request_id: string;
+  resource_type: string; // assuming it's always "image"
+  secure_url?: string;
+  signature_key?: string;
+  tags?: string[];
+  timestamp: string; // ISO 8601 date string
+  type: string; // assuming it's always "upload"
+  url?: string;
+  version?: number;
+  version_id?: string;
+  width?: number;
+}
+
 /*
  * Global app settings saved at 'app/{docId}')
  * in Firestore including a list of
