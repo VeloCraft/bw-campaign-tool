@@ -27,7 +27,9 @@ const Page = () => {
 
   const {data: actions, loading: loadingActions} = useFirestoreCollection<Action>('actions', true, where("campaign.id", "==", id))
 
-  const {data: documents, loading: loadingDocuments} = useFirestoreCollection<Document>('media', true)
+  //add query parameters here (e.g. where tag field contains Id)
+
+  const {data: documents, loading: loadingDocuments} = useFirestoreCollection<Document>('media', true, where("tags", "array-contains", id))
 
   console.log(documents)
   
