@@ -14,6 +14,9 @@ import { auth } from '@/helpers/firebase';
 import ReactMarkdown from 'react-markdown';
 import Edit from '@/components/Campaigns/Edit'
 import StatusBadge from '@/components/StatusBadge'
+import AddDocument from '@/components/Documents/Add'
+import DocumentList from '@/components/Documents/List'
+ 
 
 
 const Page = () => {
@@ -23,6 +26,10 @@ const Page = () => {
   );
 
   const {data: actions, loading: loadingActions} = useFirestoreCollection<Action>('actions', true, where("campaign.id", "==", id))
+
+  const {data: documents, loading: loadingDocuments} = useFirestoreCollection<Document>('media', true)
+
+  console.log(documents)
   
   const user = auth.currentUser;
 
@@ -85,13 +92,24 @@ const Page = () => {
         </Flex>
         <Flex direction="row" mt="2">
           <ActionList actions={actions} loading={loadingActions} />
-          <Box flexGrow="1"/>
         </Flex>
           <Box>
             <AddAction size="1" mt="2" campaign={{id: id, name: campaign?.name}} user={{id: user?.uid, name: user?.displayName, email: user?.email}}>
               Add action
             </AddAction>
             </Box>
+        </Box>
+
+        <Box p="2">
+          <Flex direction="row" justify="center">
+            <Heading size="4">Relevant documents</Heading>
+            <Box flexGrow="1" />
+          </Flex>
+          <DocumentList documents={documents} loading={loadingDocuments} />
+
+
+        
+        <AddDocument tags={['bw-campaign-tool', id]}/>
         </Box>
       </Container>
     </SignInWrapper>
