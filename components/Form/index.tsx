@@ -14,6 +14,7 @@ export const Cancel = CancelComponent;
 export const Delete = DeleteComponent;
 
 type ComponentProps = {
+  id?: string;
   onSubmit: (data: FormSubmission) => Promise<void>;
   children?: React.ReactNode;
   variant?: 'dialog' | 'popover';
@@ -34,6 +35,7 @@ type ComponentProps = {
 };
 
 const Component = ({
+  id,
   variant,
   onSubmit: submit,
   children: _children,
@@ -74,7 +76,7 @@ const Component = ({
 
   return (
     <FormProvider {...methods}>
-      <Form.Root onSubmit={handleSubmit(onSubmit)}>
+      <Form.Root id={id} onSubmit={handleSubmit(onSubmit)}>
         {children}
         {error && (
           <Callout.Root color="red" mt="4">

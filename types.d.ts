@@ -41,6 +41,11 @@ type Campaign = {
   goals?: Goal[];
 };
 
+type CampaignDetails = {
+  name?: string;
+  id?: string;
+}
+
 /*
  * TODO: Description here
  */
@@ -66,11 +71,15 @@ type Action = {
     name?: string | null;
     email?: string;
   };
+  media: MediaRecord;
 };
 
-type Document = {
+type MediaRecord = {
+  id: string;
   notification_type: string; // assuming it's always "upload"
   original_filename: string;
+  display_name: string;
+  bytes: number;
   pages?: number;
   placeholder?: boolean;
   public_id: string;

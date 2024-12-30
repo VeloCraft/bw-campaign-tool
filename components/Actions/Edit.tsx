@@ -11,14 +11,23 @@ const Edit = ({ docId, ...props }: ButtonProps & { docId: string }) => {
   const { data, loading } = useFirestoreDoc<Action>(`actions/${docId}`);
   const [onUpdate] = useUpdateDoc(`actions/${docId}`);
   const [open, setOpen] = React.useState(false);
+  const [resource, setResource] = React.useState(null);
   const onAddMessage = useStatusUpdate();
 
+  React.useEffect(() => {
+    if (open && data?.media) {
+      setResource(data.media);
+    }
+  }, [open, data]);  
+
   const authUser = auth.currentUser;
+  
   if (loading) return null;
   //
 
+
   const onSubmit = async (values: FormSubmission) => {
-    const newValues = { ...values, user: {}, campaign: {}, createdAt: new Date() };
+    const newValues = { ...values, user: {}, campaign: {}, createdAt: new Date(), media: resource };
 
     //add current authenticated user to the action?
     newValues.user = {
@@ -35,10 +44,13 @@ const Edit = ({ docId, ...props }: ButtonProps & { docId: string }) => {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { id, campaign, user,  ...initialValues } = (data || {}) as Action;
+  const { id, campaign, user, media, ...initialValues } = (data || {}) as Action;
 
   return (
     <Form
+      resource={resource}
+      setResource={setResource}
+      campaign={campaign}
       open={open}
       setOpen={setOpen}
       initialValues={initialValues}

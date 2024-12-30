@@ -69,3 +69,7 @@
 }
 
 
+[data-test='uw-iframe'] {
+  pointer-events: auto;
+}
+

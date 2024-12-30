@@ -29,7 +29,7 @@ const Page = () => {
 
   //add query parameters here (e.g. where tag field contains Id)
 
-  const {data: documents, loading: loadingDocuments} = useFirestoreCollection<Document>('media', true, where("tags", "array-contains", id))
+  const {data: documents, loading: loadingDocuments} = useFirestoreCollection<MediaRecord>('media', true, where("tags", "array-contains", id))
 
   console.log(documents)
   

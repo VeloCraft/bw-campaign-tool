@@ -1,17 +1,28 @@
 
 import { Dialog, Button, type ButtonProps } from '@radix-ui/themes';
 import Form, { Field } from '@/components/Form';
+import MediaField from '@/components/Actions/MediaField';
+import {
+CloudinaryUploadWidgetInfo,
+} from '@cloudinary-util/types';
 
 type ComponentProps = ButtonProps & {
+  campaign?: CampaignDetails;
   open: boolean;
   setOpen: (open: boolean) => void;
+  onCancel?: () => void;
   initialValues?: Record<string, string>;
   onSubmit: (values: FormSubmission) => Promise<void>;
   title: string;
   description: string;
+  resource?: CloudinaryUploadWidgetInfo;
+  setResource?: (resource: CloudinaryUploadWidgetInfo) => void;
 };
 
 const Component = ({
+  campaign,
+  resource, 
+  setResource,
   open,
   setOpen,
   initialValues = {},
@@ -20,12 +31,15 @@ const Component = ({
   description,
   ...props
 }: ComponentProps) => {
+
+
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
+
       <Dialog.Trigger>
         <Button {...props} />
       </Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content> 
         <Dialog.Title>{title}</Dialog.Title>
         <Dialog.Description>{description}</Dialog.Description>
         <Form
@@ -39,7 +53,14 @@ const Component = ({
             type="textarea"
             required
           />
+         <MediaField
+             setResource={setResource}
+             resource={resource}
+             options={{tags:[campaign?.id]}}
+          />
+ 
         </Form>
+
       </Dialog.Content>
     </Dialog.Root>
   );
