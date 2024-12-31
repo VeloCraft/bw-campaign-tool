@@ -3,7 +3,7 @@
 import useFirestoreDoc from '@/hooks/useFirestoreDoc';
 import useFirestoreCollection from '@/hooks/useFirestoreCollection';
 
-import { where} from "firebase/firestore";
+import { and, query, collection, where, orderBy, limit } from "firebase/firestore";
 import { Container, Flex, Box, Heading} from '@radix-ui/themes';
 import SignInWrapper from '@/components/SignInWrapper';
 import { useParams } from 'next/navigation';
@@ -25,14 +25,20 @@ const Page = () => {
     `campaigns/${id}`, true
   );
 
-  const {data: actions, loading: loadingActions} = useFirestoreCollection<Action>('actions', true, where("campaign.id", "==", id))
+  const recentResultsQuery = (
+    where("campaign.id", "==", id), 
+    orderBy("createdAt", "desc"), // Order by createdAt in descending order
+    limit(5) // Limit to the top 5 results
+  );
+
+  const {data: actions, loading: loadingActions} = useFirestoreCollection<Action>('actions', true, where("campaign.id", "==", id),
+    orderBy("createdAt", "desc"),
+    limit(5))
 
   //add query parameters here (e.g. where tag field contains Id)
 
   const {data: documents, loading: loadingDocuments} = useFirestoreCollection<MediaRecord>('media', true, where("tags", "array-contains", id))
 
-  console.log(documents)
-  
   const user = auth.currentUser;
 
   return (

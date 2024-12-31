@@ -21,7 +21,8 @@ type ComponentProps = BoxProps & {
     | 'number'
     | 'email'
     | 'password'
-    | 'textarea';
+    | 'textarea'
+    | 'date';
   label: string;
   placeholder?: string;
   defaultValue?: string;
@@ -138,6 +139,29 @@ const Component = ({
               </Form.Control>
             </Form.Field>
           </Flex>
+        </Box>
+      );
+    case 'date':
+      return (
+        <Box asChild {...boxProps}>
+          <Form.Field name={name}>
+            <Form.Label asChild>
+              <Text as="p" size="2" mb="2" color="gray">
+                {label}
+              </Text>
+            </Form.Label>
+            <Form.Control required={required} asChild>
+              <TextField.Root
+                type="date"
+                placeholder={placeholder}
+                disabled={disabled}
+                defaultValue={defaultValue as string}
+                size="3"
+                mb="4"
+                {...register(name, { required })}
+              />
+            </Form.Control>
+          </Form.Field>
         </Box>
       );
     case 'textarea':

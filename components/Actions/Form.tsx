@@ -53,6 +53,13 @@ const Component = ({
             type="textarea"
             required
           />
+          <Field
+            label="Date"
+            name="dateSet"
+            type="date"
+            default={new Date()}
+            required
+          />
          <MediaField
              setResource={setResource}
              resource={resource}
