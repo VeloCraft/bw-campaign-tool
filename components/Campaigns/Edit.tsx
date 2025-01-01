@@ -6,7 +6,7 @@ import useFirestoreDoc from '@/hooks/useFirestoreDoc';
 import useStatusUpdate from '@/hooks/useStatusUpdate';
 
 const Edit = ({ docId, ...props }: ButtonProps & { docId: string }) => {
-  const { data, loading } = useFirestoreDoc<Campaign>(`campaigns/${docId}`);
+  const { data, loading } = useFirestoreDoc<Campaign>(`campaigns/${docId}`, true);
   const [onUpdate] = useUpdateDoc(`campaigns/${docId}`);
   const [open, setOpen] = React.useState(false);
   const onAddMessage = useStatusUpdate();

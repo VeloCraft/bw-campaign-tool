@@ -36,7 +36,7 @@ const Delete = ({ docId, goalId, ...props }: ButtonProps & { docId: string, goal
         <Button {...props} />
       </AlertDialog.Trigger>
       <AlertDialog.Content>
-        <AlertDialog.Title>Delete this campaign?</AlertDialog.Title>
+        <AlertDialog.Title>Delete this goal?</AlertDialog.Title>
         <AlertDialog.Description>
           This action cannot be undone.
         </AlertDialog.Description>

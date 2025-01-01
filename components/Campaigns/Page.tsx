@@ -4,7 +4,7 @@ import useFirestoreDoc from '@/hooks/useFirestoreDoc';
 import useFirestoreCollection from '@/hooks/useFirestoreCollection';
 
 import { where} from "firebase/firestore";
-import { Container, Flex, Box, Heading} from '@radix-ui/themes';
+import { Container, Flex, Box, Heading, Text} from '@radix-ui/themes';
 import SignInWrapper from '@/components/SignInWrapper';
 import { useParams } from 'next/navigation';
 import GoalList from '@/components/Goals/List';
@@ -30,8 +30,6 @@ const Page = () => {
   //add query parameters here (e.g. where tag field contains Id)
 
   const {data: documents, loading: loadingDocuments} = useFirestoreCollection<MediaRecord>('media', true, where("tags", "array-contains", id))
-
-  console.log(documents)
   
   const user = auth.currentUser;
 
@@ -67,14 +65,17 @@ const Page = () => {
           >
             <Box mb="4">
               <Heading size="4">Background</Heading>
-              <ReactMarkdown>{campaign?.description}</ReactMarkdown>
+              <ReactMarkdown>{campaign?.description || "No information available - select 'edit campaign' to add more details"}</ReactMarkdown>
             </Box>
-
+            {/* hide this box if campaign.contribution is null*/}
+            {campaign?.contribution &&
             <Box>
               <Heading size="4">How can you help?</Heading>
               <ReactMarkdown>{campaign?.contribution}</ReactMarkdown>
             </Box>
+            }
           </Flex>
+
 
           <Box
           flexShrink={'5'}
@@ -93,7 +94,7 @@ const Page = () => {
           <Box flexGrow="1" />
         </Flex>
         <Flex direction="row" mt="2">
-          <ActionList actions={actions} loading={loadingActions} />
+        {(actions.length > 0 && <ActionList actions={actions} loading={loadingActions} /> ) || <Text size="1">No actions have been added</Text>}
         </Flex>
           <Box>
             <AddAction size="1" mt="2" campaign={{id: id, name: campaign?.name}} user={{id: user?.uid, name: user?.displayName, email: user?.email}}>
@@ -107,7 +108,9 @@ const Page = () => {
             <Heading size="4">Relevant documents</Heading>
             <Box flexGrow="1" />
           </Flex>
-          <DocumentList documents={documents} loading={loadingDocuments} />
+          {documents.length > 0 &&
+          <DocumentList documents={documents} loading={loadingDocuments} /> ||
+          <Text size="1">No documents available</Text>}
 
 
         

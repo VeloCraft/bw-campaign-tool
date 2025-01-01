@@ -1,7 +1,7 @@
 
 'use client';
 
-import { Flex, Heading, Table, Strong } from '@radix-ui/themes';
+import { Flex, Heading, Table, Strong, Text } from '@radix-ui/themes';
 import { Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
 import Delete from '@/components/Goals/Delete'
 import AddGoal from '@/components/Goals/Add'
@@ -20,6 +20,7 @@ return (
 <>
 <Heading size="4">Goals</Heading>
             {/* Render campaign goals */}
+    {goals.length === 0 && <Text size="1">No goals have been set</Text>}
     <Table.Root>
     {/*<Table.Header>
         <Table.Row>

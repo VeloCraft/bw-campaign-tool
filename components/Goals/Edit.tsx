@@ -12,7 +12,7 @@ const Edit = ({ docId, goalId, ...props }: ButtonProps & { docId: string, goalId
 
   //get the doc
 
-  const { data, loading } = useFirestoreDoc<Campaign>(`campaigns/${docId}`);
+  const { data, loading } = useFirestoreDoc<Campaign>(`campaigns/${docId}`, true);
   const [onUpdate] = useUpdateDoc(`campaigns/${docId}`);
   
   if (loading) {

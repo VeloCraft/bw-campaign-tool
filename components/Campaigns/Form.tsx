@@ -32,9 +32,9 @@ const Component = ({
           onSubmit={onSubmit}
           initialValues={initialValues}
         >
-          <Field mt="4" label="Name" name="name" required />
+          <Field mt="4" label="Campaign" name="name" required />
           <Field
-            label="Description"
+            label="Key details and relevant background"
             name="description"
             type="textarea"
             required
@@ -47,7 +47,7 @@ const Component = ({
             values={['active', 'inactive']}
             labels={['Active', 'Inactive']}
           />
-          <Field name="contribution" label="Contribution" type="textarea" />
+          <Field name="contribution" label="Describe how other activists can support the campaign" type="textarea" />
         </Form>
       </Dialog.Content>
     </Dialog.Root>
