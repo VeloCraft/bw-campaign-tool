@@ -53,6 +53,13 @@ const Component = ({
             type="textarea"
             required
           />
+          <Field
+            label="Date"
+            name="dateSet"
+            type="date"
+            defaultValue={new Date().toISOString().split('T')[0]} // Format Date to YYYY-MM-DD
+            required
+          />
          <MediaField
              setResource={setResource}
              resource={resource}

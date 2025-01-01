@@ -62,6 +62,7 @@ type Action = {
   id: string;
   action?: string;
   creadtedAt?: string;
+  dateSet?: string;
   campaign?: {
     id?: string;
     name?: string;

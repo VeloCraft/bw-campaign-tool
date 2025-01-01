@@ -21,6 +21,8 @@ return (
       <Table.Header>
         <Table.Row>
           <Table.ColumnHeaderCell>Action</Table.ColumnHeaderCell>
+
+          <Table.ColumnHeaderCell>Date</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Campaign</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>User</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Actions</Table.ColumnHeaderCell>
@@ -31,6 +33,7 @@ return (
         
           <Table.Row key={action.id}>
             <Table.Cell>{action.action}</Table.Cell>
+            <Table.Cell>{action.dateSet || "N/A"}</Table.Cell>
             <Table.Cell>{action.campaign.name}</Table.Cell>
             <Table.Cell>{action.user.name || action.user.email}</Table.Cell>
             <Table.Cell>
