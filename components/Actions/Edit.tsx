@@ -8,7 +8,7 @@ import useStatusUpdate from '@/hooks/useStatusUpdate';
 import { auth } from '@/helpers/firebase';
 
 const Edit = ({ docId, ...props }: ButtonProps & { docId: string }) => {
-  const { data, loading } = useFirestoreDoc<Action>(`actions/${docId}`);
+  const { data, loading } = useFirestoreDoc<Action>(`actions/${docId}`, true);
   const [onUpdate] = useUpdateDoc(`actions/${docId}`);
   const [open, setOpen] = React.useState(false);
   const [resource, setResource] = React.useState(null);
