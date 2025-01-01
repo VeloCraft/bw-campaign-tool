@@ -16,7 +16,7 @@ const Logo = () => {
       <Heading size="5" asChild>
         <Link asChild>
           <NextLink as="/" href="/">
-            Campaigns
+            Campaign tool
           </NextLink>
         </Link>
       </Heading>

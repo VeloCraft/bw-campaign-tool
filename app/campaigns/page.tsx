@@ -10,7 +10,11 @@ export default function CampaignsPage() {
   const { data, loading } = useFirestoreCollection<Campaign>('campaigns', true);
 
   return (
-    <SignInWrapper force loading={loading}>
+    <SignInWrapper
+      force
+      loading={loading}
+      breadcrumbs={[{ label: 'Campaigns' }]}
+    >
       <Container size="3">
         <Flex direction="row" align="center" justify="center" mt="8">
           <Heading>Campaigns</Heading>

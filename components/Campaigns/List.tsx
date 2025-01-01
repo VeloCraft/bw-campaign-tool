@@ -1,5 +1,6 @@
 'use client';
 
+import NextLink from 'next/link';
 import { Table, Flex, Link } from '@radix-ui/themes';
 import Edit from '@/components/Campaigns/Edit';
 import Delete from '@/components/Campaigns/Delete';
@@ -26,8 +27,16 @@ const List = ({ campaigns = [], loading }: ListProps) => {
       <Table.Body>
         {campaigns?.map((campaign) => (
           <Table.Row align="center" key={campaign.id}>
-            <Table.Cell width="100%"><Link href={`/campaigns/${campaign.id}`}>{campaign.name}</Link></Table.Cell>
-            <Table.Cell><StatusBadge status={campaign.status} /></Table.Cell>
+            <Table.Cell width="100%">
+              <Link asChild>
+                <NextLink shallow href={`/campaigns/${campaign.id}`}>
+                  {campaign.name}
+                </NextLink>
+              </Link>
+            </Table.Cell>
+            <Table.Cell>
+              <StatusBadge status={campaign.status} />
+            </Table.Cell>
             <Table.Cell>
               <Flex direction="row" align="center" gap="2">
                 <Edit docId={campaign.id} variant="soft">
