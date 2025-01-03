@@ -1,4 +1,3 @@
-
 'use client';
 
 import { CldUploadWidget } from 'next-cloudinary';
@@ -6,7 +5,7 @@ import { Flex, Button, Text } from '@radix-ui/themes';
 import {
   CloudinaryUploadWidgetOptions,
   CloudinaryUploadWidgetResults,
-CloudinaryUploadWidgetInfo,
+  CloudinaryUploadWidgetInfo,
 } from '@cloudinary-util/types';
 
 const MediaField = ({
@@ -16,7 +15,7 @@ const MediaField = ({
 }: {
   setResource: (value: CloudinaryUploadWidgetInfo | null) => void;
   resource?: CloudinaryUploadWidgetInfo | null;
-  options?: CloudinaryUploadWidgetOptions; 
+  options?: CloudinaryUploadWidgetOptions;
 }) => {
   const handleClear = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -24,15 +23,13 @@ const MediaField = ({
     setResource(null); // Clear the resource field
   };
 
-
-const handleUploadSuccess = (result: CloudinaryUploadWidgetResults) => {
-  if (typeof result.info === "object") {
-    setResource(result.info); // Handle valid object
-  } else {
-    console.error("Unexpected result.info type:", result.info); // Handle unexpected string type
-  }
-};
-
+  const handleUploadSuccess = (result: CloudinaryUploadWidgetResults) => {
+    if (typeof result.info === 'object') {
+      setResource(result.info); // Handle valid object
+    } else {
+      console.error('Unexpected result.info type:', result.info); // Handle unexpected string type
+    }
+  };
 
   return (
     <CldUploadWidget
@@ -42,12 +39,9 @@ const handleUploadSuccess = (result: CloudinaryUploadWidgetResults) => {
     >
       {({ open }) => (
         <>
-                <Text as="p" size="2" color="gray" mb="2">
-                  Upload media
-                </Text>
-
-  
-
+          <Text as="p" size="2" color="gray" mb="2">
+            Upload media
+          </Text>
 
           <Flex align="center" justify="start" direction="row">
             {resource ? (
@@ -80,7 +74,6 @@ const handleUploadSuccess = (result: CloudinaryUploadWidgetResults) => {
               </>
             )}
           </Flex>
-
         </>
       )}
     </CldUploadWidget>

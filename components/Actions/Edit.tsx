@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Form from '@/components/Actions/Form';
 import { type ButtonProps } from '@radix-ui/themes';
@@ -18,33 +17,39 @@ const Edit = ({ docId, ...props }: ButtonProps & { docId: string }) => {
     if (open && data?.media) {
       setResource(data.media);
     }
-  }, [open, data]);  
+  }, [open, data]);
 
   const authUser = auth.currentUser;
-  
+
   if (loading) return null;
   //
 
-
   const onSubmit = async (values: FormSubmission) => {
-    const newValues = { ...values, user: {}, campaign: {}, createdAt: new Date(), media: resource };
+    const newValues = {
+      ...values,
+      user: {},
+      campaign: {},
+      createdAt: new Date(),
+      media: resource,
+    };
 
     //add current authenticated user to the action?
     newValues.user = {
       id: authUser?.uid,
       name: authUser?.displayName,
       email: authUser?.email,
-    }
+    };
 
     //maintain campaign assignment
-    newValues.campaign = data.campaign
+    newValues.campaign = data.campaign;
     await onUpdate(newValues);
     onAddMessage({ message: 'Action updated', variant: 'success' });
     setOpen(false);
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { id, campaign, user, media, ...initialValues } = (data || {}) as Action;
+  const { id, campaign, user, media, ...initialValues } = (data ||
+    {}) as Action;
 
   return (
     <Form
