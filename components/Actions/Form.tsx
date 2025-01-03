@@ -1,5 +1,5 @@
 import { Dialog, Button, type ButtonProps } from '@radix-ui/themes';
-import Form, { Field, UserSelectField } from '@/components/Form';
+import Form, { Field } from '@/components/Form';
 import MediaField from '@/components/Actions/MediaField';
 import { CloudinaryUploadWidgetInfo } from '@cloudinary-util/types';
 
@@ -56,7 +56,7 @@ const Component = ({
             labels={['Pending', 'In progress', 'Completed']}
             required
           />
-          <UserSelectField label="Assignee" name="assigneeId" />
+          <Field type="userSelect" label="Assignee" name="assigneeId" />
           <MediaField
             setResource={setResource}
             resource={resource}

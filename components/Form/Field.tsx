@@ -3,6 +3,7 @@ import React from 'react';
 import { useFormContext, useFormState } from 'react-hook-form';
 import Slider from '@/components/Form/Slider';
 import Select from '@/components/Form/Select';
+import UserSelect from '@/components/Form/UserSelect';
 import DateField from '@/components/Form/Date';
 import TextArea from '@/components/Form/TextArea';
 import DefaultField from '@/components/Form/Default';
@@ -17,7 +18,8 @@ export type ComponentProps = BoxProps & {
     | 'email'
     | 'password'
     | 'textarea'
-    | 'date';
+    | 'date'
+    | 'userSelect';
   label: string;
   placeholder?: string;
   defaultValue?: string;
@@ -54,6 +56,8 @@ const Component = ({ name, type, ...props }: ComponentProps) => {
       return <DateField name={name} defaultValue={defaultValue} {...props} />;
     case 'textarea':
       return <TextArea name={name} defaultValue={defaultValue} {...props} />;
+    case 'userSelect':
+      return <UserSelect name={name} defaultValue={defaultValue} {...props} />;
     default:
       return (
         <DefaultField name={name} defaultValue={defaultValue} {...props} />

@@ -61,8 +61,8 @@ type Goal = {
 type Action = {
   id: string;
   action?: string;
-  creadtedAt?: string;
-  dateSet?: string;
+  createdAt?: Date;
+  dateSet?: Date;
   campaign?: {
     id?: string;
     name?: string;

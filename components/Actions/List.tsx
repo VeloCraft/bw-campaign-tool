@@ -42,7 +42,9 @@ const List = () => {
               <StatusBadge status={action?.status} />
             </Table.Cell>
             <Table.Cell>{action.action}</Table.Cell>
-            <Table.Cell>{action.dateSet || 'N/A'}</Table.Cell>
+            <Table.Cell>
+              {/* action.dateSet.toISOString().split('T')[0] || 'N/A'*/}
+            </Table.Cell>
             <Table.Cell>{action.assigneeId || 'None'}</Table.Cell>
             <Table.Cell>{action.user.name || action.user.email}</Table.Cell>
             <Table.Cell>

@@ -1,16 +1,15 @@
-import Field, { ComponentProps } from '@/components/Form/Field';
+import Select, { ComponentProps } from '@/components/Form/Select';
 import useFirestoreCollection from '@/hooks/useFirestoreCollection';
 
 const Component = (props: ComponentProps) => {
   const { data: users, loading } = useFirestoreCollection<User>('users');
 
   if (loading) {
-    users = [];
+    return <Select values={['none']} labels={['None']} {...props} />;
   }
 
   return (
-    <Field
-      type="select"
+    <Select
       values={[...users?.map((user) => user.id), 'none']}
       labels={[...users?.map((user) => user.displayName || user.email), 'None']}
       {...props}

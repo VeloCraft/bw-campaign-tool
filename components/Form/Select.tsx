@@ -2,7 +2,7 @@ import { useFormContext } from 'react-hook-form';
 import { Select, Flex, type BoxProps, Box, Text } from '@radix-ui/themes';
 import * as Form from '@radix-ui/react-form';
 
-type ComponentProps = BoxProps & {
+export type ComponentProps = BoxProps & {
   name: string;
   label: string;
   required?: boolean;
