@@ -44,7 +44,7 @@ type Campaign = {
 type CampaignDetails = {
   name?: string;
   id?: string;
-}
+};
 
 /*
  * TODO: Description here
@@ -72,6 +72,8 @@ type Action = {
     name?: string | null;
     email?: string;
   };
+  status?: 'pending' | 'completed' | 'in progress';
+  assigneeId?: string;
   media: MediaRecord;
 };
 
@@ -95,7 +97,7 @@ type MediaRecord = {
   version?: number;
   version_id?: string;
   width?: number;
-}
+};
 
 /*
  * Global app settings saved at 'app/{docId}')

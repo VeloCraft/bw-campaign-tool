@@ -12,7 +12,7 @@ import * as Form from '@radix-ui/react-form';
 import React from 'react';
 import { useFormContext, useFormState } from 'react-hook-form';
 
-type ComponentProps = BoxProps & {
+export type ComponentProps = BoxProps & {
   name: string;
   type?:
     | 'select'

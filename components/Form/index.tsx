@@ -2,6 +2,7 @@ import React from 'react';
 import * as Form from '@radix-ui/react-form';
 import { Box, Popover, Dialog, Callout, Flex } from '@radix-ui/themes';
 import FieldComponent from '@/components/Form/Field';
+import UserSelectFieldComponent from '@/components/Form/UserSelectField';
 import { ExclamationTriangleIcon as ErrorIcon } from '@radix-ui/react-icons';
 import SubmitComponent from '@/components/Form/Submit';
 import CancelComponent from '@/components/Form/Cancel';
@@ -9,6 +10,7 @@ import DeleteComponent from '@/components/Form/Delete';
 import { FormProvider, useForm, type UseFormRegister } from 'react-hook-form';
 
 export const Field = FieldComponent;
+export const UserSelectField = UserSelectFieldComponent;
 export const Submit = SubmitComponent;
 export const Cancel = CancelComponent;
 export const Delete = DeleteComponent;

@@ -29,7 +29,6 @@ const Edit = ({ docId, ...props }: ButtonProps & { docId: string }) => {
       ...values,
       user: {},
       campaign: {},
-      createdAt: new Date(),
       media: resource,
     };
 
@@ -50,6 +49,16 @@ const Edit = ({ docId, ...props }: ButtonProps & { docId: string }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id, campaign, user, media, ...initialValues } = (data ||
     {}) as Action;
+
+  //set default initialValues if they are not set for status and assignee
+
+  if (!initialValues.status) {
+    initialValues.status = 'pending';
+  }
+
+  if (!initialValues.assigneeId) {
+    initialValues.assigneeId = 'none';
+  }
 
   return (
     <Form

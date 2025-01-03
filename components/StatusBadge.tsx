@@ -1,24 +1,27 @@
-import {Badge} from '@radix-ui/themes'
+import { Badge } from '@radix-ui/themes';
 import React from 'react';
 
-export default function StatusBadge({status}: {status: string}) {
-
+export default function StatusBadge({ status }: { status: string }) {
   const statusMap = {
-    'active': {
+    active: {
       color: 'orange',
       label: 'Active',
     },
-    'inactive': {
+    inactive: {
       color: 'gray',
       label: 'Inactive',
     },
-  }
+    pending: {
+      color: 'orange',
+      label: 'Pending',
+    },
+    completed: {
+      color: 'green',
+      label: 'Completed',
+    },
+  };
 
-  const statusData = statusMap[status] || {color: 'gray', label: 'Unknown'};
+  const statusData = statusMap[status] || { color: 'gray', label: 'Unknown' };
 
-  return (
-    <Badge color={statusData.color}>
-      {statusData.label}
-    </Badge>
-  );
+  return <Badge color={statusData.color}>{statusData.label}</Badge>;
 }

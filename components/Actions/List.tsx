@@ -7,6 +7,7 @@ import Edit from '@/components/Actions/Edit';
 import { where, orderBy, limit } from 'firebase/firestore';
 import useFirestoreCollection from '@/hooks/useFirestoreCollection';
 import { useParams } from 'next/navigation';
+import StatusBadge from '@/components/StatusBadge';
 
 const List = () => {
   const { id }: { id: string } = useParams();
@@ -25,20 +26,24 @@ const List = () => {
     <Table.Root>
       <Table.Header>
         <Table.Row>
+          <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Action</Table.ColumnHeaderCell>
 
           <Table.ColumnHeaderCell>Date</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Campaign</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>User</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Assigned to</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Created by</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Actions</Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
         {actions?.map((action) => (
           <Table.Row key={action.id}>
+            <Table.Cell>
+              <StatusBadge status={action?.status} />
+            </Table.Cell>
             <Table.Cell>{action.action}</Table.Cell>
             <Table.Cell>{action.dateSet || 'N/A'}</Table.Cell>
-            <Table.Cell>{action.campaign.name}</Table.Cell>
+            <Table.Cell>{action.assigneeId || 'None'}</Table.Cell>
             <Table.Cell>{action.user.name || action.user.email}</Table.Cell>
             <Table.Cell>
               <Flex direction="row" align="center" gap="2">

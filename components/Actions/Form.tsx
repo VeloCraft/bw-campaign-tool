@@ -1,10 +1,7 @@
-
 import { Dialog, Button, type ButtonProps } from '@radix-ui/themes';
-import Form, { Field } from '@/components/Form';
+import Form, { Field, UserSelectField } from '@/components/Form';
 import MediaField from '@/components/Actions/MediaField';
-import {
-CloudinaryUploadWidgetInfo,
-} from '@cloudinary-util/types';
+import { CloudinaryUploadWidgetInfo } from '@cloudinary-util/types';
 
 type ComponentProps = ButtonProps & {
   campaign?: CampaignDetails;
@@ -21,7 +18,7 @@ type ComponentProps = ButtonProps & {
 
 const Component = ({
   campaign,
-  resource, 
+  resource,
   setResource,
   open,
   setOpen,
@@ -31,15 +28,12 @@ const Component = ({
   description,
   ...props
 }: ComponentProps) => {
-
-
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-
       <Dialog.Trigger>
         <Button {...props} />
       </Dialog.Trigger>
-      <Dialog.Content> 
+      <Dialog.Content>
         <Dialog.Title>{title}</Dialog.Title>
         <Dialog.Description>{description}</Dialog.Description>
         <Form
@@ -53,21 +47,22 @@ const Component = ({
             type="textarea"
             required
           />
+          <Field label="Date" name="dateSet" type="date" required />
           <Field
-            label="Date"
-            name="dateSet"
-            type="date"
-            defaultValue={new Date().toISOString().split('T')[0]} // Format Date to YYYY-MM-DD
+            label="Status"
+            name="status"
+            type="select"
+            values={['pending', 'in progress', 'completed']}
+            labels={['Pending', 'In progress', 'Completed']}
             required
           />
-         <MediaField
-             setResource={setResource}
-             resource={resource}
-             options={{tags:[campaign?.id]}}
+          <UserSelectField label="Assignee" name="assigneeId" />
+          <MediaField
+            setResource={setResource}
+            resource={resource}
+            options={{ tags: [campaign?.id] }}
           />
- 
         </Form>
-
       </Dialog.Content>
     </Dialog.Root>
   );
