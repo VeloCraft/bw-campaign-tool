@@ -1,16 +1,11 @@
-import {
-  Select,
-  TextField,
-  Flex,
-  type BoxProps,
-  Box,
-  Text,
-  Slider,
-  TextArea,
-} from '@radix-ui/themes';
-import * as Form from '@radix-ui/react-form';
+import { type BoxProps } from '@radix-ui/themes';
 import React from 'react';
 import { useFormContext, useFormState } from 'react-hook-form';
+import Slider from '@/components/Form/Slider';
+import Select from '@/components/Form/Select';
+import DateField from '@/components/Form/Date';
+import TextArea from '@/components/Form/TextArea';
+import DefaultField from '@/components/Form/Default';
 
 type ComponentProps = BoxProps & {
   name: string;
@@ -36,182 +31,32 @@ type ComponentProps = BoxProps & {
   step?: number;
 };
 
-const Component = ({
-  name,
-  type = 'text',
-  label,
-  placeholder,
-  disabled,
-  required,
-  values,
-  labels,
-  min,
-  max,
-  step,
-  ...boxProps
-}: ComponentProps) => {
-  const { register, getValues } = useFormContext();
+const Component = ({ name, type, ...props }: ComponentProps) => {
+  const { getValues } = useFormContext();
   const { defaultValues } = useFormState();
   const defaultValue = getValues(name) || defaultValues[name];
-  let onValueChange: (value: string | number[]) => void;
-
   switch (type) {
     case 'slider':
-      const {
-        onChange: onChangeSlider,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        ref: sliderRef,
-        ...sliderProps
-      } = register(name, { required, min, max });
-      onValueChange = (value: number[]) => {
-        onChangeSlider({ target: { name, value: value[0] } });
-      };
-      return (
-        <Box asChild {...boxProps}>
-          <Flex direction="column" asChild>
-            <Form.Field name={name}>
-              <Form.Label asChild>
-                <Text as="p" size="2" color="gray" mb="2">
-                  {label}
-                </Text>
-              </Form.Label>
-              <Form.Control required={required} asChild>
-                <Slider
-                  disabled={disabled}
-                  defaultValue={[defaultValue] as number[]}
-                  size="3"
-                  mb="4"
-                  {...sliderProps}
-                  min={min}
-                  max={max}
-                  step={step}
-                  onValueChange={onValueChange}
-                />
-              </Form.Control>
-            </Form.Field>
-          </Flex>
-        </Box>
-      );
+      return <Slider name={name} defaultValue={defaultValue} {...props} />;
     case 'select':
-      const {
-        onChange: onChangeSelect,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        ref: selectRef,
-        ...selectProps
-      } = register(name, { required });
-      onValueChange = (_value: string) => {
-        let value = _value;
-        if (value === ' ') value = '';
-        onChangeSelect({ target: { name, value } });
-      };
+      if (!props.values || !props.labels)
+        return 'Select fields must have values and labels';
       return (
-        <Box asChild {...boxProps}>
-          <Flex mb="4" direction="column" asChild minWidth="200px">
-            <Form.Field name={name}>
-              <Form.Label asChild>
-                <Text as="p" size="2" color="gray" mb="2">
-                  {label}
-                </Text>
-              </Form.Label>
-              <Form.Control required={required} asChild>
-                <Select.Root
-                  defaultValue={defaultValue}
-                  disabled={disabled}
-                  size="3"
-                  {...selectProps}
-                  onValueChange={onValueChange}
-                >
-                  <Select.Trigger placeholder={placeholder} />
-                  <Select.Content>
-                    {placeholder && (
-                      <>
-                        <Select.Item value=" ">{placeholder}</Select.Item>
-                        <Select.Separator />
-                      </>
-                    )}
-                    {values.map((value: string, i: number) => (
-                      <Select.Item key={value} value={value}>
-                        {labels[i]}
-                      </Select.Item>
-                    ))}
-                  </Select.Content>
-                </Select.Root>
-              </Form.Control>
-            </Form.Field>
-          </Flex>
-        </Box>
+        <Select
+          name={name}
+          defaultValue={defaultValue}
+          {...props}
+          values={props.values}
+          labels={props.labels}
+        />
       );
     case 'date':
-      return (
-        <Box asChild {...boxProps}>
-          <Form.Field name={name}>
-            <Form.Label asChild>
-              <Text as="p" size="2" mb="2" color="gray">
-                {label}
-              </Text>
-            </Form.Label>
-            <Form.Control required={required} asChild>
-              <TextField.Root
-                type="date"
-                placeholder={placeholder}
-                disabled={disabled}
-                defaultValue={defaultValue as string}
-                size="3"
-                mb="4"
-                {...register(name, { required })}
-              />
-            </Form.Control>
-          </Form.Field>
-        </Box>
-      );
+      return <DateField name={name} defaultValue={defaultValue} {...props} />;
     case 'textarea':
-      return (
-        <Box asChild {...boxProps}>
-          <Form.Field name={name}>
-            <Form.Label asChild>
-              <Text as="p" size="2" mb="2" color="gray">
-                {label}
-              </Text>
-            </Form.Label>
-            <Form.Control required={required} asChild>
-              <TextArea
-                placeholder={placeholder}
-                disabled={disabled}
-                defaultValue={defaultValue as string}
-                size="3"
-                mb="4"
-                {...register(name, {
-                  required,
-                })}
-              />
-            </Form.Control>
-          </Form.Field>
-        </Box>
-      );
+      return <TextArea name={name} defaultValue={defaultValue} {...props} />;
     default:
       return (
-        <Box asChild {...boxProps}>
-          <Form.Field name={name}>
-            <Form.Label asChild>
-              <Text as="p" size="2" mb="2" color="gray">
-                {label}
-              </Text>
-            </Form.Label>
-            <Form.Control required={required} asChild>
-              <TextField.Root
-                placeholder={placeholder}
-                disabled={disabled}
-                defaultValue={defaultValue as string}
-                size="3"
-                mb="4"
-                {...register(name, {
-                  required,
-                  valueAsNumber: type === 'number',
-                })}
-              />
-            </Form.Control>
-          </Form.Field>
-        </Box>
+        <DefaultField name={name} defaultValue={defaultValue} {...props} />
       );
   }
 };
