@@ -1,5 +1,16 @@
-import Select, { ComponentProps } from '@/components/Form/Select';
+import Select from '@/components/Form/Select';
 import useFirestoreCollection from '@/hooks/useFirestoreCollection';
+
+type ComponentProps = {
+  name: string;
+  label: string;
+  required?: boolean;
+  disabled?: boolean;
+  defaultValue?: string;
+  //values?: string[];
+  //labels: React.ReactNode[];
+  placeholder?: string;
+};
 
 const Component = (props: ComponentProps) => {
   const { data: users, loading } = useFirestoreCollection<User>('users');

@@ -41,10 +41,17 @@ const Add = ({
     setOpen(false);
   };
 
+  const initialValues = {
+    action: null,
+    dateSet: new Date().toISOString(),
+    status: 'pending',
+    assigneeId: 'none',
+  };
+
   return (
     <Form
       campaign={campaign}
-      //initialValues={initialValues}
+      initialValues={initialValues}
       open={open}
       setOpen={setOpen}
       resource={resource}

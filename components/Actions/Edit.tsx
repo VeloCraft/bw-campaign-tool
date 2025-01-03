@@ -56,6 +56,8 @@ const Edit = ({ docId, ...props }: ButtonProps & { docId: string }) => {
     initialValues.status = 'pending';
   }
 
+  //initialValues.createdAt = initialValues.createdAt.toISOString();
+
   if (!initialValues.assigneeId) {
     initialValues.assigneeId = 'none';
   }

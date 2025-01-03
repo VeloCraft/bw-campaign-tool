@@ -8,7 +8,7 @@ type ComponentProps = ButtonProps & {
   open: boolean;
   setOpen: (open: boolean) => void;
   onCancel?: () => void;
-  initialValues?: Record<string, string>;
+  initialValues?: Record<string, string | Date>;
   onSubmit: (values: FormSubmission) => Promise<void>;
   title: string;
   description: string;
