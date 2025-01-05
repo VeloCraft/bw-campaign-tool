@@ -76,7 +76,11 @@ const Component = ({
 
   return (
     <FormProvider {...methods}>
-      <Form.Root id={id} onSubmit={handleSubmit(onSubmit)}>
+      <Form.Root
+        style={variant === 'dialog' ? { marginTop: 16 } : {}}
+        id={id}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         {children}
         {error && (
           <Callout.Root color="red" mt="4">

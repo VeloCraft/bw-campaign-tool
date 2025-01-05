@@ -1,6 +1,5 @@
 //NOTE FOR AL - we could make Delete into a generic component that takes a collection name and a docId, and then deletes that doc from that collection. This would allow us to reuse the component for any collection we want to delete from.
 
-
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '@/helpers/firebase';
 import { Flex, Button, type ButtonProps, AlertDialog } from '@radix-ui/themes';
@@ -15,7 +14,7 @@ const Delete = ({ docId, ...props }: ButtonProps & { docId: string }) => {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button {...props} />
+        <Button data-testid="delete-action-button" {...props} />
       </AlertDialog.Trigger>
       <AlertDialog.Content>
         <AlertDialog.Title>Delete this action?</AlertDialog.Title>
@@ -36,8 +35,7 @@ const Delete = ({ docId, ...props }: ButtonProps & { docId: string }) => {
         </Flex>
       </AlertDialog.Content>
     </AlertDialog.Root>
-
-      );
+  );
 };
 
 export default Delete;

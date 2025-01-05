@@ -13,8 +13,12 @@ const StatusContext = React.createContext<StatusContextProps>({
   onAddMessage: () => {},
 });
 
-export const Provider = ({ children }: { children: React.ReactNode }) => {
-  const [status, setStatus] = React.useState<Status | null>(null);
+type ProviderProps = React.PropsWithChildren<{
+  value?: Status;
+}>;
+
+export const Provider = ({ children, value }: ProviderProps) => {
+  const [status, setStatus] = React.useState<Status | null>(value || null);
 
   const onClearStatus = React.useCallback(() => {
     setStatus(null);

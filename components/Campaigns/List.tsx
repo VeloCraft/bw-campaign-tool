@@ -1,20 +1,14 @@
 'use client';
 
-import NextLink from 'next/link';
-import { Table, Flex, Link } from '@radix-ui/themes';
-import Edit from '@/components/Campaigns/Edit';
-import Delete from '@/components/Campaigns/Delete';
-import { Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
-import StatusBadge from '@/components/StatusBadge';
+import { Table } from '@radix-ui/themes';
+import ListItem from '@/components/Campaigns/ListItem';
 
 type ListProps = {
   campaigns?: Campaign[];
-  loading: boolean;
+  loading?: boolean;
 };
 
 const List = ({ campaigns = [], loading }: ListProps) => {
-  if (loading) return null;
-
   return (
     <Table.Root>
       <Table.Header>
@@ -25,30 +19,15 @@ const List = ({ campaigns = [], loading }: ListProps) => {
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {campaigns?.map((campaign) => (
-          <Table.Row align="center" key={campaign.id}>
-            <Table.Cell width="100%">
-              <Link asChild>
-                <NextLink shallow href={`/campaigns/${campaign.id}`}>
-                  {campaign.name}
-                </NextLink>
-              </Link>
-            </Table.Cell>
-            <Table.Cell>
-              <StatusBadge status={campaign.status} />
-            </Table.Cell>
-            <Table.Cell>
-              <Flex direction="row" align="center" gap="2">
-                <Edit docId={campaign.id} variant="soft">
-                  <Pencil2Icon />
-                </Edit>
-                <Delete docId={campaign.id} variant="soft" color="red">
-                  <TrashIcon />
-                </Delete>
-              </Flex>
-            </Table.Cell>
-          </Table.Row>
-        ))}
+        {loading ? (
+          <ListItem loading />
+        ) : campaigns?.length === 0 ? (
+          <ListItem />
+        ) : (
+          campaigns?.map((campaign) => (
+            <ListItem key={campaign.id} docId={campaign.id} {...campaign} />
+          ))
+        )}
       </Table.Body>
     </Table.Root>
   );

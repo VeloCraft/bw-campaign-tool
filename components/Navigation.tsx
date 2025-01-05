@@ -4,30 +4,13 @@ import NextLink from 'next/link';
 import { Box, Link } from '@radix-ui/themes';
 import NavMenu from '@/components/NavMenu';
 import { usePathname } from 'next/navigation';
-
-const navLinks = [
-  { href: '/', label: 'Home', active: (pathname) => pathname === '/' },
-  {
-    href: '/campaigns',
-    label: 'Campaigns',
-    active: (pathname) => pathname.startsWith('/campaigns'),
-  },
-  {
-    href: '/admin',
-    label: 'Admin',
-    active: (pathname) => pathname.startsWith('/admin'),
-  },
-] as {
-  href: string;
-  label: string;
-  active: (pathname: string) => boolean;
-}[];
+import { links as navLinks } from '@/helpers/navigation';
 
 const Navigation = () => {
   const pathname = usePathname();
   const links = React.useMemo(
     () =>
-      navLinks.map((link) => ({
+      navLinks.map((link: NavLink) => ({
         ...link,
         active: link.active(pathname),
       })),

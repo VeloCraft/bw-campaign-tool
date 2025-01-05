@@ -13,9 +13,10 @@ import { auth } from '@/helpers/firebase';
 import { signOut } from 'firebase/auth';
 import { redirect } from 'next/navigation';
 import useStatusUpdate from '@/hooks/useStatusUpdate';
+import userContext from '@/contexts/User';
 
 const Menu = () => {
-  const user = auth.currentUser;
+  const user = React.useContext<User>(userContext);
   const signedIn = !!user;
   const onAddMessage = useStatusUpdate();
 
@@ -24,7 +25,7 @@ const Menu = () => {
   const letter =
     user?.displayName?.charAt(0) ||
     user?.email?.charAt(0) ||
-    user?.uid?.charAt(0);
+    user?.id?.charAt(0);
 
   const onSignOut = async () => {
     await signOut(auth);

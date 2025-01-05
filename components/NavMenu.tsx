@@ -8,6 +8,7 @@ type NavMenuProps = {
   links: {
     href: string;
     label: string;
+    active?: boolean;
   }[];
 };
 
@@ -19,7 +20,7 @@ const NavMenu = ({ links }: NavMenuProps) => {
   return (
     <>
       <Box asChild display={{ initial: 'inline-block', sm: 'none' }}>
-        <IconButton onClick={onOpen}>
+        <IconButton onClick={onOpen} data-testid="nav-menu">
           <HamburgerMenuIcon />
         </IconButton>
       </Box>
@@ -53,9 +54,17 @@ const NavMenu = ({ links }: NavMenuProps) => {
           backgroundColor: 'var(--background)',
         }}
       >
-        {links.map(({ href, label }) => (
-          <Box asChild key={href} >
-            <Link asChild >
+        {links.map(({ href, label, active }) => (
+          <Box asChild key={href}>
+            <Link
+              underline="none"
+              mb="2"
+              style={{
+                display: 'inline-block',
+                borderBottom: `2px solid ${active ? 'var(--accent-8)' : 'transparent'}`,
+              }}
+              asChild
+            >
               <NextLink href={href}>{label}</NextLink>
             </Link>
           </Box>

@@ -12,7 +12,7 @@ const Delete = ({ docId, ...props }: ButtonProps & { docId: string }) => {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button {...props} />
+        <Button data-testid="delete-campaign-button" {...props} />
       </AlertDialog.Trigger>
       <AlertDialog.Content>
         <AlertDialog.Title>Delete this campaign?</AlertDialog.Title>

@@ -6,6 +6,7 @@ import Select from '@/components/Form/Select';
 import DateField from '@/components/Form/Date';
 import TextArea from '@/components/Form/TextArea';
 import DefaultField from '@/components/Form/Default';
+import Media from '@/components/Form/Media';
 
 type ComponentProps = BoxProps & {
   name: string;
@@ -17,7 +18,8 @@ type ComponentProps = BoxProps & {
     | 'email'
     | 'password'
     | 'textarea'
-    | 'date';
+    | 'date'
+    | 'media';
   label: string;
   placeholder?: string;
   defaultValue?: string;
@@ -29,6 +31,8 @@ type ComponentProps = BoxProps & {
   min?: number;
   max?: number;
   step?: number;
+  tags?: string[];
+  resourceType?: 'image' | 'raw';
 };
 
 const Component = ({ name, type, ...props }: ComponentProps) => {
@@ -40,7 +44,7 @@ const Component = ({ name, type, ...props }: ComponentProps) => {
       return <Slider name={name} defaultValue={defaultValue} {...props} />;
     case 'select':
       if (!props.values || !props.labels)
-        return 'Select fields must have values and labels';
+        return <>Select fields must have values and labels</>;
       return (
         <Select
           name={name}
@@ -54,6 +58,8 @@ const Component = ({ name, type, ...props }: ComponentProps) => {
       return <DateField name={name} defaultValue={defaultValue} {...props} />;
     case 'textarea':
       return <TextArea name={name} defaultValue={defaultValue} {...props} />;
+    case 'media':
+      return <Media name={name} defaultValue={defaultValue} {...props} />;
     default:
       return (
         <DefaultField name={name} defaultValue={defaultValue} {...props} />

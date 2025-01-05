@@ -11,7 +11,6 @@ const Add = (props: ButtonProps) => {
 
   const onSubmit = async (values: Record<string, string>) => {
     const newValues = { ...values, createdAt: new Date() };
-    console.log(newValues);
     await addDoc(collection(db, 'campaigns'), newValues);
     onAddMessage({ message: 'Campaign added', variant: 'success' });
     setOpen(false);
@@ -19,6 +18,7 @@ const Add = (props: ButtonProps) => {
 
   return (
     <Form
+      data-testid="add-campaign-button"
       open={open}
       setOpen={setOpen}
       onSubmit={onSubmit as any} // eslint-disable-line

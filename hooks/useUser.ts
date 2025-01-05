@@ -4,7 +4,7 @@ import { auth } from '@/helpers/firebase';
 import { useEffectOnceWhen } from 'rooks';
 import useFirestoreDoc from '@/hooks/useFirestoreDoc';
 
-const useUser = (subscribe: boolean): [User | null, boolean] => {
+const useUser = (u?: User, subscribe?: boolean): [User | null, boolean] => {
   const [user, setUser] = React.useState<AuthUser | null>(null);
   const { data, loading } = useFirestoreDoc<User>(
     user?.uid ? `users/${user.uid}` : null,
@@ -18,7 +18,7 @@ const useUser = (subscribe: boolean): [User | null, boolean] => {
     return () => unsubscribe();
   }, !!auth);
 
-  return [data, !!(user?.uid && loading)];
+  return [data || u, !u && !!(user?.uid && loading)];
 };
 
 export default useUser;

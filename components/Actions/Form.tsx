@@ -1,45 +1,33 @@
-
 import { Dialog, Button, type ButtonProps } from '@radix-ui/themes';
 import Form, { Field } from '@/components/Form';
-import MediaField from '@/components/Actions/MediaField';
-import {
-CloudinaryUploadWidgetInfo,
-} from '@cloudinary-util/types';
 
 type ComponentProps = ButtonProps & {
-  campaign?: CampaignDetails;
+  campaignId: string;
   open: boolean;
   setOpen: (open: boolean) => void;
   onCancel?: () => void;
-  initialValues?: Record<string, string>;
+  initialValues?: Omit<Action, 'id'>;
   onSubmit: (values: FormSubmission) => Promise<void>;
   title: string;
   description: string;
-  resource?: CloudinaryUploadWidgetInfo;
-  setResource?: (resource: CloudinaryUploadWidgetInfo) => void;
 };
 
 const Component = ({
-  campaign,
-  resource, 
-  setResource,
+  campaignId,
   open,
   setOpen,
-  initialValues = {},
+  initialValues,
   onSubmit,
   title,
   description,
   ...props
 }: ComponentProps) => {
-
-
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-
       <Dialog.Trigger>
         <Button {...props} />
       </Dialog.Trigger>
-      <Dialog.Content> 
+      <Dialog.Content>
         <Dialog.Title>{title}</Dialog.Title>
         <Dialog.Description>{description}</Dialog.Description>
         <Form
@@ -53,21 +41,15 @@ const Component = ({
             type="textarea"
             required
           />
+          <Field label="Date" name="dateSet" type="date" required />
           <Field
-            label="Date"
-            name="dateSet"
-            type="date"
-            defaultValue={new Date().toISOString().split('T')[0]} // Format Date to YYYY-MM-DD
-            required
+            label="Upload media"
+            name="media"
+            type="media"
+            resourceType="image"
+            tags={[campaignId]}
           />
-         <MediaField
-             setResource={setResource}
-             resource={resource}
-             options={{tags:[campaign?.id]}}
-          />
- 
         </Form>
-
       </Dialog.Content>
     </Dialog.Root>
   );

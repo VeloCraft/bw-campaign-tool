@@ -9,21 +9,17 @@ type AppWrapperProps = {
   breadcrumbs?: Breadcrumb[];
   actions?: React.ReactNode;
   children?: React.ReactNode;
-  variant?: 'top' | 'centered';
   loading?: boolean;
-  noPadding?: boolean;
 };
 
 const AppWrapper = ({
-  variant,
   breadcrumbs,
   actions,
   children,
   loading,
-  noPadding,
 }: AppWrapperProps) => {
   return (
-    <Wrapper variant={variant}>
+    <Wrapper>
       <Flex
         gap="3"
         direction="row"
@@ -48,7 +44,7 @@ const AppWrapper = ({
         </Box>
       </Flex>
       <Box height="calc(100% - 64px)" width="100%">
-        <Box height="100%" p={noPadding ? '0' : '4'}>
+        <Box height="100%" p="4">
           {children}
         </Box>
       </Box>

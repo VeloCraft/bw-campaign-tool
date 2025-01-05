@@ -1,20 +1,31 @@
 'use client';
 import { CldUploadButton } from 'next-cloudinary';
+import { Button, type ButtonProps } from '@radix-ui/themes';
 
 const cloudPresetName = process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME;
 
-const CloudinaryUploader = ({tags} : {tags : string[]}) => {
-
+const CloudinaryUploader = ({
+  campaignId,
+  ...props
+}: ButtonProps & { campaignId: string }) => {
   return (
-    <div>
-      <CldUploadButton
-        className="rt-reset rt-Button rt-BaseButton rt-variant-solid rt-r-size-1 rt-r-mt-2"
-        options={{ multiple: true , tags: tags}}
-        uploadPreset={cloudPresetName}
-      >
-        Add document
-      </CldUploadButton>
-    </div>
+    <CldUploadButton
+      options={{ multiple: true, tags: [campaignId] }}
+      uploadPreset={cloudPresetName}
+    >
+      {({ open }) => (
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            open();
+          }}
+          {...props}
+        >
+          Add document
+        </Button>
+      )}
+    </CldUploadButton>
   );
 };
 
