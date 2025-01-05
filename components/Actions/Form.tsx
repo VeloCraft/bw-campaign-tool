@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Dialog, Button, type ButtonProps } from '@radix-ui/themes';
 import Form, { Field } from '@/components/Form';
 import MediaField from '@/components/Actions/MediaField';
@@ -28,6 +29,7 @@ const Component = ({
   description,
   ...props
 }: ComponentProps) => {
+  const [selectedValue, setSelectedValue] = useState(null);
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
@@ -56,7 +58,21 @@ const Component = ({
             labels={['Pending', 'In progress', 'Completed']}
             required
           />
-          <Field type="userSelect" label="Assignee" name="assigneeId" />
+          <Field
+            type="userSelect"
+            label="Assignee"
+            name="assigneeId"
+            other={true}
+            onChange={(e) => setSelectedValue(e.target.value)}
+          />
+          {selectedValue === 'other' && (
+            <Field
+              label="Assignee email"
+              name="assigneeEmail"
+              type="email"
+              required
+            />
+          )}
           <MediaField
             setResource={setResource}
             resource={resource}

@@ -43,7 +43,7 @@ const Add = ({
 
   const initialValues = {
     action: null,
-    dateSet: new Date().toISOString(),
+    dateSet: new Date(),
     status: 'pending',
     assigneeId: 'none',
   };

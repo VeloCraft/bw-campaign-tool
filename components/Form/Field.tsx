@@ -25,6 +25,7 @@ export type ComponentProps = BoxProps & {
   defaultValue?: string;
   disabled?: boolean;
   required?: boolean;
+  other?: boolean;
   values?: string[];
   labels?: React.ReactNode[];
   direction?: 'row' | 'column';
