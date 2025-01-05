@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import faker, { seed } from '@/.storybook/faker';
 import Field from '@/components/Form/Field';
+import wrapper from '@/decorators/wrapper';
+import Form from '@/components/Form';
 
 seed('Form/Field');
 
@@ -12,12 +14,19 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof Field>;
 
-export const WithDefaults = {
-  args: {},
+const name = faker.lorem.word();
+
+export const WithField = {
+  args: { name },
+  decorators: [wrapper(Form, { onSubmit: async () => {} })],
 } satisfies Story;
 
 export const WithValue = {
-  args: {
-    title: faker.lorem.sentence(),
-  },
+  ...WithField,
+  decorators: [
+    wrapper(Form, {
+      initialValues: { [name]: faker.lorem.words() },
+      onSubmit: async () => {},
+    }),
+  ],
 } satisfies Story;

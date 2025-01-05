@@ -103,7 +103,9 @@ const Page = ({ user }: PageProps) => {
 
         <Heading size="4">Relevant documents</Heading>
         <DocumentList campaign={campaign} />
-        <AddDocument size="1" mt="2" campaignId={campaign.id} />
+        <AddDocument size="1" mt="2" campaignId={campaign.id}>
+          Add documents
+        </AddDocument>
       </Container>
     </SignInWrapper>
   );

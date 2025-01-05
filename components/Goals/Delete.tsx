@@ -1,39 +1,23 @@
 import { Flex, Button, type ButtonProps, AlertDialog } from '@radix-ui/themes';
-import useStatusUpdate from '@/hooks/useStatusUpdate';
-import useFirestoreDoc from '@/hooks/useFirestoreDoc';
 import useUpdateDoc from '@/hooks/useUpdateDoc';
 
-const Delete = ({ docId, goalId, ...props }: ButtonProps & { docId: string, goalId: string }) => {
-  const onAddMessage = useStatusUpdate();
+type DeleteProps = ButtonProps & {
+  docId: string;
+  goalId: string;
+  goals: Goal[];
+};
 
-  //get the doc
-
-  const { data, loading } = useFirestoreDoc<Campaign>(`campaigns/${docId}`);
-  const [onUpdate] = useUpdateDoc(`campaigns/${docId}`);
-  
-  if (loading) {
-    return null;
-  }
-  //get the goals
+const Delete = ({ docId, goalId, goals, ...props }: DeleteProps) => {
+  const [onUpdate] = useUpdateDoc(`campaigns/${docId}`, true);
 
   const onDelete = async () => {
-    const goals = data?.goals;
-    console.log('oldData', data)
-
-    const newGoals = goals.filter((goal) => goal.id !== goalId);
-  
-    //update the doc with the new goals
-    const updatedData = { ...data, goals: newGoals };
-
-    console.log('newData', updatedData)
-    await onUpdate(updatedData); // Update Firestore data
-    onAddMessage({ message: 'Goal deleted', variant: 'success' });
+    await onUpdate({ goals: goals.filter(({ id }) => id !== goalId) });
   };
 
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button {...props} />
+        <Button data-testid="delete-goal-button" {...props} />
       </AlertDialog.Trigger>
       <AlertDialog.Content>
         <AlertDialog.Title>Delete this goal?</AlertDialog.Title>

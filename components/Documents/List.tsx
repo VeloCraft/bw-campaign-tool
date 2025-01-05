@@ -1,20 +1,19 @@
 'use client';
 
-import { Table, Link } from '@radix-ui/themes';
-import Delete from '@/components/Documents/Delete';
-import { TrashIcon } from '@radix-ui/react-icons';
+import { Table } from '@radix-ui/themes';
 import { orderBy, where } from 'firebase/firestore';
 import useFirestoreCollection from '@/hooks/useFirestoreCollection';
+import Item from '@/components/Documents/ListItem';
 
 type ListProps = {
-  campaign: Campaign;
+  campaignId: string;
 };
 
-const List = ({ campaign }: ListProps) => {
+const List = ({ campaignId }: ListProps) => {
   const { data: documents, loading } = useFirestoreCollection<Media>(
     'media',
     true,
-    where('tags', 'array-contains', campaign.id),
+    where('tags', 'array-contains', campaignId),
     orderBy('created_at', 'desc'),
   );
   if (loading) return null;
@@ -30,16 +29,11 @@ const List = ({ campaign }: ListProps) => {
         </Table.Header>
         <Table.Body>
           {documents?.map((document) => (
-            <Table.Row align="center" key={document.public_id}>
-              <Table.Cell width="100%">
-                <Link href={document.secure_url}>{document.display_name}</Link>
-              </Table.Cell>
-              <Table.Cell>
-                <Delete docId={document.id} variant="soft" color="red">
-                  <TrashIcon />
-                </Delete>
-              </Table.Cell>
-            </Table.Row>
+            <Item
+              key={document.public_id}
+              docId={document.public_id}
+              {...document}
+            />
           ))}
         </Table.Body>
       </Table.Root>

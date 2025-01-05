@@ -19,23 +19,6 @@ const originalFiles = [
       'https://res.cloudinary.com/dsezlsa3a/image/upload/v1735247461/samples/animals/cat.jpg',
   },
   {
-    asset_id: '4237866266dab446c141eb86240a1265',
-    public_id: 'samples/animals/kitten-playing',
-    format: 'gif',
-    version: 1735247464,
-    resource_type: 'image',
-    type: 'upload',
-    created_at: '2024-12-26T21:11:04Z',
-    bytes: 6620002,
-    width: 320,
-    height: 180,
-    asset_folder: '',
-    display_name: 'kitten-playing',
-    url: 'http://res.cloudinary.com/dsezlsa3a/image/upload/v1735247464/samples/animals/kitten-playing.gif',
-    secure_url:
-      'https://res.cloudinary.com/dsezlsa3a/image/upload/v1735247464/samples/animals/kitten-playing.gif',
-  },
-  {
     asset_id: '98e9eee173ebebd3fcf1da569b6d1983',
     public_id: 'samples/animals/reindeer',
     format: 'jpg',

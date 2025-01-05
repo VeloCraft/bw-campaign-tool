@@ -12,7 +12,8 @@
     "build-storybook": "storybook build",
     "plop": "NODE_OPTIONS='--experimental-strip-types --no-warnings' plop --plopfile=plopfile.ts",
     "add-component": "pnpm run plop component",
-    "remove-component": "sh scripts/remove-component.sh"
+    "remove-component": "sh scripts/remove-component.sh",
+    "missing-stories": "node scripts/check-for-missing-stories.mjs"
   },
   "dependencies": {
     "@auth/pg-adapter": "^1.7.4",

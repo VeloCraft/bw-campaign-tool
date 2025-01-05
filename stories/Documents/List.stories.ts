@@ -16,8 +16,8 @@ export const WithDefaults = {
   args: {},
 } satisfies Story;
 
-export const WithValue = {
+export const WithCampaignId = {
   args: {
-    title: faker.lorem.sentence(),
+    campaignId: faker.string.uuid(),
   },
 } satisfies Story;

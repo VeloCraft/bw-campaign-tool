@@ -13,7 +13,7 @@ const MediaInfo = ({ media, ...flexProps }: FlexProps & { media?: Media }) => {
     <Flex {...flexProps}>
       <Box>
         <Heading as="h3" size="3">
-          {media.original_filename}
+          {media.original_filename || media.display_name}
         </Heading>
         <Flex gap="2" align="center" asChild>
           <Text size="2" color="gray">

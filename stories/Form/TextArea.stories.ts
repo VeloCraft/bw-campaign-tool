@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import faker, { generate, title, seed } from '@/.storybook/faker';
-import Media from '@/components/Form/Media';
-import wrapper from '@/decorators/wrapper';
+import faker, { description, title, seed } from '@/.storybook/faker';
+import TextArea from '@/components/Form/TextArea';
 import Form from '@/components/Form';
+import wrapper from '@/decorators/wrapper';
 
-seed('Form/Media');
+seed('Form/TextArea');
 
 const meta = {
-  title: 'Form/Media',
-  component: Media,
-} satisfies Meta<typeof Media>;
+  title: 'Form/TextArea',
+  component: TextArea,
+} satisfies Meta<typeof TextArea>;
 
 export default meta;
-type Story = StoryObj<typeof Media>;
+type Story = StoryObj<typeof TextArea>;
 
 const name = faker.lorem.word();
 
@@ -33,14 +33,10 @@ export const WithNoValue = {
 
 export const WithValue = {
   ...WithNoValue,
-  decorators: [
-    wrapper(Form, {
-      initialValues: { [name]: generate('media') as Media },
-      onSubmit: async () => {},
-      noCancel: true,
-      noSubmit: true,
-    }),
-  ],
+  args: {
+    ...WithNoValue.args,
+    defaultValue: description(),
+  },
 } satisfies Story;
 
 export const WithDisabled = {

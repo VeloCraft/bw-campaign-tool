@@ -41,9 +41,13 @@ const Component = ({
   const { onChange } = register(name, { required });
 
   const onUpload = async (res: CloudinaryUploadWidgetResults) => {
-    const { info: media } = res;
-    await addDoc(collection(db, 'media'), media as Media);
-    await onChange({ target: { value: media as Media } });
+    const { info } = res;
+    const media = {} as Media;
+    Object.keys(info).forEach((key) => {
+      media[key] = info[key];
+    });
+    await addDoc(collection(db, 'media'), media);
+    await onChange({ target: { value: media } });
     setValueState(media as Media);
   };
 
