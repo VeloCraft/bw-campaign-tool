@@ -21,7 +21,7 @@ const Add = (props: ButtonProps) => {
       data-testid="add-campaign-button"
       open={open}
       setOpen={setOpen}
-      onSubmit={onSubmit as any} // eslint-disable-line
+      onSubmit={onSubmit as any}
       title="Add a campaign"
       description="Enter the details of the campaign"
       {...props}

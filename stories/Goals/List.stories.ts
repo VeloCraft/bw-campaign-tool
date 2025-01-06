@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import faker, { seed } from '@/.storybook/faker';
+import faker, { generate, seed } from '@/.storybook/faker';
 import List from '@/components/Goals/List';
 
 seed('Goals/List');
@@ -18,6 +18,14 @@ export const WithDefaults = {
 
 export const WithValue = {
   args: {
-    title: faker.lorem.sentence(),
+    loading: false,
+    goals: generate('goal', { count: 12 }) as Goal[],
+  },
+} satisfies Story;
+
+export const WithLoading = {
+  args: {
+    loading: true,
+    docId: faker.string.uuid(),
   },
 } satisfies Story;

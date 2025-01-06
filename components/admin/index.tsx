@@ -7,8 +7,13 @@ const links = [
   { href: '/admin/roles', title: 'Roles' },
 ];
 
-const Component = () => (
-  <SignInWrapper force role="admin" breadcrumbs={[{ label: 'Admin' }]}>
+const Component = ({ user }: { user?: User }) => (
+  <SignInWrapper
+    user={user}
+    force
+    role="admin"
+    breadcrumbs={[{ label: 'Admin' }]}
+  >
     <Heading as="h1" size="7" mt="8" mb="4" align="center">
       Admin
     </Heading>

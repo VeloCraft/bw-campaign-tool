@@ -1,6 +1,10 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bike Worcester Campaign Tool
+
+This project is a web application that allows users to create and share campaigns to improve cycling infrastructure in Worcester. The application is built using [Next.js](https://nextjs.org/), [Firebase](https://firebase.google.com/) and [Radix UI](https://www.radix-ui.com/).
 
 ## Getting Started
+
+Install the latest stable version of node.js from [nodejs.org](https://nodejs.org/). This project requires node.js version 23 or higher.
 
 First, run the development server:
 

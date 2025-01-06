@@ -1,11 +1,10 @@
-
 import { Dialog, Button, type ButtonProps } from '@radix-ui/themes';
 import Form, { Field } from '@/components/Form';
 
 type ComponentProps = ButtonProps & {
   open: boolean;
   setOpen: (open: boolean) => void;
-  initialValues?: Record<string, string>;
+  initialValues?: Record<string, string | Date>;
   onSubmit: (values: FormSubmission) => Promise<void>;
   title: string;
   description: string;

@@ -1,6 +1,6 @@
 import faker from './faker';
 
-const date = (opts: { [key: string]: any }): Date => {
+const date = (opts?: { [key: string]: any }): Date => {
   const { future }: { future?: boolean } = opts || { future: false };
   let date: Date;
   if (process.env.NODE_ENV === 'test') {

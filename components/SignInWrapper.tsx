@@ -104,8 +104,7 @@ const SignInWrapper = ({
 
   if (
     isSignedIn &&
-    ((role &&
-      (user?.roles?.includes('admin') || !user?.roles.includes(role))) ||
+    ((role && !user?.roles?.includes('admin') && !user?.roles.includes(role)) ||
       (permissions && !isAllowed))
   ) {
     return (

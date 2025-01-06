@@ -17,16 +17,16 @@ const getItem = (type: string, asUrl: boolean): Media | string => {
   }
 };
 
-const generate = (opts: { [key: string]: any }) => {
+const generate = (opts?: { [key: string]: any }) => {
   const {
     type: _type = 'image',
     quantity = 1,
     asUrl,
   }: {
-    type?: 'image';
+    type?: string;
     quantity?: number;
     asUrl?: boolean;
-  } = opts;
+  } = opts || {};
   const getType = () => {
     let type = _type;
     if (!type) type = oneOf(Object.keys(obj)) as 'image';
