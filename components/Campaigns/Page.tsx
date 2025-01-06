@@ -102,8 +102,8 @@ const Page = ({ user }: PageProps) => {
         </Card>
 
         <Heading size="4">Relevant documents</Heading>
-        <DocumentList campaignId={campaign.id} />
-        <AddDocument size="1" mt="2" campaignId={campaign.id}>
+        <DocumentList campaignId={campaign?.id} />
+        <AddDocument size="1" mt="2" campaignId={campaign?.id}>
           Add documents
         </AddDocument>
       </Container>
