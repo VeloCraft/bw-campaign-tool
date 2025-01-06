@@ -13,7 +13,9 @@
     "plop": "NODE_OPTIONS='--experimental-strip-types --no-warnings' plop --plopfile=plopfile.ts",
     "add-component": "pnpm run plop component",
     "remove-component": "sh scripts/remove-component.sh",
-    "missing-stories": "node scripts/check-for-missing-stories.mjs"
+    "missing-stories": "node scripts/check-for-missing-stories.mjs",
+    "test-storybook": "test-storybook",
+    "prepare": "husky"
   },
   "dependencies": {
     "@auth/pg-adapter": "^1.7.4",
@@ -57,6 +59,7 @@
     "@storybook/nextjs": "^8.4.7",
     "@storybook/react": "^8.4.7",
     "@storybook/test": "^8.4.7",
+    "@storybook/test-runner": "^0.21.0",
     "@types/draft-js": "^0.11.18",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -67,6 +70,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.1.0",
     "eslint-plugin-storybook": "^0.11.2",
+    "husky": "^9.1.7",
     "plop": "^4.0.1",
     "postcss": "^8",
     "prettier": "^3.4.2",

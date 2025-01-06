@@ -4,7 +4,7 @@ import Form, { Field } from '@/components/Form';
 type ComponentProps = ButtonProps & {
   open: boolean;
   setOpen: (open: boolean) => void;
-  initialValues?: Record<string, string>;
+  initialValues?: Record<string, string | string[]>;
   onSubmit: (values: FormSubmission) => Promise<void>;
   onDelete?: () => Promise<void>;
   title: string;
@@ -23,6 +23,9 @@ const Component = ({
   roles,
   ...props
 }: ComponentProps) => {
+  const labels = roles?.map(
+    (role) => `${role.charAt(0).toUpperCase()}${role.slice(1)}`,
+  );
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
@@ -49,12 +52,11 @@ const Component = ({
             required
           />
           <Field
-            label="Role"
-            name="role"
-            type="select"
-            required
+            label="Roles"
+            name="roles"
+            type="checkboxGroup"
             values={roles}
-            labels={roles}
+            labels={labels}
             mb="6"
           />
         </Form>

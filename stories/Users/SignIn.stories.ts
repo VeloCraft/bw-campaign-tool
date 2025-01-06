@@ -18,6 +18,22 @@ export const WithDefaults = {
 
 export const WithValue = {
   args: {
-    title: faker.lorem.sentence(),
+    onComplete: () => {},
+  },
+} satisfies Story;
+
+export const WithAutofilledEmail = {
+  args: {
+    ...WithValue.args,
+    email: faker.internet.email(),
+  },
+} satisfies Story;
+
+export const WithAdditionalStyle = {
+  args: {
+    ...WithValue.args,
+    style: {
+      backgroundColor: 'red',
+    },
   },
 } satisfies Story;

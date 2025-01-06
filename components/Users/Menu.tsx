@@ -37,7 +37,7 @@ const Menu = () => {
     <>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <IconButton>
+          <IconButton data-testid="user-menu-button">
             <Avatar fallback={letter} src={user.photoURL} />
           </IconButton>
         </DropdownMenu.Trigger>

@@ -28,7 +28,6 @@ type ComponentProps = {
   noCancel?: boolean;
   onCancel?: () => void;
   disabled?: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   render?: (register: UseFormRegister<any>) => React.ReactNode;
   noSubmit?: boolean;
   enterToSubmit?: boolean;
@@ -59,7 +58,6 @@ const Component = ({
   const [submitting, setSubmitting] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = async (data: any) => {
     setError(null);
     setSubmitting(true);

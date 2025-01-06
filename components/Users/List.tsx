@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Heading, Flex, Box, Container, Table } from '@radix-ui/themes';
+import { Heading, Flex, Box, Container, Table, Badge } from '@radix-ui/themes';
 import SignInWrapper from '@/components/SignInWrapper';
 import { arrayRemove, arrayUnion } from 'firebase/firestore';
 import useUpdateDoc from '@/hooks/useUpdateDoc';
@@ -9,7 +9,21 @@ import Add from '@/components/Users/Add';
 import Edit from '@/components/Users/Edit';
 import useStatusUpdate from '@/hooks/useStatusUpdate';
 
-const List = () => {
+const roleColors = {
+  admin: 'red',
+  editor: 'blue',
+};
+
+type ListProps = {
+  user?: User;
+};
+
+type UserLine = {
+  roles: string[];
+  email: string;
+};
+
+const List = ({ user }: ListProps) => {
   const { data, loading } = useFirestoreDoc<AppRoles>('app/roles', true);
   const { data: permissions, loading: permsLoading } =
     useFirestoreDoc<AppPermissions>('app/permissions');
@@ -32,7 +46,6 @@ const List = () => {
     const newValues = {};
     if (oldRole) newValues[oldRole] = arrayRemove(email);
     if (role) newValues[role] = arrayUnion(email);
-    console.log({ oldRole, role, email, newValues });
     await onUpdateDoc(newValues);
     if (!del) onAddMessage({ message: 'User updated', variant: 'success' });
   };
@@ -58,29 +71,31 @@ const List = () => {
     onAddMessage({ message: 'User deleted', variant: 'success' });
   };
 
-  const [items, roles] = React.useMemo(() => {
-    if (!data || !permissions) return [[], []];
+  const [items, allRoles] = React.useMemo((): [UserLine[], Role[]] => {
+    if (!data || !permissions) return [[] as UserLine[], [] as Role[]];
     return [
       Object.keys(data)
-        .filter((key) => key !== 'id')
-        .reduce((acc, key) => {
-          return [
-            ...acc,
-            ...data[key].map((email: string) => ({
-              role: key,
-              email,
-              key: `${key}.${email}`,
-            })),
-          ];
-        }, [])
-        .sort((a, b) => a.email.localeCompare(b.email)),
-      Object.keys(permissions).filter((key) => key !== 'id'),
+        .filter((key: string) => key !== 'id')
+        .reduce((arr: UserLine[], key: string) => {
+          const emails = data[key];
+          if (!emails?.length) return arr;
+          return emails.reduce((_arr: UserLine[], email: string) => {
+            const user = _arr.find((u) => u.email === email);
+            if (user) {
+              user.roles.push(key);
+              return _arr;
+            }
+            return [..._arr, { email, roles: [key] }];
+          }, arr);
+        }, [] as UserLine[]),
+      Object.keys(permissions) as Role[],
     ];
   }, [permissions, data]);
 
   return (
     <SignInWrapper
       force
+      user={user}
       loading={loading || permsLoading}
       breadcrumbs={[{ label: 'Admin', href: '/admin' }, { label: 'Users' }]}
     >
@@ -88,7 +103,7 @@ const List = () => {
         <Flex direction="row" align="center" justify="center" mt="8">
           <Heading>Admin: Users</Heading>
           <Box flexGrow="1" />
-          <Add roles={roles} onAdd={onAdd}>
+          <Add roles={allRoles} onAdd={onAdd}>
             Add User
           </Add>
         </Flex>
@@ -101,17 +116,23 @@ const List = () => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {items.map(({ role, email, key }) => (
-              <Table.Row align="center" key={key}>
+            {items.map(({ roles, email }) => (
+              <Table.Row align="center" key={email}>
                 <Table.Cell>{email}</Table.Cell>
-                <Table.Cell>{role}</Table.Cell>
+                <Table.Cell>
+                  {roles.map((role) => (
+                    <Badge key={role} size="1" color={roleColors[role]}>
+                      {role.toUpperCase()}
+                    </Badge>
+                  ))}
+                </Table.Cell>
                 <Table.Cell>
                   <Edit
-                    roles={roles}
+                    allRoles={allRoles}
                     onUpdate={onUpdate}
                     onDelete={onDelete(email)}
                     email={email}
-                    role={role}
+                    roles={roles}
                     variant="soft"
                   >
                     Edit

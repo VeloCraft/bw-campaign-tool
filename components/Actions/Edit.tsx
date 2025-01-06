@@ -26,7 +26,7 @@ const Edit = ({ docId, ...props }: ButtonProps & { docId: string }) => {
       setOpen={setOpen}
       campaignId={campaignId}
       initialValues={initialValues}
-      onSubmit={onSubmit as any} // eslint-disable-line
+      onSubmit={onSubmit as any}  
       disabled={loading}
       title="Edit action"
       description="Update the details of the action"

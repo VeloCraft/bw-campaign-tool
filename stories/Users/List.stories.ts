@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import faker, { seed } from '@/.storybook/faker';
+import { seed, generate } from '@/.storybook/faker';
 import List from '@/components/Users/List';
 
 seed('Users/List');
@@ -16,8 +16,8 @@ export const WithDefaults = {
   args: {},
 } satisfies Story;
 
-export const WithValue = {
+export const WithUser = {
   args: {
-    title: faker.lorem.sentence(),
+    user: generate('user', { roles: ['admin'] }) as User,
   },
 } satisfies Story;

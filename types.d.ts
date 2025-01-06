@@ -61,9 +61,10 @@ type Goal = {
   id: string;
   name: string;
   description?: string;
-  status?: string;
+  status?: 'active' | 'complete';
   campaignId: string;
-  campaignName: string;
+  createdAt: Date;
+  updatedAt?: Date;
 };
 
 type Action = {
@@ -118,6 +119,8 @@ type MediaRecord = {
   width?: number;
 };
 
+type Role = 'admin' | 'editor';
+
 /*
  * Global app settings saved at 'app/{docId}')
  * in Firestore including a list of
@@ -125,15 +128,15 @@ type MediaRecord = {
  * campaign documents, and a definition of roles and permissions
  */
 type AppRoles = Partial<{
-  [role: string]: string[];
+  [role: Role]: string[];
 }>;
 
 type AppPermissions = Partial<{
-  [role: string]: string[];
+  [role: Role]: string[];
 }>;
 
 /*
  * Form submission and value types
  */
 type FormSubmission = { [k: string]: FormDataEntryValue };
-type FormValues = { [k: string]: any }; // eslint-disable-line @typescript-eslint/no-explicit-any
+type FormValues = { [k: string]: any };

@@ -7,12 +7,14 @@ import DateField from '@/components/Form/Date';
 import TextArea from '@/components/Form/TextArea';
 import DefaultField from '@/components/Form/Default';
 import Media from '@/components/Form/Media';
+import CheckboxGroup from '@/components/Form/CheckboxGroup';
 
 type ComponentProps = BoxProps & {
   name: string;
   type?:
     | 'select'
     | 'slider'
+    | 'checkboxGroup'
     | 'text'
     | 'number'
     | 'email'
@@ -47,6 +49,18 @@ const Component = ({ name, type, ...props }: ComponentProps) => {
         return <>Select fields must have values and labels</>;
       return (
         <Select
+          name={name}
+          defaultValue={defaultValue}
+          {...props}
+          values={props.values}
+          labels={props.labels}
+        />
+      );
+    case 'checkboxGroup':
+      if (!props.values || !props.labels)
+        return <>CheckboxGroup fields must have values and labels</>;
+      return (
+        <CheckboxGroup
           name={name}
           defaultValue={defaultValue}
           {...props}

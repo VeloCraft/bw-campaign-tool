@@ -22,9 +22,10 @@ const Component = ({ roles, onAdd, ...props }: AddProps) => {
       open={open}
       roles={roles}
       setOpen={setOpen}
-      onSubmit={onSubmit as any} // eslint-disable-line
+      onSubmit={onSubmit as any}
       title="Add a user role assignment"
       description="Enter the email and select a role."
+      data-testid="add-user-role-button"
       {...props}
     />
   );

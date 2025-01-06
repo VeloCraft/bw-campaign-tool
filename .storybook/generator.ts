@@ -5,10 +5,12 @@ import date from './dateGenerator';
 import campaign from './campaignGenerator';
 import action from './actionGenerator';
 import goal from './goalGenerator';
+import app from './appGenerator';
 
 const mediaTypes = ['image'];
 
 const itemTypes: { [key: string]: (opts: { [key: string]: any }) => any } = {
+  app,
   user,
   users: user,
   media,
