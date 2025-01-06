@@ -1,6 +1,6 @@
 {
   "name": "bw-campaign-tool",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,6 +15,7 @@
     "remove-component": "sh scripts/remove-component.sh",
     "missing-stories": "node scripts/check-for-missing-stories.mjs",
     "test-storybook": "test-storybook",
+    "commit-version-change": "git add package.json",
     "prepare": "husky"
   },
   "dependencies": {
