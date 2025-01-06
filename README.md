@@ -16,21 +16,56 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Running Storybook
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project uses `storybook` to develop and test components in isolation. To run storybook, use the following command:
 
-## Learn More
+```bash
+npm run storybook
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Managing components
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### To add a new component
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run add-component <ComponentDir>/<ComponentName>
+```
 
-## Deploy on Vercel
+This script uses `plop` to generate the following files:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `components/ComponentDir/ComponentName.tsx`
+- `stories/ComponentDir/ComponentName.stories.ts`
+  using preset templates found in `plop-templates/`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### To remove a component
+
+```bash
+npm run remove-component <ComponentDir>/<ComponentName>
+```
+
+## Developing and testing components
+
+After adding a new component, you can develop it in isolation using `storybook`. Once you are satisfied with the component, `storybook` provides its own testing mechanise to confirm that the component is working as expected.
+
+To test all components, use the following command:
+
+```bash
+npm run test-storybook
+```
+
+and to test a specific component or components, use one of the following commands:
+
+```bash
+npm run test-storybook -t stories/<ComponentDir>/<ComponentName>
+npm run test-storybook -t stories/<ComponentDir>/<ComponentName1> -t stories/<ComponentDir2>/<ComponentName2>
+npm run test-storybook -t stories/<ComponentDir>/{ComponentName1,ComponentName2}.*
+```
+
+## Committing changes
+
+This project uses `husky` to run tests before committing changes. If the tests fail, the commit will be aborted. To bypass this, use the `--no-verify` flag when committing changes:
+
+```bash
+git commit -m "Commit message" --no-verify
+```
