@@ -15,7 +15,7 @@
     "remove-component": "sh scripts/remove-component.sh",
     "missing-stories": "node scripts/check-for-missing-stories.mjs",
     "test-storybook": "test-storybook",
-    "commit-version-change": "git add package.json",
+    "commit-version-change": "git add package*.json",
     "prepare": "husky"
   },
   "dependencies": {
