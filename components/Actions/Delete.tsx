@@ -1,5 +1,3 @@
-//NOTE FOR AL - we could make Delete into a generic component that takes a collection name and a docId, and then deletes that doc from that collection. This would allow us to reuse the component for any collection we want to delete from.
-
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '@/helpers/firebase';
 import { Flex, Button, type ButtonProps, AlertDialog } from '@radix-ui/themes';
