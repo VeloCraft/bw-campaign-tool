@@ -7,12 +7,12 @@ type EditProps = ButtonProps & {
   onDelete: () => Promise<void>;
   roles?: string[];
   email: string;
-  role: string;
+  allRoles: string[];
 };
 
 const Edit = ({
   roles,
-  role,
+  allRoles,
   email,
   onDelete,
   onUpdate,
@@ -33,11 +33,12 @@ const Edit = ({
       open={open}
       setOpen={setOpen}
       onDelete={onDelete}
-      initialValues={{ email, role }}
-      onSubmit={onSubmit as any} // eslint-disable-line
-      roles={roles}
-      title="Edit user role"
-      description="Update the role of the user"
+      initialValues={{ email, roles }}
+      onSubmit={onSubmit as any}
+      roles={allRoles}
+      title="Edit user roles"
+      description="Update the roles of the user"
+      data-testid="edit-user-roles-button"
       {...props}
     />
   );

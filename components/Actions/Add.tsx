@@ -1,45 +1,32 @@
-//@/components/Goals/Add.tsx
 import React from 'react';
 import Form from '@/components/Actions/Form';
-
 import { db } from '@/helpers/firebase';
-
 import { addDoc, collection } from 'firebase/firestore';
 import { type ButtonProps } from '@radix-ui/themes';
 import useStatusUpdate from '@/hooks/useStatusUpdate';
+import UserContext from '@/contexts/User';
 
-type UserDetails = {
-  id: string;
-  name: string;
-  email: string;
+type AddProps = ButtonProps & {
+  campaign: Campaign;
 };
 
-const Add = ({
-  campaign,
-  user,
-  ...props
-}: ButtonProps & {
-  campaign: CampaignDetails;
-  user: UserDetails;
-}) => {
+const Add = ({ campaign, ...props }: AddProps) => {
+  const user = React.useContext(UserContext);
   const [open, setOpen] = React.useState(false);
-  const [resource, setResource] = React.useState(null);
   const onAddMessage = useStatusUpdate();
 
-  const onSubmit = async (values: Record<string, string>) => {
+  const onSubmit = async (values: Partial<Action>) => {
     const newValues = {
       ...values,
       createdAt: new Date(),
-      user: user,
-      campaign: campaign,
-      media: resource,
-    };
-
+      userId: user.id,
+      campaignId: campaign.id,
+    } satisfies Omit<Action, 'id'>;
     await addDoc(collection(db, 'actions'), newValues);
     onAddMessage({ message: 'Action added', variant: 'success' });
-    setResource(null);
     setOpen(false);
   };
+
 
   const initialValues = {
     action: null,
@@ -48,21 +35,19 @@ const Add = ({
     assigneeId: 'none',
   };
 
+  const onClose = () => setOpen(false);
+
   return (
     <Form
-      campaign={campaign}
+      data-testid="add-action-button"
       initialValues={initialValues}
+      campaignId={campaign.id}
       open={open}
       setOpen={setOpen}
-      resource={resource}
-      setResource={setResource}
-      onSubmit={onSubmit as any} // eslint-disable-line
+      onSubmit={onSubmit as any}
       title={`Add an action to ${campaign.name}`}
       description="Enter the details of the action"
-      onCancel={() => {
-        setResource(null);
-        setOpen(false);
-      }}
+      onCancel={onClose}
       {...props}
     />
   );

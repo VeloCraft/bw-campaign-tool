@@ -1,4 +1,14 @@
 /*
+ * Navigation items used in the AppWrapper component
+ */
+
+type NavLink = {
+  label: string;
+  href: string;
+  active?: (pathname: string) => boolean;
+};
+
+/*
  * Breadcrumbs used in the AppWrapper component
  */
 
@@ -15,8 +25,8 @@ type User = {
   id: string;
   email: string;
   roles: string[];
-  displayName: string;
-  photoURL: string;
+  displayName?: string;
+  photoURL?: string;
   avatar?: string;
 };
 
@@ -36,14 +46,12 @@ type Campaign = {
   id: string;
   name: string;
   description?: string;
-  status?: string;
+  status?: 'active' | 'inactive';
   contribution?: string;
   goals?: Goal[];
-};
-
-type CampaignDetails = {
-  name?: string;
-  id?: string;
+  userId: string;
+  updatedAt?: Date;
+  createdAt: Date;
 };
 
 /*
@@ -53,28 +61,41 @@ type Goal = {
   id: string;
   name: string;
   description?: string;
-  status?: string;
+  status?: 'active' | 'complete';
   campaignId: string;
-  campaignName: string;
+  createdAt: Date;
+  updatedAt?: Date;
 };
 
 type Action = {
   id: string;
   action?: string;
   createdAt?: Date;
+  updatedAt?: Date;
   dateSet?: Date;
-  campaign?: {
-    id?: string;
-    name?: string;
-  };
-  user?: {
-    id?: string;
-    name?: string | null;
-    email?: string;
-  };
-  status?: 'pending' | 'completed' | 'in progress';
-  assigneeId?: string;
-  media: MediaRecord;
+  status?: 'pending' | 'in progress' | 'completed';
+  campaignId?: string;
+  userId?: string;
+  media?: Media;
+};
+
+type Media = {
+  asset_id: string; // Unique identifier for the media in Cloudinary
+  version: number;
+  public_id: string; // Unique identifier for the media in Cloudinary
+  type: 'upload';
+  asset_folder: string; // Folder in which the media is stored in Cloudinary
+  original_filename?: string; // Original name of the uploaded file
+  display_name?: string; // Name of the media file
+  url: string; // URL to access the uploaded media
+  secure_url: string; // URL to access the uploaded media
+  resource_type: 'image' | 'raw'; // Type of resource
+  width?: number; // Media width (for images/videos)
+  height?: number; // Media height (for images/videos)
+  format?: string; // File format, e.g., jpg, mp4
+  bytes?: number; // File size in bytes
+  created_at?: string; // Upload timestamp
+  //[key: string]: any; // Allow for additional properties returned by Cloudinary
 };
 
 type MediaRecord = {
@@ -99,6 +120,10 @@ type MediaRecord = {
   width?: number;
 };
 
+
+type Role = 'admin' | 'editor';
+
+
 /*
  * Global app settings saved at 'app/{docId}')
  * in Firestore including a list of
@@ -106,15 +131,15 @@ type MediaRecord = {
  * campaign documents, and a definition of roles and permissions
  */
 type AppRoles = Partial<{
-  [role: string]: string[];
+  [role: Role]: string[];
 }>;
 
 type AppPermissions = Partial<{
-  [role: string]: string[];
+  [role: Role]: string[];
 }>;
 
 /*
  * Form submission and value types
  */
 type FormSubmission = { [k: string]: FormDataEntryValue };
-type FormValues = { [k: string]: any }; // eslint-disable-line @typescript-eslint/no-explicit-any
+type FormValues = { [k: string]: any };

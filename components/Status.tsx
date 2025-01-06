@@ -19,11 +19,13 @@ const Messages = () => {
   const { status, onClearStatus } =
     React.useContext<StatusContextProps>(StatusContext);
 
+  const onClose = () => setOpen(false);
+
   React.useEffect(() => {
     if (status) {
       setMessage(status.message);
       setVariant(status.variant);
-      setDuration(status.duration || 3000);
+      setDuration(status.duration === 0 ? 0 : status.duration || 3000);
       setOpen(true);
     }
   }, [status]);
@@ -33,7 +35,7 @@ const Messages = () => {
       setOpen(false);
     },
     duration || 3000,
-    open,
+    duration !== 0 && open,
   );
 
   useTimeoutWhen(
@@ -69,6 +71,7 @@ const Messages = () => {
             right="0"
             p="4"
             style={{ zIndex: 1000 }}
+            onClick={onClose}
           >
             <Toast.Description asChild>
               <Callout.Root size="3" color={color}>

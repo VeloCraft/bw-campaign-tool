@@ -1,35 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react'
 import { Dialog, Button, type ButtonProps } from '@radix-ui/themes';
 import Form, { Field } from '@/components/Form';
-import MediaField from '@/components/Actions/MediaField';
-import { CloudinaryUploadWidgetInfo } from '@cloudinary-util/types';
 
 type ComponentProps = ButtonProps & {
-  campaign?: CampaignDetails;
+  campaignId: string;
   open: boolean;
   setOpen: (open: boolean) => void;
   onCancel?: () => void;
-  initialValues?: Record<string, string | Date>;
+
+  initialValues?: Omit<Action, 'id'>;
   onSubmit: (values: FormSubmission) => Promise<void>;
   title: string;
   description: string;
-  resource?: CloudinaryUploadWidgetInfo;
-  setResource?: (resource: CloudinaryUploadWidgetInfo) => void;
 };
 
 const Component = ({
-  campaign,
-  resource,
-  setResource,
+
+  campaignId,
   open,
   setOpen,
-  initialValues = {},
+  initialValues,
   onSubmit,
   title,
   description,
   ...props
 }: ComponentProps) => {
-  const [selectedValue, setSelectedValue] = useState(null);
+  const [selectedValue, setSelectedValue] = React.useState(null);
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
@@ -73,10 +69,12 @@ const Component = ({
               required
             />
           )}
-          <MediaField
-            setResource={setResource}
-            resource={resource}
-            options={{ tags: [campaign?.id] }}
+          <Field
+            label="Upload media"
+            name="media"
+            type="media"
+            resourceType="image"
+            tags={[campaignId]}
           />
         </Form>
       </Dialog.Content>

@@ -4,7 +4,7 @@ import Form, { Field } from '@/components/Form';
 type ComponentProps = ButtonProps & {
   open: boolean;
   setOpen: (open: boolean) => void;
-  initialValues?: Record<string, string>;
+  initialValues?: Partial<Campaign>;
   onSubmit: (values: FormSubmission) => Promise<void>;
   title: string;
   description: string;
@@ -47,7 +47,11 @@ const Component = ({
             values={['active', 'inactive']}
             labels={['Active', 'Inactive']}
           />
-          <Field name="contribution" label="Describe how other activists can support the campaign" type="textarea" />
+          <Field
+            name="contribution"
+            label="Describe how other activists can support the campaign"
+            type="textarea"
+          />
         </Form>
       </Dialog.Content>
     </Dialog.Root>

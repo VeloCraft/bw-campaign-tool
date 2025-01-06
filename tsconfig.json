@@ -27,6 +27,8 @@
     "types.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    ".storybook/**/*.ts",
+    ".storybook/**/*.tsx",
     ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]

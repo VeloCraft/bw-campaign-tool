@@ -1,0 +1,23 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import faker, { seed } from '@/.storybook/faker';
+import {{component}} from '@/components/{{componentName}}';
+
+seed('{{componentName}}');
+
+const meta = {
+  title: '{{componentName}}',
+  component: {{component}},
+} satisfies Meta<typeof {{component}}>;
+
+export default meta;
+type Story = StoryObj<typeof {{component}}>;
+
+export const WithDefaults = {
+  args: {},
+} satisfies Story;
+
+export const WithValue = {
+  args: {
+    title: faker.lorem.sentence(),
+  },
+} satisfies Story;

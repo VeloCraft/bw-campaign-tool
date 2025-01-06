@@ -1,4 +1,3 @@
-
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '@/helpers/firebase';
 import { Flex, Button, type ButtonProps, AlertDialog } from '@radix-ui/themes';
@@ -13,10 +12,10 @@ const Delete = ({ docId, ...props }: ButtonProps & { docId: string }) => {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button {...props} />
+        <Button data-testid="delete-document-button" {...props} />
       </AlertDialog.Trigger>
       <AlertDialog.Content>
-        <AlertDialog.Title>Delete this document reference? If the document is not referenced in other campaigns it will be removed</AlertDialog.Title>
+        <AlertDialog.Title>Delete this document?</AlertDialog.Title>
         <AlertDialog.Description>
           This action cannot be undone.
         </AlertDialog.Description>

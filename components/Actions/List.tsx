@@ -1,26 +1,22 @@
 'use client';
 
-import { Text, Flex, Table } from '@radix-ui/themes';
-import { Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
-import Delete from '@/components/Actions/Delete';
-import Edit from '@/components/Actions/Edit';
+import { Table } from '@radix-ui/themes';
 import { where, orderBy, limit } from 'firebase/firestore';
 import useFirestoreCollection from '@/hooks/useFirestoreCollection';
 import { useParams } from 'next/navigation';
-import StatusBadge from '@/components/StatusBadge';
+
+import ListItem from '@/components/Actions/ListItem';
+
 
 const List = () => {
-  const { id }: { id: string } = useParams();
+  const { id: campaignId }: { id: string } = useParams();
   const { data: actions, loading } = useFirestoreCollection<Action>(
-    id ? 'actions' : null,
+    campaignId ? 'actions' : null,
     true,
-    where('campaign.id', '==', id),
+    where('campaignId', '==', campaignId),
     orderBy('createdAt', 'desc'),
     limit(5),
   );
-
-  if (loading) return null;
-  if (actions?.length === 0) return <Text>No actions found</Text>;
 
   return (
     <Table.Root>
@@ -36,29 +32,17 @@ const List = () => {
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {actions?.map((action) => (
-          <Table.Row key={action.id}>
-            <Table.Cell>
-              <StatusBadge status={action?.status} />
-            </Table.Cell>
-            <Table.Cell>{action.action}</Table.Cell>
-            <Table.Cell>
-              {/* action.dateSet.toISOString().split('T')[0] || 'N/A'*/}
-            </Table.Cell>
-            <Table.Cell>{action.assigneeId || 'None'}</Table.Cell>
-            <Table.Cell>{action.user.name || action.user.email}</Table.Cell>
-            <Table.Cell>
-              <Flex direction="row" align="center" gap="2">
-                <Delete docId={action.id} variant="soft" color="red">
-                  <TrashIcon />
-                </Delete>
-                <Edit docId={action.id} variant="soft" color="gray">
-                  <Pencil2Icon />
-                </Edit>
-              </Flex>
-            </Table.Cell>
-          </Table.Row>
-        ))}
+
+        {!campaignId || actions?.length === 0 ? (
+          <ListItem />
+        ) : loading ? (
+          <ListItem loading />
+        ) : (
+          actions?.map((action) => (
+            <ListItem key={action.id} docId={action.id} {...action} />
+          ))
+        )}
+
       </Table.Body>
     </Table.Root>
   );

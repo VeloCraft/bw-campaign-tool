@@ -7,19 +7,24 @@ import UserSelect from '@/components/Form/UserSelect';
 import DateField from '@/components/Form/Date';
 import TextArea from '@/components/Form/TextArea';
 import DefaultField from '@/components/Form/Default';
+import Media from '@/components/Form/Media';
+import CheckboxGroup from '@/components/Form/CheckboxGroup';
 
 export type ComponentProps = BoxProps & {
   name: string;
   type?:
     | 'select'
     | 'slider'
+    | 'checkboxGroup'
     | 'text'
     | 'number'
     | 'email'
     | 'password'
     | 'textarea'
     | 'date'
-    | 'userSelect';
+    | 'userSelect'
+    | 'media';
+
   label: string;
   placeholder?: string;
   defaultValue?: string;
@@ -32,6 +37,8 @@ export type ComponentProps = BoxProps & {
   min?: number;
   max?: number;
   step?: number;
+  tags?: string[];
+  resourceType?: 'image' | 'raw';
 };
 
 const Component = ({ name, type, ...props }: ComponentProps) => {
@@ -43,9 +50,21 @@ const Component = ({ name, type, ...props }: ComponentProps) => {
       return <Slider name={name} defaultValue={defaultValue} {...props} />;
     case 'select':
       if (!props.values || !props.labels)
-        return 'Select fields must have values and labels';
+        return <>Select fields must have values and labels</>;
       return (
         <Select
+          name={name}
+          defaultValue={defaultValue}
+          {...props}
+          values={props.values}
+          labels={props.labels}
+        />
+      );
+    case 'checkboxGroup':
+      if (!props.values || !props.labels)
+        return <>CheckboxGroup fields must have values and labels</>;
+      return (
+        <CheckboxGroup
           name={name}
           defaultValue={defaultValue}
           {...props}
@@ -59,6 +78,8 @@ const Component = ({ name, type, ...props }: ComponentProps) => {
       return <TextArea name={name} defaultValue={defaultValue} {...props} />;
     case 'userSelect':
       return <UserSelect name={name} defaultValue={defaultValue} {...props} />;
+    case 'media':
+      return <Media name={name} defaultValue={defaultValue} {...props} />;
     default:
       return (
         <DefaultField name={name} defaultValue={defaultValue} {...props} />

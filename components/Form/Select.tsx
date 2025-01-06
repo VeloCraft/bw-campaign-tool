@@ -47,7 +47,7 @@ const Component = ({
           </Form.Label>
           <Form.Control required={required} asChild>
             <Select.Root
-              defaultValue={defaultValue}
+              value={defaultValue}
               disabled={disabled}
               size="3"
               {...selectProps}

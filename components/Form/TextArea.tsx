@@ -37,6 +37,7 @@ const Component = ({
             defaultValue={defaultValue as string}
             size="3"
             mb="4"
+            resize="vertical"
             {...textAreaProps}
           />
         </Form.Control>

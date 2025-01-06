@@ -28,8 +28,13 @@ const Delete = ({
     <Form.Submit asChild>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <Button variant="outline" color="red" {...buttonProps}>
-            {label}
+          <Button
+            data-testid="form-delete-button"
+            variant="outline"
+            color="red"
+            {...buttonProps}
+          >
+            {label || buttonProps.children}
           </Button>
         </AlertDialog.Trigger>
         <AlertDialog.Content maxWidth="450px">

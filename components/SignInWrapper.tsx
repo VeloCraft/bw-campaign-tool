@@ -21,6 +21,7 @@ type SignInWrapperProps = {
   role?: string;
   breadcrumbs?: Breadcrumb[];
   permissions?: string[];
+  user?: User;
 };
 
 const SignInWrapper = ({
@@ -30,8 +31,9 @@ const SignInWrapper = ({
   role,
   breadcrumbs,
   permissions,
+  user: _user,
 }: SignInWrapperProps) => {
-  const [user, _loading] = useUser(true);
+  const [user, _loading] = useUser(_user, true);
   const searchParams = useSearchParams();
   const [sent, setSent] = React.useState(false);
   const [email, setEmail] = useLocalstorageState('bwcampaigns:email', '');
@@ -65,16 +67,12 @@ const SignInWrapper = ({
   );
 
   if (_loading || permsLoading) {
-    return <AppWrapper breadcrumbs={breadcrumbs} variant="centered" loading />;
+    return <AppWrapper breadcrumbs={breadcrumbs} loading />;
   }
 
   if (sent) {
     return (
-      <AppWrapper
-        breadcrumbs={breadcrumbs}
-        loading={loading}
-        variant="centered"
-      >
+      <AppWrapper breadcrumbs={breadcrumbs} loading={loading}>
         <Container size="1" align="center">
           <Heading align="center" my="8" as="h1">
             Check your inbox
@@ -89,11 +87,7 @@ const SignInWrapper = ({
 
   if (!isSignedIn && force) {
     return (
-      <AppWrapper
-        breadcrumbs={breadcrumbs}
-        loading={loading}
-        variant="centered"
-      >
+      <AppWrapper breadcrumbs={breadcrumbs} loading={loading}>
         <Container size="1" align="center">
           <Heading as="h1" my="8" align="center">
             Please sign in to continue
@@ -110,14 +104,11 @@ const SignInWrapper = ({
 
   if (
     isSignedIn &&
-    ((role && !user?.roles.includes(role)) || (permissions && !isAllowed))
+    ((role && !user?.roles?.includes('admin') && !user?.roles.includes(role)) ||
+      (permissions && !isAllowed))
   ) {
     return (
-      <AppWrapper
-        breadcrumbs={breadcrumbs}
-        loading={loading}
-        variant="centered"
-      >
+      <AppWrapper breadcrumbs={breadcrumbs} loading={loading}>
         <Container size="1" align="center">
           <Heading as="h1" my="8" align="center">
             You do not have permission to view this page

@@ -3,8 +3,6 @@ import { Jost } from 'next/font/google';
 import Wrapper from '@/components/Wrapper';
 import Theme from '@/components/Theme';
 
-
-
 export const metadata: Metadata = {
   title: 'Bike Worcester Campaigns',
   description: 'Tools for managing local active travel campaigns',
@@ -32,7 +30,7 @@ export default function RootLayout({
         className={`${jostSans.variable} ${jostMono.variable} antialiased`}
         style={{ margin: 0 }}
       >
-        <Wrapper withUser>{children}</Wrapper>
+        <Wrapper>{children}</Wrapper>
       </Theme>
     </html>
   );
