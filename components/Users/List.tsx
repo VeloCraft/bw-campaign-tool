@@ -88,7 +88,7 @@ const List = ({ user }: ListProps) => {
             return [..._arr, { email, roles: [key] }];
           }, arr);
         }, [] as UserLine[]),
-      Object.keys(permissions) as Role[],
+      Object.keys(permissions).filter((key) => key !== 'id') as Role[],
     ];
   }, [permissions, data]);
 
