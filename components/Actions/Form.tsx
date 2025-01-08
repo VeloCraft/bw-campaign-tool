@@ -25,7 +25,7 @@ const Component = ({
   description,
   ...props
 }: ComponentProps) => {
-  const [selectedValue, setSelectedValue] = React.useState(null);
+  const [selectedValue, setSelectedValue] = React.useState(initialValues?.assigneeId || 'none');
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
