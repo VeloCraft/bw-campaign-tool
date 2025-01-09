@@ -1,5 +1,11 @@
 import React from 'react';
-import { Progress, Separator, Box, Flex } from '@radix-ui/themes';
+import {
+  Progress,
+  Separator,
+  Box,
+  Flex,
+  type BoxProps,
+} from '@radix-ui/themes';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Wrapper from '@/components/Wrapper';
 import Logo from '@/components/Logo';
@@ -10,6 +16,7 @@ type AppWrapperProps = {
   actions?: React.ReactNode;
   children?: React.ReactNode;
   loading?: boolean;
+  innerProps?: BoxProps;
 };
 
 const AppWrapper = ({
@@ -17,6 +24,7 @@ const AppWrapper = ({
   actions,
   children,
   loading,
+  innerProps = {},
 }: AppWrapperProps) => {
   return (
     <Wrapper>
@@ -44,7 +52,7 @@ const AppWrapper = ({
         </Box>
       </Flex>
       <Box height="calc(100% - 64px)" width="100%">
-        <Box height="100%" p="4">
+        <Box height="100%" p="4" {...innerProps}>
           {children}
         </Box>
       </Box>
