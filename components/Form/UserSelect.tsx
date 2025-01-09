@@ -16,10 +16,6 @@ type ComponentProps = {
 const Component = (props: ComponentProps) => {
   const { data: users, loading } = useFirestoreCollection<User>('users');
 
-  if (loading) {
-    return <Select values={['none']} labels={['None']} {...props} />;
-  }
-
   const values_default: string[] = props.other ? ['none', 'other'] : ['none'];
   const labels_default: string[] = props.other
     ? ['None', 'Other - please specify']
@@ -27,6 +23,7 @@ const Component = (props: ComponentProps) => {
 
   return (
     <Select
+      disabled={loading}
       values={[...users?.map((user) => user.id), ...values_default]}
       labels={[
         ...users?.map((user) => user.displayName || user.email),

@@ -27,12 +27,11 @@ const Add = ({ campaign, ...props }: AddProps) => {
     setOpen(false);
   };
 
-
   const initialValues = {
     action: null,
     dateSet: new Date(),
     status: 'pending',
-    assigneeId: 'none',
+    assigneeId: null,
   };
 
   const onClose = () => setOpen(false);
