@@ -15,7 +15,6 @@ type ComponentProps = ButtonProps & {
 };
 
 const Component = ({
-
   campaignId,
   open,
   setOpen,
@@ -25,7 +24,7 @@ const Component = ({
   description,
   ...props
 }: ComponentProps) => {
-  const [selectedValue, setSelectedValue] = React.useState(null);
+  //const [selectedValue, setSelectedValue] = React.useState(null);
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
@@ -58,17 +57,15 @@ const Component = ({
             type="userSelect"
             label="Assignee"
             name="assigneeId"
-            other={true}
-            onChange={(e) => setSelectedValue(e.target.value)}
+            onChange={(e) => console.log(e.target.value)}
           />
-          {selectedValue === 'other' && (
+          {/*selectedValue === 'other' && (
             <Field
               label="Assignee email"
               name="assigneeEmail"
               type="email"
-              required
             />
-          )}
+          )*/}
           <Field
             label="Upload media"
             name="media"

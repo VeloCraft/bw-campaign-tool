@@ -10,6 +10,8 @@ const generate = () =>
     dateSet: generateDate() as Date,
     campaignId: faker.string.uuid(),
     userId: faker.string.uuid(),
+    assigneeId: 'none' as string,
+    status: 'pending' as 'pending' | 'in progress' | 'completed',
     media: generateMedia({ type: 'image' }) as Media,
   }) satisfies Action;
 

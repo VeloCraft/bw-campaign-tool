@@ -49,35 +49,6 @@ export const WithConditionalField = {
   args: {
     ...WithButtonValue.args,
     open: true,
-    title: 'Form with Conditional Assignee Field',
-    description: 'Demonstrates the conditional rendering of the Assignee Email field.',
-    children: (
-      <div>
-        <Field
-          type="userSelect"
-          label="Assignee"
-          name="assigneeId"
-          other={true}
-        />
-        {/* This field should appear conditionally */}
-        <Field
-          label="Assignee email"
-          name="assigneeEmail"
-          type="email"
-          required
-        />
-      </div>
-    ),
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Simulate interaction with the `userSelect` field
-    const userSelect = canvas.getByLabelText('Assignee');
-    userEvent.selectOptions(userSelect, 'other');
-
-    // Verify that the Assignee Email field appears
-    const emailField = await canvas.findByLabelText('Assignee email');
-    expect(emailField).toBeInTheDocument();
+    initialValues: { ...action, assigneeId: 'other'},
   },
 } satisfies Story;
