@@ -53,7 +53,10 @@ const Page = ({ user }: PageProps) => {
             color="green"
             size="1"
             loading={loading}
-            {...campaign}
+            name={campaign?.name}
+            description={campaign?.description}
+            status={campaign?.status}
+            contribution={campaign?.contribution}
           >
             Edit campaign
           </Edit>

@@ -24,13 +24,12 @@ const ListItem = ({
     `users/${userId}`,
   );
 
-    const { data: assignee, loading: assigneeLoading } = useFirestoreDoc<User>(
+  const { data: assignee, loading: assigneeLoading } = useFirestoreDoc<User>(
     `users/${assigneeId}`,
   );
 
-
   const dateStr = React.useMemo(() => dateSet?.toLocaleDateString(), [dateSet]);
-  const loading = _loading  || userLoading || assigneeLoading;
+  const loading = _loading || userLoading || assigneeLoading;
   if (loading)
     return (
       <Table.Row>
@@ -48,7 +47,7 @@ const ListItem = ({
   return (
     <Table.Row>
       <Table.Cell>
-          <StatusBadge status={status} />
+        <StatusBadge status={status} />
       </Table.Cell>
       <Table.Cell>{action}</Table.Cell>
       <Table.Cell>{dateStr}</Table.Cell>
