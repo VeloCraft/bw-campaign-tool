@@ -24,11 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning style={{ height: '100dvh' }}>
       <Theme
         wrapper="body"
         className={`${jostSans.variable} ${jostMono.variable} antialiased`}
-        style={{ margin: 0 }}
+        style={{ margin: 0, height: '100dvh' }}
       >
         <Wrapper>{children}</Wrapper>
       </Theme>

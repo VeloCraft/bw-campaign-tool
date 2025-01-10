@@ -1,6 +1,13 @@
 'use client';
 import React from 'react';
-import { Container, Link, Text, Heading, Dialog } from '@radix-ui/themes';
+import {
+  Container,
+  Link,
+  Text,
+  Heading,
+  Dialog,
+  type BoxProps,
+} from '@radix-ui/themes';
 import { auth } from '@/helpers/firebase';
 import { isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth';
 import { useLocalstorageState } from 'rooks';
@@ -22,6 +29,7 @@ type SignInWrapperProps = {
   breadcrumbs?: Breadcrumb[];
   permissions?: string[];
   user?: User;
+  innerProps?: BoxProps;
 };
 
 const SignInWrapper = ({
@@ -32,6 +40,7 @@ const SignInWrapper = ({
   breadcrumbs,
   permissions,
   user: _user,
+  innerProps = {},
 }: SignInWrapperProps) => {
   const [user, _loading] = useUser(_user, true);
   const searchParams = useSearchParams();
@@ -67,12 +76,18 @@ const SignInWrapper = ({
   );
 
   if (_loading || permsLoading) {
-    return <AppWrapper breadcrumbs={breadcrumbs} loading />;
+    return (
+      <AppWrapper innerProps={innerProps} breadcrumbs={breadcrumbs} loading />
+    );
   }
 
   if (sent) {
     return (
-      <AppWrapper breadcrumbs={breadcrumbs} loading={loading}>
+      <AppWrapper
+        innerProps={innerProps}
+        breadcrumbs={breadcrumbs}
+        loading={loading}
+      >
         <Container size="1" align="center">
           <Heading align="center" my="8" as="h1">
             Check your inbox
@@ -87,7 +102,11 @@ const SignInWrapper = ({
 
   if (!isSignedIn && force) {
     return (
-      <AppWrapper breadcrumbs={breadcrumbs} loading={loading}>
+      <AppWrapper
+        innerProps={innerProps}
+        breadcrumbs={breadcrumbs}
+        loading={loading}
+      >
         <Container size="1" align="center">
           <Heading as="h1" my="8" align="center">
             Please sign in to continue
@@ -108,7 +127,11 @@ const SignInWrapper = ({
       (permissions && !isAllowed))
   ) {
     return (
-      <AppWrapper breadcrumbs={breadcrumbs} loading={loading}>
+      <AppWrapper
+        innerProps={innerProps}
+        breadcrumbs={breadcrumbs}
+        loading={loading}
+      >
         <Container size="1" align="center">
           <Heading as="h1" my="8" align="center">
             You do not have permission to view this page
@@ -123,6 +146,7 @@ const SignInWrapper = ({
       <AppWrapper
         breadcrumbs={breadcrumbs}
         loading={loading}
+        innerProps={innerProps}
         actions={
           <>
             {!isSignedIn && (

@@ -16,7 +16,14 @@ const Inner = ({ children }: { children: any }) => {
 
 const Wrapper = ({ children }: { children: any }) => {
   return (
-    <Flex width="100%" direction="column" justify="start" align="start">
+    <Flex
+      height="100dvh"
+      width="100%"
+      direction="column"
+      justify="start"
+      align="start"
+      overflowY="auto"
+    >
       <Inner>{children}</Inner>
     </Flex>
   );
