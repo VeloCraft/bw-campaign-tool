@@ -11,7 +11,7 @@ const generate = () =>
     campaignId: faker.string.uuid(),
     userId: faker.string.uuid(),
     assigneeId: 'none' as string,
-    status: 'pending' as 'pending' | 'in progress' | 'completed',
+    status: 'pending' as 'pending' | 'inprogress' | 'complete',
     media: generateMedia({ type: 'image' }) as Media,
   }) satisfies Action;
 
