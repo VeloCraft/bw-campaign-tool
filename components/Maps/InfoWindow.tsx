@@ -1,13 +1,22 @@
 import React from 'react';
+import { InfoWindow, type InfoWindowProps } from '@vis.gl/react-google-maps';
+import { Theme } from '@radix-ui/themes';
 
-type InfoWindowProps = {
-  title?: string;
-};
-
-const InfoWindow = ({ title = 'Hello world' }: InfoWindowProps) => {
+const Component = ({
+  children,
+  headerContent,
+  ...props
+}: React.PropsWithChildren<InfoWindowProps>) => {
   return (
-    <div>{title}</div>
+    <InfoWindow
+      {...props}
+      headerContent={
+        headerContent ? <Theme appearance="light">{headerContent}</Theme> : null
+      }
+    >
+      <Theme appearance="light">{children}</Theme>
+    </InfoWindow>
   );
 };
 
-export default InfoWindow;
+export default Component;

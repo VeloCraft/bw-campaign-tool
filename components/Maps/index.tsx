@@ -15,7 +15,7 @@ const Component = ({
     <>
       {header}
       <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
-        <Box height="100%">
+        <Box flexGrow="1">
           <GoogleMap
             mapId={process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID}
             defaultZoom={13}
