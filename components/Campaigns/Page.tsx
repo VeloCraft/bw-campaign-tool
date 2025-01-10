@@ -39,7 +39,7 @@ const Page = ({ user }: PageProps) => {
         },
       ]}
     >
-      <Container size="3">
+      <Container size="3" pb="6">
         <Flex direction="row" align="center" gap="2" mt="8">
           <Heading>{campaign?.name}</Heading>
 
@@ -104,7 +104,7 @@ const Page = ({ user }: PageProps) => {
           </AddAction>
         </Card>
 
-        <Heading size="4">Relevant documents</Heading>
+        <Heading mt="2" size="4">Relevant documents</Heading>
         <DocumentList campaignId={campaign?.id} />
         <AddDocument size="1" mt="2" campaignId={campaign?.id}>
           Add documents
