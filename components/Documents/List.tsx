@@ -29,7 +29,11 @@ const List = ({ campaignId }: ListProps) => {
         </Table.Header>
         <Table.Body>
           {documents?.map((document) => (
-            <Item key={document.id} docId={document.id} {...document} />
+            <Item
+              key={document.id}
+              docId={document.id}
+              {...document}
+            />
           ))}
         </Table.Body>
       </Table.Root>

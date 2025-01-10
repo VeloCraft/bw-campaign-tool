@@ -38,7 +38,7 @@ const List = () => {
         ) : loading ? (
           <ListItem loading />
         ) : (
-          actions?.map((action) => (
+          actions?.map(({createdAt, updatedAt, ...action}) => (
             <ListItem key={action.id} docId={action.id} {...action} />
           ))
         )}

@@ -29,8 +29,8 @@ const List = ({ goals = [], loading, docId }: ListProps) => {
           ) : loading ? (
             <ListItem loading />
           ) : (
-            goals?.map((goal) => (
-              <ListItem key={goal.id} goals={goals} goal={goal} docId={docId} />
+            goals?.map(({updatedAt,...goal}) => (
+              <ListItem key={goal.id} goals={goals} goal={...goal} docId={docId} />
             ))
           )}
         </Table.Body>

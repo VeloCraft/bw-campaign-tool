@@ -18,6 +18,9 @@ const ListItem = ({
   action,
   userId,
   assigneeId,
+  updatedAt,
+  createdAt,
+  assigneeEmail,
   loading: _loading,
 }: Partial<ListItemProps>) => {
   const { data: user, loading: userLoading } = useFirestoreDoc<User>(
@@ -52,7 +55,7 @@ const ListItem = ({
       <Table.Cell>{action}</Table.Cell>
       <Table.Cell>{dateStr}</Table.Cell>
       <Table.Cell>{user.displayName || user.email}</Table.Cell>
-      <Table.Cell>{assignee.displayName || assignee.email}</Table.Cell>
+      <Table.Cell>{assigneeId != 'other' ? (assignee.displayName || assignee.email) : assigneeEmail}</Table.Cell>
       <Table.Cell>
         <Flex direction="row" align="center" gap="2">
           <Edit docId={docId} variant="soft" color="green">
