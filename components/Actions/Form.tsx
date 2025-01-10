@@ -24,7 +24,7 @@ const Component = ({
   description,
   ...props
 }: ComponentProps) => {
-  //const [selectedValue, setSelectedValue] = React.useState(null);
+  const [selectedValue, setSelectedValue] = React.useState(null);
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
@@ -49,23 +49,23 @@ const Component = ({
             label="Status"
             name="status"
             type="select"
-            values={['pending', 'in progress', 'completed']}
-            labels={['Pending', 'In progress', 'Completed']}
+            values={['pending', 'inprogress', 'complete']}
+            labels={['Pending', 'In progress', 'Complete']}
             required
           />
           <Field
             type="userSelect"
             label="Assignee"
             name="assigneeId"
-            onChange={(e) => console.log(e.target.value)}
+            onChange={(e) => setSelectedValue(e.target.value)}
           />
-          {/*selectedValue === 'other' && (
+          {selectedValue === 'other' && (
             <Field
               label="Assignee email"
               name="assigneeEmail"
               type="email"
             />
-          )*/}
+          )}
           <Field
             label="Upload media"
             name="media"

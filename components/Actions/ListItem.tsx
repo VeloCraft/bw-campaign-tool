@@ -4,6 +4,7 @@ import Delete from '@/components/Actions/Delete';
 import Edit from '@/components/Actions/Edit';
 import useFirestoreDoc from '@/hooks/useFirestoreDoc';
 import { Skeleton, Flex, Table } from '@radix-ui/themes';
+import StatusBadge from '@/components/StatusBadge';
 
 type ListItemProps = {
   docId: string;
@@ -12,19 +13,24 @@ type ListItemProps = {
 
 const ListItem = ({
   docId,
-  campaignId,
+  status,
   dateSet,
   action,
   userId,
+  assigneeId,
   loading: _loading,
 }: Partial<ListItemProps>) => {
-  const { data: campaign, loading: campaignLoading } =
-    useFirestoreDoc<Campaign>(`campaigns/${campaignId}`);
   const { data: user, loading: userLoading } = useFirestoreDoc<User>(
     `users/${userId}`,
   );
+
+    const { data: assignee, loading: assigneeLoading } = useFirestoreDoc<User>(
+    `users/${assigneeId}`,
+  );
+
+
   const dateStr = React.useMemo(() => dateSet?.toLocaleDateString(), [dateSet]);
-  const loading = _loading || campaignLoading || userLoading;
+  const loading = _loading  || userLoading || assigneeLoading;
   if (loading)
     return (
       <Table.Row>
@@ -41,10 +47,13 @@ const ListItem = ({
     );
   return (
     <Table.Row>
+      <Table.Cell>
+          <StatusBadge status={status} />
+      </Table.Cell>
       <Table.Cell>{action}</Table.Cell>
       <Table.Cell>{dateStr}</Table.Cell>
-      <Table.Cell>{campaign.name}</Table.Cell>
       <Table.Cell>{user.displayName || user.email}</Table.Cell>
+      <Table.Cell>{assignee.displayName || assignee.email}</Table.Cell>
       <Table.Cell>
         <Flex direction="row" align="center" gap="2">
           <Edit docId={docId} variant="soft" color="green">

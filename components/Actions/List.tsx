@@ -26,9 +26,9 @@ const List = () => {
           <Table.ColumnHeaderCell>Action</Table.ColumnHeaderCell>
 
           <Table.ColumnHeaderCell>Date</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Assigned to</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Created by</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Actions</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Assigned to</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>

@@ -21,7 +21,10 @@ const Add = ({ campaign, ...props }: AddProps) => {
       createdAt: new Date(),
       userId: user.id,
       campaignId: campaign.id,
+      media: values.media || null
     } satisfies Omit<Action, 'id'>;
+
+    console.log(newValues);
     await addDoc(collection(db, 'actions'), newValues);
     onAddMessage({ message: 'Action added', variant: 'success' });
     setOpen(false);
@@ -31,7 +34,6 @@ const Add = ({ campaign, ...props }: AddProps) => {
   const initialValues = {
     action: null,
     dateSet: new Date(),
-    status: 'pending',
     assigneeId: 'none',
   };
 
