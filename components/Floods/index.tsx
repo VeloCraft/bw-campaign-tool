@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import GoogleMap from '@/components/Maps/index';
 import Stations from '@/components/Floods/Stations';
@@ -15,6 +16,8 @@ type FloodsProps = {
   tracking?: boolean;
   setTracking?: (value: boolean) => void;
   setPosition?: (value: GeolocationCoordinates) => void;
+  stations?: Station[];
+  rootRoutes?: RootRoutes;
 };
 
 const Floods = ({
@@ -23,12 +26,16 @@ const Floods = ({
   tracking,
   setTracking,
   setPosition,
+  rootRoutes,
+  stations: _stations,
 }: FloodsProps) => {
   const [filter, setFilter] = React.useState<FilterValue>('all');
-  const { data: stations } = useFirestoreCollection('stations');
+  const { data } = useFirestoreCollection('stations');
   const [selected, setSelected] = React.useState<string | null>(null);
   const onSelect = (routeId: string) => setSelected(routeId);
   const onChangeFilter = (value: FilterValue) => setFilter(value);
+
+  const stations = data || _stations;
 
   return (
     <Flex direction="column" height="100%" position="relative">
@@ -40,6 +47,7 @@ const Floods = ({
           stations={stations as Station[]}
           editable={editable}
           filter={filter}
+          rootRoutes={rootRoutes}
         />
         {editable && !selected && <Editor stations={stations as Station[]} />}
         {position && (

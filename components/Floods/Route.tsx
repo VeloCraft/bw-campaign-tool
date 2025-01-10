@@ -1,7 +1,6 @@
 import React from 'react';
 import usePolyline from '@/hooks/usePolyline';
 import { Box, Heading, Text } from '@radix-ui/themes';
-import dynamic from 'next/dynamic';
 import useRouteGraphData from '@/hooks/useRouteGraphData';
 import { doc, deleteDoc } from 'firebase/firestore';
 import { db } from '@/helpers/firebase';
@@ -13,6 +12,7 @@ import { useMapsLibrary } from '@vis.gl/react-google-maps';
 import { nearestStations } from '@/helpers/geolocation';
 import Report from '@/components/Floods/Report';
 import useUpdateRoot from '@/hooks/useUpdateRootRoute';
+import StationGraph from '@/components/Floods/StationGraph';
 
 type RouteProps = {
   stations: Station[];
@@ -25,8 +25,6 @@ type RouteProps = {
   onNext: () => void;
   onPrev: () => void;
 };
-
-const StationGraph = dynamic(() => import('./StationGraph'), { ssr: false });
 
 const RouteComponent = ({
   selected,

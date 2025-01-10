@@ -1,6 +1,6 @@
 import React from 'react';
 import { AdvancedMarker } from '@vis.gl/react-google-maps';
-import InfoWindow from '@/components/Map/InfoWindow';
+import InfoWindow from '@/components/Maps/InfoWindow';
 
 type ComponentProps = {
   position: { lat: number; lng: number };

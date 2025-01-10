@@ -3,15 +3,17 @@ import { useLocalstorageState } from 'rooks';
 import useFirestoreDoc from '@/hooks/useFirestoreDoc';
 import { toISOString } from '@/helpers/date';
 
-const useRootRoute = (editable: boolean): Route[] => {
+const useRootRoute = (editable: boolean, rootRoutes?: RootRoutes): Route[] => {
   const [localReports, setLocalReports] = useLocalstorageState<LocalReports>(
     'reports',
     {},
   );
-  const { data: allRoutes } = useFirestoreDoc<RootRoutes>(
+  const { data } = useFirestoreDoc<RootRoutes>(
     editable ? null : 'floods/root',
     true,
   );
+
+  const allRoutes = data || rootRoutes;
 
   React.useEffect(() => {
     if (!allRoutes || !Object.keys(localReports || {})?.length) return;
@@ -29,7 +31,7 @@ const useRootRoute = (editable: boolean): Route[] => {
     ) {
       setLocalReports(newLocalReports);
     }
-  }, [allRoutes, localReports]);
+  }, [allRoutes, localReports, setLocalReports]);
 
   const items = React.useMemo(() => {
     if (!allRoutes) return [];

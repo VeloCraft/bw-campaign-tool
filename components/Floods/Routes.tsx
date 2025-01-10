@@ -9,6 +9,7 @@ type ComponentProps = {
   selected: string | null;
   editable?: boolean;
   filter: FilterValue;
+  rootRoutes?: RootRoutes;
 };
 
 const Component = ({
@@ -17,6 +18,7 @@ const Component = ({
   stations,
   onSelect,
   filter,
+  rootRoutes,
 }: ComponentProps) => {
   const [polylines, setPolylines] = React.useState<
     { id: string; polyline: google.maps.Polyline }[]
@@ -27,7 +29,7 @@ const Component = ({
     true,
   );
 
-  const allRoutes = useRootRoutes(editable);
+  const allRoutes = useRootRoutes(editable, rootRoutes);
 
   const onCreate = React.useCallback(
     (id: string, polyline: google.maps.Polyline) => {

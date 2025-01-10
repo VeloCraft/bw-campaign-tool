@@ -1,18 +1,14 @@
 import React from 'react';
 import useStationGraphData from '@/hooks/useStationGraphData';
-import dynamic from 'next/dynamic';
 import type { ChartData } from 'chart.js';
 import { Box, Heading, Text } from '@radix-ui/themes';
 import Marker from '@/components/Maps/Marker';
 import MarkerRadiusIcon from '@/components/Maps/MarkerRadiusIcon';
+import StationGraph from '@/components/Floods/StationGraph';
 
 type StationsProps = {
   stations?: Station[];
 };
-
-const StationGraph = dynamic(() => import('@/components/Floods/StationGraph'), {
-  ssr: false,
-});
 
 const Stations = ({ stations }: StationsProps) => {
   const graphData = useStationGraphData(stations as Station[]);
