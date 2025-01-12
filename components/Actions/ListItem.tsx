@@ -18,8 +18,6 @@ const ListItem = ({
   action,
   userId,
   assigneeId,
-  updatedAt,
-  createdAt,
   assigneeEmail,
   loading: _loading,
 }: Partial<ListItemProps>) => {
