@@ -77,6 +77,7 @@ type Action = {
   campaignId?: string;
   userId?: string;
   assigneeId?: string;
+  assigneeEmail?: string;
   media?: Media | null;
 };
 
@@ -121,9 +122,7 @@ type MediaRecord = {
   width?: number;
 };
 
-
 type Role = 'admin' | 'editor';
-
 
 /*
  * Global app settings saved at 'app/{docId}')
