@@ -15,7 +15,6 @@ type ComponentProps = ButtonProps & {
 };
 
 const Component = ({
-
   campaignId,
   open,
   setOpen,
@@ -25,7 +24,7 @@ const Component = ({
   description,
   ...props
 }: ComponentProps) => {
-  const [selectedValue, setSelectedValue] = React.useState(null);
+  const [selectedValue, setSelectedValue] = React.useState(initialValues?.assigneeId || 'none');
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
@@ -50,15 +49,14 @@ const Component = ({
             label="Status"
             name="status"
             type="select"
-            values={['pending', 'in progress', 'completed']}
-            labels={['Pending', 'In progress', 'Completed']}
+            values={['pending', 'inprogress', 'complete']}
+            labels={['Pending', 'In progress', 'Complete']}
             required
           />
           <Field
             type="userSelect"
             label="Assignee"
             name="assigneeId"
-            other={true}
             onChange={(e) => setSelectedValue(e.target.value)}
           />
           {selectedValue === 'other' && (
@@ -66,7 +64,6 @@ const Component = ({
               label="Assignee email"
               name="assigneeEmail"
               type="email"
-              required
             />
           )}
           <Field

@@ -11,6 +11,19 @@ const StatusBadge = ({ status, ...props }: StatusBadgeProps) => {
       color: 'orange',
       label: 'Active',
     },
+    pending: {
+      color: 'gray',
+      label: 'Pending',
+    },
+    complete: {
+      color: 'green',
+      label: 'Complete',
+    },
+    inprogress: {
+      color: 'orange',
+      label: 'In Progress'
+    },
+
     inactive: {
       color: 'gray',
       label: 'Inactive',

@@ -27,8 +27,6 @@ const Component = ({
   const { register } = useFormContext();
   const {
     onChange: onChangeSelect,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ref: selectRef,
     ...selectProps
   } = register(name, { required });
   const onValueChange = (_value: string) => {
@@ -47,7 +45,7 @@ const Component = ({
           </Form.Label>
           <Form.Control required={required} asChild>
             <Select.Root
-              value={defaultValue}
+              defaultValue={defaultValue}
               disabled={disabled}
               size="3"
               {...selectProps}

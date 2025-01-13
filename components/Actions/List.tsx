@@ -7,7 +7,6 @@ import { useParams } from 'next/navigation';
 
 import ListItem from '@/components/Actions/ListItem';
 
-
 const List = () => {
   const { id: campaignId }: { id: string } = useParams();
   const { data: actions, loading } = useFirestoreCollection<Action>(
@@ -26,13 +25,12 @@ const List = () => {
           <Table.ColumnHeaderCell>Action</Table.ColumnHeaderCell>
 
           <Table.ColumnHeaderCell>Date</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Assigned to</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Created by</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Actions</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Assigned to</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
-
         {!campaignId || actions?.length === 0 ? (
           <ListItem />
         ) : loading ? (
@@ -42,7 +40,6 @@ const List = () => {
             <ListItem key={action.id} docId={action.id} {...action} />
           ))
         )}
-
       </Table.Body>
     </Table.Root>
   );

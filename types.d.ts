@@ -73,10 +73,12 @@ type Action = {
   createdAt?: Date;
   updatedAt?: Date;
   dateSet?: Date;
-  status?: 'pending' | 'in progress' | 'completed';
+  status?: 'pending' | 'inprogress' | 'complete';
   campaignId?: string;
   userId?: string;
-  media?: Media;
+  assigneeId?: string;
+  assigneeEmail?: string;
+  media?: Media | null;
 };
 
 type Media = {
