@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import faker, { seed } from '@/.storybook/faker';
-import SaveWindow from '@/components/TrafficSpeed/SaveWindow';
+import UserSelect from '@/components/Form/UserSelect';
 
-seed('TrafficSpeed/SaveWindow');
+seed('Form/UserSelect');
 
 const meta = {
-  title: 'TrafficSpeed/SaveWindow',
-  component: SaveWindow,
-} satisfies Meta<typeof SaveWindow>;
+  title: 'Form/UserSelect',
+  component: UserSelect,
+} satisfies Meta<typeof UserSelect>;
 
 export default meta;
-type Story = StoryObj<typeof SaveWindow>;
+type Story = StoryObj<typeof UserSelect>;
 
 export const WithDefaults = {
   args: {},
