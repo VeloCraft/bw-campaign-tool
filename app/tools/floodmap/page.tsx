@@ -7,7 +7,13 @@ import Floods from '@/components/Floods/index';
 const Page = () => {
   return (
     <React.Suspense>
-      <SignInWrapper breadcrumbs={[{ label: 'Flood map' }]} force>
+      <SignInWrapper
+        breadcrumbs={[
+          { label: 'Tools', href: '/tools' },
+          { label: 'Flood map' },
+        ]}
+        force
+      >
         <Floods editable />
       </SignInWrapper>
     </React.Suspense>

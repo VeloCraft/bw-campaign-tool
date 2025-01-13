@@ -16,7 +16,8 @@
     "missing-stories": "node scripts/check-for-missing-stories.mjs",
     "test-storybook": "test-storybook",
     "commit-version-change": "git add package*.json",
-    "prepare": "husky"
+    "prepare": "husky",
+    "migrate": "node scripts/migrate.mjs"
   },
   "dependencies": {
     "@auth/pg-adapter": "^1.7.4",
@@ -70,6 +71,8 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/react-draft-wysiwyg": "^1.13.8",
+    "chalk": "^5.4.1",
+    "commander": "^13.0.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "eslint": "^9",
@@ -80,6 +83,7 @@
     "postcss": "^8",
     "prettier": "^3.4.2",
     "storybook": "^8.4.7",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   },
   "prettier": {
