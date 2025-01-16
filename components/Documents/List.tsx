@@ -24,16 +24,13 @@ const List = ({ campaignId }: ListProps) => {
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Description</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {documents?.map((document) => (
-            <Item
-              key={document.id}
-              docId={document.id}
-              {...document}
-            />
+            <Item key={document.id} docId={document.id} {...document} />
           ))}
         </Table.Body>
       </Table.Root>
