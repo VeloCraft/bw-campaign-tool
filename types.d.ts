@@ -120,6 +120,7 @@ type MediaRecord = {
   version?: number;
   version_id?: string;
   width?: number;
+  description?: string;
 };
 
 type Role = 'admin' | 'editor';
