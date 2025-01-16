@@ -3,6 +3,7 @@ import { Table, Flex, Skeleton } from '@radix-ui/themes';
 import Edit from '@/components/Goals/Edit';
 import Delete from '@/components/Goals/Delete';
 import { Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
+import StatusBadge from '@/components/StatusBadge';
 
 type ListItemProps = {
   loading?: boolean;
@@ -34,7 +35,9 @@ const ListItem = ({
   return (
     <Table.Row>
       <Table.Cell>{name}</Table.Cell>
-      <Table.Cell>{status}</Table.Cell>
+      <Table.Cell>
+        <StatusBadge status={status} />
+      </Table.Cell>
       <Table.Cell>
         <Flex direction="row" align="center" gap="2">
           <Edit

@@ -15,7 +15,11 @@ export default function StatusBadge({ status }: { status: string }) {
       color: 'orange',
       label: 'Pending',
     },
-    completed: {
+    inprogress: {
+      color: 'blue',
+      label: 'In Progress',
+    },
+    complete: {
       color: 'green',
       label: 'Completed',
     },
