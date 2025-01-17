@@ -32,20 +32,23 @@ jobs:
             export PATH=$(npm bin -g):$PATH
 
             export PATH=$(npm bin -g):$PATH
-            
+
             # Navigate to the app directory
             cd sites/bw-campaign-tool
-      
+
+            rm -rf .next
+            rm -rf node_modules
+
             # Fetch the latest changes from the staging branch
             git fetch origin staging
             git reset --hard origin/staging
-      
+
             # Install dependencies
             pnpm install --prod
-      
+
             # Build the application
             pnpm run build
-      
+
             # Restart the PM2 process
             if pm2 list | grep -q "${{ secrets.PM2_PROCESS_NAME }}"; then
               pm2 restart ${{ secrets.PM2_PROCESS_NAME }}
