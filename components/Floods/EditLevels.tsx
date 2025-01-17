@@ -11,25 +11,23 @@ const initialValues = {
 };
 
 type EditLevelsProps = {
-  route: Route;
-  onSetCurrent: () => Promise<void>;
-  onRemove: () => Promise<void>;
   disabled: boolean;
-  onUpdate: (data: FormSubmission) => Promise<void>;
-  stations: Station[];
-  onNext: () => void;
-  onPrev: () => void;
   onClose: () => void;
+  onRemove: () => Promise<void>;
+  onSetCurrent: () => Promise<void>;
+  onUpdate: (data: FormSubmission) => Promise<void>;
+  route: Route;
+  stations: Station[];
 };
 
 const EditLevels = ({
   disabled,
-  route,
-  onUpdate,
-  onSetCurrent,
-  onRemove,
-  stations,
   onClose,
+  onRemove,
+  onSetCurrent,
+  onUpdate,
+  route,
+  stations,
 }: EditLevelsProps) => {
   return (
     <Box>
@@ -42,6 +40,7 @@ const EditLevels = ({
             color="red"
             size="2"
             variant="outline"
+            data-testid="delete-route-button"
           >
             <TrashIcon />
           </RemoveRoute>
@@ -51,6 +50,7 @@ const EditLevels = ({
           disabled={disabled}
           size="2"
           variant="soft"
+          data-testid="set-route-current-button"
         >
           Set to current
         </CurrentLevel>
@@ -61,6 +61,7 @@ const EditLevels = ({
           title={`${route.summary}: Edit level`}
           size="2"
           stations={stations}
+          data-testid="edit-route-button"
         >
           Edit level
         </RouteForm>

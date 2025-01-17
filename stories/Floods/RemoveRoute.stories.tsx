@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import faker, { seed } from '@/.storybook/faker';
+import { seed } from '@/.storybook/faker';
 import RemoveRoute from '@/components/Floods/RemoveRoute';
+import { TrashIcon } from '@radix-ui/react-icons';
 
 seed('Floods/RemoveRoute');
 
@@ -16,8 +17,16 @@ export const WithDefaults = {
   args: {},
 } satisfies Story;
 
-export const WithValue = {
+export const WithIcon = {
   args: {
-    title: faker.lorem.sentence(),
+    children: <TrashIcon />,
+  },
+} satisfies Story;
+
+export const AsRedOutline = {
+  args: {
+    ...WithIcon.args,
+    color: 'red',
+    variant: 'outline',
   },
 } satisfies Story;

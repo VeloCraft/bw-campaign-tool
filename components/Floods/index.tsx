@@ -38,7 +38,7 @@ const Floods = ({
   const stations = data || _stations;
 
   return (
-    <Flex direction="column" height="100%" position="relative">
+    <Flex direction="column" height="100dvh" position="relative">
       <GoogleMap>
         <Stations stations={stations as Station[]} />
         <Routes

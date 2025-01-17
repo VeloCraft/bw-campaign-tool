@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import faker, { seed } from '@/.storybook/faker';
+import { generate, seed } from '@/.storybook/faker';
 import Report from '@/components/Floods/Report';
 
 seed('Floods/Report');
@@ -12,12 +12,38 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof Report>;
 
-export const WithDefaults = {
-  args: {},
+const stations = generate('station', { count: 2 }) as Station[];
+const route = generate('route', { stations }) as Route;
+
+export const AsClear = {
+  args: {
+    route: {
+      ...route,
+      hazardous: false,
+    },
+    stations,
+    onClose: () => {},
+  },
 } satisfies Story;
 
-export const WithValue = {
+export const AsFlooded = {
   args: {
-    title: faker.lorem.sentence(),
+    ...AsClear.args,
+    route: {
+      ...route,
+      hazardous: false,
+      level: 5,
+    },
+  },
+} satisfies Story;
+
+export const AsHazardous = {
+  args: {
+    ...AsClear.args,
+    route: {
+      ...route,
+      level: 5,
+      hazardous: true,
+    },
   },
 } satisfies Story;

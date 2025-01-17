@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import faker, { seed } from '@/.storybook/faker';
+import { seed } from '@/.storybook/faker';
 import Filter from '@/components/Floods/Filter';
 
 seed('Floods/Filter');
@@ -16,8 +16,24 @@ export const WithDefaults = {
   args: {},
 } satisfies Story;
 
-export const WithValue = {
+export const WithAllValue = {
   args: {
-    title: faker.lorem.sentence(),
+    onChange: () => {},
+    editable: false,
+    value: 'all',
+  },
+} satisfies Story;
+
+export const WithFloodedValue = {
+  args: {
+    ...WithAllValue.args,
+    value: 'flooded',
+  },
+} satisfies Story;
+
+export const AsEditable = {
+  args: {
+    ...WithAllValue.args,
+    editable: true,
   },
 } satisfies Story;

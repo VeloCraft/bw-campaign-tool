@@ -145,7 +145,7 @@ type Route = {
   level?: number;
   hazardous?: boolean;
   updatedAt?: DateType;
-  reports?: RoutReport[];
+  reports?: RouteReport[];
 };
 
 type RootRoutes = {

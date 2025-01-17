@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import faker, { seed } from '@/.storybook/faker';
+import { seed, title, description } from '@/.storybook/faker';
 import ReportButton from '@/components/Floods/ReportButton';
 
 seed('Floods/ReportButton');
@@ -18,6 +18,16 @@ export const WithDefaults = {
 
 export const WithValue = {
   args: {
-    title: faker.lorem.sentence(),
+    label: title(),
+    description: description(),
+    onClick: () => {},
+    onLongPress: () => {},
+  },
+} satisfies Story;
+
+export const AsRed = {
+  args: {
+    ...WithValue.args,
+    color: 'red',
   },
 } satisfies Story;

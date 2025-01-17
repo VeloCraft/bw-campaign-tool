@@ -34,8 +34,6 @@ const RouteComponent = ({
   editable,
   filter = 'all',
   onCreate,
-  onNext,
-  onPrev,
 }: RouteProps) => {
   const [open, setOpen] = React.useState(false);
   const [position, setPosition] = React.useState<
@@ -160,8 +158,6 @@ const RouteComponent = ({
             onUpdate={onUpdate}
             onRemove={onRemove}
             disabled={disabled}
-            onNext={onNext}
-            onPrev={onPrev}
             onSetCurrent={onSetCurrent}
             onClose={onClose}
           />

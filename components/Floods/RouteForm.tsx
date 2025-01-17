@@ -29,7 +29,7 @@ const RouteForm = ({
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button {...props} />
+        <Button data-testid="route-form-edit-button" {...props} />
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Title>{title}</Dialog.Title>

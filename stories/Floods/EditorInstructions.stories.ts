@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import faker, { seed } from '@/.storybook/faker';
+import { seed } from '@/.storybook/faker';
 import EditorInstructions from '@/components/Floods/EditorInstructions';
 
 seed('Floods/EditorInstructions');
@@ -16,8 +16,8 @@ export const WithDefaults = {
   args: {},
 } satisfies Story;
 
-export const WithValue = {
+export const Opened = {
   args: {
-    title: faker.lorem.sentence(),
+    open: true,
   },
 } satisfies Story;

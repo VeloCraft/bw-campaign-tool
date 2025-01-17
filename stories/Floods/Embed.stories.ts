@@ -1,8 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import faker, { seed } from '@/.storybook/faker';
+import { generate, seed } from '@/.storybook/faker';
 import Embed from '@/components/Floods/Embed';
+import firestoreResults from '@/decorators/firestoreResults';
 
 seed('Floods/Embed');
+
+const stations = generate('station', { count: 5 }) as Station[];
+const rootRoutes = generate('rootRoutes', { stations }) as RootRoutes;
 
 const meta = {
   title: 'Floods/Embed',
@@ -18,6 +22,8 @@ export const WithDefaults = {
 
 export const WithValue = {
   args: {
-    title: faker.lorem.sentence(),
+    stations,
+    rootRoutes,
   },
+  decorators: [firestoreResults({ stations, 'floods/root': rootRoutes })],
 } satisfies Story;

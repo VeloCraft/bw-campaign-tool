@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import faker, { seed } from '@/.storybook/faker';
+import { seed, title } from '@/.storybook/faker';
 import CurrentLevel from '@/components/Floods/CurrentLevel';
 
 seed('Floods/CurrentLevel');
@@ -18,6 +18,26 @@ export const WithDefaults = {
 
 export const WithValue = {
   args: {
-    title: faker.lorem.sentence(),
+    children: title(),
+    size: '2',
+    variant: 'solid',
+  },
+} satisfies Story;
+
+export const WithDisabled = {
+  args: {
+    children: title(),
+    size: '2',
+    variant: 'solid',
+    disabled: true,
+  },
+} satisfies Story;
+
+export const WithLoading = {
+  args: {
+    children: title(),
+    size: '2',
+    variant: 'solid',
+    loading: true,
   },
 } satisfies Story;

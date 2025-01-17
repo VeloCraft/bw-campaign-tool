@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import faker, { seed } from '@/.storybook/faker';
+import { generate, seed } from '@/.storybook/faker';
 import Editor from '@/components/Floods/Editor';
+import wrapper from '@/decorators/wrapper';
+import Maps from '@/components/Maps';
+import { Flex } from '@radix-ui/themes';
 
 seed('Floods/Editor');
 
@@ -14,10 +17,15 @@ type Story = StoryObj<typeof Editor>;
 
 export const WithDefaults = {
   args: {},
+  decorators: [
+    wrapper(Maps),
+    wrapper(Flex, { direction: 'column', height: '100dvh' }),
+  ],
 } satisfies Story;
 
-export const WithValue = {
+export const WithStations = {
+  ...WithDefaults,
   args: {
-    title: faker.lorem.sentence(),
+    stations: generate('station', { min: 5, max: 10 }) as Station[],
   },
 } satisfies Story;
