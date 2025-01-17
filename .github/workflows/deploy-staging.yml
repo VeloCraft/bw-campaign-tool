@@ -24,7 +24,7 @@ jobs:
           debug: true
           script: |
             # Navigate to the app directory
-            cd ${{ secrets.REMOTE_APP_PATH }}
+            cd sites/bw-campaign-tool
       
             # Fetch the latest changes from the staging branch
             git fetch origin staging
