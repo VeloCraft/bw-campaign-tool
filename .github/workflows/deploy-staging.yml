@@ -23,6 +23,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           debug: true
           script: |
+
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            
             # Navigate to the app directory
             cd sites/bw-campaign-tool
       
