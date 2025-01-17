@@ -27,6 +27,10 @@ jobs:
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
 
+            # Ensure pm2 is installed
+            npm install -g pm2
+            export PATH=$(npm bin -g):$PATH
+
             export PATH=$(npm bin -g):$PATH
             
             # Navigate to the app directory
