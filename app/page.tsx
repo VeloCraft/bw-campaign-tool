@@ -9,7 +9,7 @@ export default function HomePage() {
     <AppWrapper actions={<UserMenu />}>
       <Container size="3" mt="8">
         <Heading size="8" mb="2">
-          Welcome to the Campaign Management Tool
+          Welcome to the Campaign Management Tool [STAGING]
         </Heading>
         <Text size="4" mt="4">
           This platform allows you to manage and track your campaigns with ease.
