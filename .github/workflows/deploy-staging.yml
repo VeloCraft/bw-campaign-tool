@@ -1,0 +1,46 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Install SSH key
+      - name: Set up SSH for Deployment
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      # Step 3: Deploy to the Remote Server
+      - name: Deploy Application to Staging
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_SERVER }} << 'EOF'
+            # Navigate to the app directory
+            cd ${{ secrets.REMOTE_APP_PATH }}
+
+            # Fetch the latest changes from the staging branch
+            git fetch origin staging
+            git reset --hard origin/staging
+
+            # Install dependencies
+            pnpm install --prod
+
+            # Build the application
+            pnpm run build
+
+            # Restart the PM2 process
+            if pm2 list | grep -q "${{ secrets.PM2_PROCESS_NAME }}"; then
+              pm2 restart ${{ secrets.PM2_PROCESS_NAME }}
+            else
+              pm2 start npm --name "${{ secrets.PM2_PROCESS_NAME }}" -- run start
+            fi
+          EOF
