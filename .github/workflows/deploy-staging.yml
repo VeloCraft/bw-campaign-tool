@@ -14,33 +14,31 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # Step 2: Install SSH key
-      - name: Set up SSH for Deployment
-        uses: webfactory/ssh-agent@v0.5.3
+      # Step 2: SSH into remote server and execute commands
+      - name: Executing remote SSH commands using SSH key
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      # Step 3: Deploy to the Remote Server
-      - name: Deploy Application to Staging
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_SERVER }} << 'EOF'
+          username: ${{ secrets.REMOTE_USER }}
+          host: ${{ secrets.REMOTE_SERVER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          debug: true
+          script: |
             # Navigate to the app directory
             cd ${{ secrets.REMOTE_APP_PATH }}
-
+      
             # Fetch the latest changes from the staging branch
             git fetch origin staging
             git reset --hard origin/staging
-
+      
             # Install dependencies
             pnpm install --prod
-
+      
             # Build the application
             pnpm run build
-
+      
             # Restart the PM2 process
             if pm2 list | grep -q "${{ secrets.PM2_PROCESS_NAME }}"; then
               pm2 restart ${{ secrets.PM2_PROCESS_NAME }}
             else
               pm2 start npm --name "${{ secrets.PM2_PROCESS_NAME }}" -- run start
             fi
-          EOF
