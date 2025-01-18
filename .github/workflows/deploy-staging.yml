@@ -31,8 +31,6 @@ jobs:
             npm install -g pm2
             export PATH=$(npm bin -g):$PATH
 
-            export PATH=$(npm bin -g):$PATH
-
             # Navigate to the app directory
             cd sites/bw-campaign-tool
 
@@ -44,7 +42,7 @@ jobs:
             git reset --hard origin/staging
 
             # Install dependencies
-            pnpm install --prod
+            pnpm install
 
             # Build the application
             pnpm run build
