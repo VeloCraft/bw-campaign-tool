@@ -10,7 +10,12 @@ type EditProps = ButtonProps &
     docId: string;
   };
 
-const EditDescription = ({ docId, description, ...props }: EditProps) => {
+const EditDescription = ({
+  docId,
+  description,
+  display_name,
+  ...props
+}: EditProps) => {
   const [onUpdate] = useUpdateDoc(`media/${docId}`, true);
   const [open, setOpen] = React.useState(false);
 
@@ -26,6 +31,7 @@ const EditDescription = ({ docId, description, ...props }: EditProps) => {
 
   const initialValues = {
     description,
+    display_name,
   };
 
   return (

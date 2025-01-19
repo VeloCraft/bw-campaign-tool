@@ -48,5 +48,5 @@ const Edit = ({ docId, ...props }: ButtonProps & { docId: string }) => {
     />
   );
 };
-
+  
 export default Edit;

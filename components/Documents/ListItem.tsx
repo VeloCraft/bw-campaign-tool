@@ -25,6 +25,7 @@ const ListItem = ({
           <EditDescription
             docId={docId}
             description={description}
+            display_name={display_name}
             variant="soft"
             color="green"
           >
