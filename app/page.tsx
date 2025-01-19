@@ -9,13 +9,13 @@ export default function HomePage() {
     <AppWrapper actions={<UserMenu />}>
       <Container size="3" mt="8">
         <Heading size="8" mb="2">
-          Welcome to the Campaign Management Tool [STAGING]
+          Welcome to the Bike Worcester campaign platform
         </Heading>
         <Text size="4" mt="4">
-          This platform allows you to manage and track your campaigns with ease.
-          You can create new campaigns, edit existing ones, and see all the
-          details in one place. Our goal is to make managing and contributing to
-          campaigns simple and accessible for everyone!
+          This platform allows you to create, view and contribute to Bike
+          Worcester's campaigns. You can create new campaigns, edit existing
+          ones, and see all the details in one place. Our goal is to make it
+          easier to find information about what's going on!
         </Text>
 
         <Heading size="6" mt="8">
@@ -46,11 +46,10 @@ export default function HomePage() {
 
         <Text size="4" mt="4">
           If you have any questions or need assistance using the platform, feel
-          free to reach out. We are here to help you manage your campaigns
-          successfully.
+          free to reach out.
         </Text>
 
-        <Flex direction="row" align="center" justify="center" mt="8">
+        <Flex direction="row" align="center" justify="center" mt="8" mb="8">
           <Button size="4" asChild>
             <Link href="/campaigns">View Campaigns</Link>
           </Button>
