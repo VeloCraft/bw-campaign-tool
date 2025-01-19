@@ -12,10 +12,10 @@ export default function HomePage() {
           Welcome to the Bike Worcester campaign platform
         </Heading>
         <Text size="4" mt="4">
-          This platform allows you to create, view and contribute to Bike
-          Worcester's campaigns. You can create new campaigns, edit existing
+          {`This platform allows you to create, view and contribute to Bike
+          Worcester campaigns. You can create new campaigns, edit existing
           ones, and see all the details in one place. Our goal is to make it
-          easier to find information about what's going on!
+          easier to find information about what's going on!`}
         </Text>
 
         <Heading size="6" mt="8">
