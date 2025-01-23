@@ -5,12 +5,12 @@ import Stations from '@/components/Floods/Stations';
 import Routes from '@/components/Floods/Routes';
 import Editor from '@/components/Floods/Editor';
 import useFirestoreCollection from '@/hooks/useFirestoreCollection';
-import { Box, Flex } from '@radix-ui/themes';
+import { Box, Flex, type FlexProps } from '@radix-ui/themes';
 import Filter from '@/components/Floods/Filter';
 import Track from '@/components/Floods/Track';
 import TrackSwitch from '@/components/Maps/TrackSwitch';
 
-type FloodsProps = {
+type FloodsProps = FlexProps & {
   editable?: boolean;
   position?: GeolocationCoordinates;
   tracking?: boolean;
@@ -28,6 +28,7 @@ const Floods = ({
   setPosition,
   rootRoutes,
   stations: _stations,
+  ...others
 }: FloodsProps) => {
   const [filter, setFilter] = React.useState<FilterValue>('all');
   const { data } = useFirestoreCollection('stations');
@@ -38,7 +39,7 @@ const Floods = ({
   const stations = data || _stations;
 
   return (
-    <Flex direction="column" height="100dvh" position="relative">
+    <Flex direction="column" height="100dvh" position="relative" {...others}>
       <GoogleMap>
         <Stations stations={stations as Station[]} />
         <Routes
