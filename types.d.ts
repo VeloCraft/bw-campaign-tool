@@ -131,6 +131,60 @@ type Contact = {
   organisation: string;
   role: string;
   createdAt: Date;
+}
+
+type Status = {
+  message: string;
+  variant: 'info' | 'success' | 'error';
+  duration?: number;
+};
+
+type RouteReport = {
+  userId: string;
+  hazardous?: boolean;
+  level?: number;
+};
+
+type Route = {
+  id?: string;
+  summary: string;
+  path: string;
+  distance: string;
+  position: google.maps.LatLngLiteral;
+  nearestStations: [string, string];
+  stationWeight: number;
+  level?: number;
+  hazardous?: boolean;
+  updatedAt?: DateType;
+  reports?: RouteReport[];
+};
+
+type RootRoutes = {
+  updateAt: DateType;
+  [id: string]: Omit<Route, 'id'>;
+};
+
+type Station = {
+  id: string;
+  locationName: string;
+  riverName: string;
+  updatedAt: DateType;
+  position: google.maps.LatLngLiteral;
+  levels: number[];
+  timestamps: string[];
+};
+
+type RouteStatus = 'clear' | 'hazardous' | 'flooded';
+type FilterValue = 'all' | RouteStatus | 'reports' | 'noReports';
+
+type LocalReport = {
+  level?: number;
+  hazardous?: boolean;
+  timestamp: string;
+};
+
+type LocalReports = {
+  [id: string]: LocalReport;
 };
 
 type Role = 'admin' | 'editor';

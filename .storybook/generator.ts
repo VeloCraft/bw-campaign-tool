@@ -6,6 +6,9 @@ import campaign from './campaignGenerator';
 import action from './actionGenerator';
 import goal from './goalGenerator';
 import app from './appGenerator';
+import station from './stationGenerator';
+import route, { rootRoutes } from './routeGenerator';
+import latLng from './latLngGenerator';
 
 const mediaTypes = ['image'];
 
@@ -20,6 +23,10 @@ const itemTypes: { [key: string]: (opts: { [key: string]: any }) => any } = {
   action,
   actions: action,
   goal,
+  station,
+  route,
+  rootRoutes,
+  latLng,
 };
 
 mediaTypes.forEach((key: string) => {

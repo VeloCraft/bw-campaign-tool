@@ -62,7 +62,7 @@ const Messages = () => {
     }, [variant]);
 
   return (
-    <Theme wrapper={Portal} asChild>
+    <Theme wrapper={Portal}>
       <Toast.Provider duration={duration || 3000} swipeDirection="right">
         <Toast.Root className="ToastRoot" open={open} asChild>
           <Box

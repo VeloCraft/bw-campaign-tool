@@ -7,8 +7,6 @@ type ComponentProps = {
   required?: boolean;
   disabled?: boolean;
   defaultValue?: string;
-  //values?: string[];
-  //labels: React.ReactNode[];
   placeholder?: string;
 };
 

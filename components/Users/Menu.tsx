@@ -29,6 +29,7 @@ const Menu = () => {
 
   const onSignOut = async () => {
     await signOut(auth);
+    await fetch('/api/logout');
     onAddMessage({ message: 'You are now signed out', variant: 'success' });
     redirect('/');
   };

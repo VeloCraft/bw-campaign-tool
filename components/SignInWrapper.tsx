@@ -9,7 +9,11 @@ import {
   type BoxProps,
 } from '@radix-ui/themes';
 import { auth } from '@/helpers/firebase';
-import { isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth';
+import {
+  isSignInWithEmailLink,
+  signInWithEmailLink,
+  type UserCredential,
+} from 'firebase/auth';
 import { useLocalstorageState } from 'rooks';
 import { useSearchParams } from 'next/navigation';
 import { useEffectOnceWhen } from 'rooks';
@@ -22,7 +26,6 @@ import useStatusUpdate from '@/hooks/useStatusUpdate';
 import usePermissions from '@/hooks/usePermissions';
 
 type SignInWrapperProps = {
-  children: React.ReactNode;
   force?: boolean;
   loading?: boolean;
   role?: string;
@@ -41,7 +44,7 @@ const SignInWrapper = ({
   permissions,
   user: _user,
   innerProps = {},
-}: SignInWrapperProps) => {
+}: React.PropsWithChildren<SignInWrapperProps>) => {
   const [user, _loading] = useUser(_user, true);
   const searchParams = useSearchParams();
   const [sent, setSent] = React.useState(false);
@@ -54,9 +57,21 @@ const SignInWrapper = ({
 
   const onSignedIn = React.useCallback(() => {
     if (isSignInWithEmailLink(auth, window.location.href)) {
-      signInWithEmailLink(auth, email, window.location.href).then(() => {
-        onAddMessage({ message: 'You are now signed in', variant: 'success' });
-      });
+      signInWithEmailLink(auth, email, window.location.href).then(
+        async (credential: UserCredential) => {
+          const idToken = await credential.user.getIdToken();
+          // Sets authenticated browser cookies
+          await fetch('/api/login', {
+            headers: {
+              Authorization: `Bearer ${idToken}`,
+            },
+          });
+          onAddMessage({
+            message: 'You are now signed in',
+            variant: 'success',
+          });
+        },
+      );
     }
   }, [email, onAddMessage]);
 
