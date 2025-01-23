@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import faker, { seed } from '@/.storybook/faker';
+import { seed } from '@/.storybook/faker';
 import MarkerIcon from '@/components/Maps/MarkerIcon';
 
 seed('Maps/MarkerIcon');
@@ -16,8 +16,8 @@ export const WithDefaults = {
   args: {},
 } satisfies Story;
 
-export const WithValue = {
+export const WithProps = {
   args: {
-    title: faker.lorem.sentence(),
+    style: { color: 'red', width: 40 },
   },
 } satisfies Story;

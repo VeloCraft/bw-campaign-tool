@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import faker, { seed } from '@/.storybook/faker';
+import faker, { arrayOf, seed } from '@/.storybook/faker';
 import StationGraph from '@/components/Floods/StationGraph';
 
 seed('Floods/StationGraph');
@@ -12,12 +12,39 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof StationGraph>;
 
-export const WithDefaults = {
-  args: {},
-} satisfies Story;
+const labels = arrayOf(() => faker.lorem.word(), { min: 20, max: 50 });
 
 export const WithValue = {
   args: {
-    title: faker.lorem.sentence(),
+    data: {
+      labels,
+      datasets: [
+        labels.map(() => faker.number.float({ min: 0, max: 1 })) as any,
+      ],
+    },
+    options: {
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+      scales: {
+        x: {
+          grid: {
+            color: '#fff',
+            display: true,
+          },
+        },
+        y: {
+          grid: {
+            color: '#fff',
+            display: true,
+          },
+          ticks: {
+            stepSize: 1,
+          },
+        },
+      },
+    },
   },
 } satisfies Story;

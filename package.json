@@ -1,6 +1,6 @@
 {
   "name": "bw-campaign-tool",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -55,16 +55,16 @@
     "swr": "^2.3.0"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^3.2.3",
+    "@chromatic-com/storybook": "^3.2.4",
     "@eslint/eslintrc": "^3.2.0",
-    "@storybook/addon-essentials": "^8.4.7",
-    "@storybook/addon-interactions": "^8.4.7",
-    "@storybook/addon-onboarding": "^8.4.7",
-    "@storybook/addon-viewport": "^8.4.7",
-    "@storybook/blocks": "^8.4.7",
-    "@storybook/nextjs": "^8.4.7",
-    "@storybook/react": "^8.4.7",
-    "@storybook/test": "^8.4.7",
+    "@storybook/addon-essentials": "^8.5.0",
+    "@storybook/addon-interactions": "^8.5.0",
+    "@storybook/addon-onboarding": "^8.5.0",
+    "@storybook/addon-viewport": "^8.5.0",
+    "@storybook/blocks": "^8.5.0",
+    "@storybook/nextjs": "^8.5.0",
+    "@storybook/react": "^8.5.0",
+    "@storybook/test": "^8.5.0",
     "@storybook/test-runner": "^0.21.0",
     "@types/draft-js": "^0.11.18",
     "@types/node": "^20.17.12",
@@ -82,7 +82,7 @@
     "plop": "^4.0.1",
     "postcss": "^8.4.49",
     "prettier": "^3.4.2",
-    "storybook": "^8.4.7",
+    "storybook": "^8.5.0",
     "typescript": "^5.7.2"
   },
   "prettier": {

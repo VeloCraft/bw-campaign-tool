@@ -1,8 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import faker, { seed } from '@/.storybook/faker';
+import { seed, generate } from '@/.storybook/faker';
 import SaveWindow from '@/components/Floods/SaveWindow';
+import wrapper from '@/decorators/wrapper';
+import GoogleMap from '@/components/Maps';
+import { Flex } from '@radix-ui/themes';
 
 seed('Floods/SaveWindow');
+
+const stations = generate('station', { count: 10 }) as Station[];
 
 const meta = {
   title: 'Floods/SaveWindow',
@@ -18,6 +23,8 @@ export const WithDefaults = {
 
 export const WithValue = {
   args: {
-    title: faker.lorem.sentence(),
+    onClose: () => {},
+    stations,
   },
+  decorators: [wrapper(GoogleMap), wrapper(Flex, { height: '100dvh' })],
 } satisfies Story;

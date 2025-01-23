@@ -24,7 +24,7 @@ const Component = ({
   onClose: _onClose,
   open: _open,
 }: React.PropsWithChildren<ComponentProps>) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(!!_open);
   const onOpen = () => {
     setOpen(true);
     _onOpen?.();

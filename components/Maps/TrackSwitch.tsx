@@ -63,6 +63,7 @@ const TrackSwitch = ({
   return (
     <Flex width="100%" direction="row" justify="end" mt="2">
       <IconButton
+        data-testid="tracking-button"
         size="3"
         onClick={onToggle}
         variant="solid"

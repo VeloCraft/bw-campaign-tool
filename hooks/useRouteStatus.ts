@@ -5,7 +5,7 @@ const useRouteStatus = (
 ): [RouteStatus | FilterValue, number] => {
   const values = route.nearestStations?.map((id: string) => {
     const station = stations.find((station) => station.id === id);
-    return station.levels[station.levels.length - 1];
+    return station?.levels[station.levels.length - 1];
   });
 
   const level = values?.[0]

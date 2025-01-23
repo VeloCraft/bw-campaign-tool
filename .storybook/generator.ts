@@ -8,6 +8,7 @@ import goal from './goalGenerator';
 import app from './appGenerator';
 import station from './stationGenerator';
 import route, { rootRoutes } from './routeGenerator';
+import latLng from './latLngGenerator';
 
 const mediaTypes = ['image'];
 
@@ -25,6 +26,7 @@ const itemTypes: { [key: string]: (opts: { [key: string]: any }) => any } = {
   station,
   route,
   rootRoutes,
+  latLng,
 };
 
 mediaTypes.forEach((key: string) => {

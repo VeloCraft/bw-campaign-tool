@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import faker, { seed } from '@/.storybook/faker';
+import { seed } from '@/.storybook/faker';
 import Share from '@/components/Maps/Share';
 
 seed('Maps/Share');
@@ -18,6 +18,14 @@ export const WithDefaults = {
 
 export const WithValue = {
   args: {
-    title: faker.lorem.sentence(),
+    defaultValue: true,
+    onChange: () => {},
+  },
+} satisfies Story;
+
+export const WithError = {
+  args: {
+    ...WithValue.args,
+    error: true,
   },
 } satisfies Story;

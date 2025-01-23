@@ -4,7 +4,6 @@ import { Flex, Switch, Text } from '@radix-ui/themes';
 type ShareProps = {
   onChange: (value: boolean) => void;
   defaultValue: boolean;
-  canShare?: boolean;
   error?: boolean;
 };
 
