@@ -10,7 +10,7 @@ import Filter from '@/components/Floods/Filter';
 import Track from '@/components/Floods/Track';
 import TrackSwitch from '@/components/Maps/TrackSwitch';
 
-type FloodsProps = FlexProps & {
+type FloodsProps = Omit<FlexProps, 'position'> & {
   editable?: boolean;
   position?: GeolocationCoordinates;
   tracking?: boolean;

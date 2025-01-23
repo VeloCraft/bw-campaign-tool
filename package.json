@@ -14,7 +14,7 @@
     "add-component": "pnpm run plop component",
     "remove-component": "sh scripts/remove-component.sh",
     "missing-stories": "node scripts/check-for-missing-stories.mjs",
-    "test-storybook": "test-storybook --testTimeout 60000",
+    "test-storybook": "test-storybook --maxWorkers=6 --url 'https://storybook.generamics.co.uk' --no-index-json",
     "commit-version-change": "git add package*.json",
     "prepare": "husky",
     "migrate": "node scripts/migrate.mjs"

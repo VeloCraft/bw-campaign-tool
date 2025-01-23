@@ -21,7 +21,9 @@ const Component = ({ user }: { user?: User }) => (
       {links.map(({ href, title }: { href: string; title: string }) => (
         <Heading asChild size="2" as="h2" style={{ padding: 64 }} key={href}>
           <Button asChild key={href} variant="outline" size="4">
-            <NextLink href={href}>{title}</NextLink>
+            <NextLink href={href} shallow>
+              {title}
+            </NextLink>
           </Button>
         </Heading>
       ))}

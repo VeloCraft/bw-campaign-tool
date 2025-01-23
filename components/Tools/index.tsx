@@ -9,7 +9,7 @@ type ComponentProps = {
 const links = [
   {
     href: '/tools/floodmap',
-    title: 'Floods map',
+    title: 'Flood map',
     description: 'Live crowd-sourced localised flooding information',
   },
 ];
@@ -43,7 +43,7 @@ const Component = ({ user }: ComponentProps) => {
                 asChild
                 style={{ padding: 64 }}
               >
-                <NextLink href={href}>
+                <NextLink href={href} shallow>
                   <Heading size="6" as="h2">
                     {title}
                   </Heading>

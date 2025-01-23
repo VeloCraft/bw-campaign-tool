@@ -22,7 +22,6 @@ import useStatusUpdate from '@/hooks/useStatusUpdate';
 import usePermissions from '@/hooks/usePermissions';
 
 type SignInWrapperProps = {
-  children: React.ReactNode;
   force?: boolean;
   loading?: boolean;
   role?: string;
@@ -41,7 +40,7 @@ const SignInWrapper = ({
   permissions,
   user: _user,
   innerProps = {},
-}: SignInWrapperProps) => {
+}: React.PropsWithChildren<SignInWrapperProps>) => {
   const [user, _loading] = useUser(_user, true);
   const searchParams = useSearchParams();
   const [sent, setSent] = React.useState(false);
