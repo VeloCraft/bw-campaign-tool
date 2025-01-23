@@ -5,7 +5,15 @@ import { Flex } from '@radix-ui/themes';
 import Status from '@/components/Status';
 import '@radix-ui/themes/styles.css';
 
-const Inner = ({ children }: { children: any }) => {
+type WrapperProps = {
+  noStatus?: boolean;
+};
+
+const Inner = ({
+  children,
+  noStatus,
+}: React.PropsWithChildren<WrapperProps>) => {
+  if (noStatus) return <>{children}</>;
   return (
     <StatusProvider>
       {children}
@@ -14,7 +22,10 @@ const Inner = ({ children }: { children: any }) => {
   );
 };
 
-const Wrapper = ({ children }: { children: any }) => {
+const Wrapper = ({
+  noStatus,
+  children,
+}: React.PropsWithChildren<WrapperProps>) => {
   return (
     <Flex
       height="100dvh"
@@ -24,7 +35,7 @@ const Wrapper = ({ children }: { children: any }) => {
       align="start"
       overflowY="auto"
     >
-      <Inner>{children}</Inner>
+      <Inner noStatus={noStatus}>{children}</Inner>
     </Flex>
   );
 };

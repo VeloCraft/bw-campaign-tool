@@ -1,9 +1,22 @@
 import generate from './generator';
 import { seed, arrayOf } from './faker';
 
+const results = {};
+
+export const setResults = (key: string, value: any) => {
+  results[key] = value;
+};
+
 const mockUseCollection = (_collection: string) => {
   if (!_collection) {
     return { data: [], loading: true, ref: null };
+  }
+  if (results[_collection]) {
+    return {
+      data: results[_collection],
+      loading: false,
+      ref: null,
+    };
   }
   let collection = _collection;
   if (!generate(collection)) {

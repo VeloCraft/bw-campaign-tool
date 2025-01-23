@@ -21,7 +21,7 @@ const Add = ({ campaign, ...props }: AddProps) => {
       createdAt: new Date(),
       userId: user.id,
       campaignId: campaign.id,
-      media: values.media || null
+      media: values.media || null,
     } satisfies Omit<Action, 'id'>;
 
     console.log(newValues);
@@ -30,10 +30,10 @@ const Add = ({ campaign, ...props }: AddProps) => {
     setOpen(false);
   };
 
-
   const initialValues = {
     action: null,
     dateSet: new Date(),
+    status: 'pending',
     assigneeId: 'none',
   };
 
