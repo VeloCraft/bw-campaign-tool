@@ -1,6 +1,6 @@
 {
   "name": "bw-campaign-tool",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -42,6 +42,7 @@
     "next": "15.1.0",
     "next-auth": "5.0.0-beta.25",
     "next-cloudinary": "^6.16.0",
+    "next-firebase-auth-edge": "^1.8.2",
     "next-themes": "^0.4.4",
     "pg": "^8.13.1",
     "react": "^18.3.1",

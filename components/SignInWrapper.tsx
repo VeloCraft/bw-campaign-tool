@@ -9,7 +9,11 @@ import {
   type BoxProps,
 } from '@radix-ui/themes';
 import { auth } from '@/helpers/firebase';
-import { isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth';
+import {
+  isSignInWithEmailLink,
+  signInWithEmailLink,
+  type UserCredential,
+} from 'firebase/auth';
 import { useLocalstorageState } from 'rooks';
 import { useSearchParams } from 'next/navigation';
 import { useEffectOnceWhen } from 'rooks';
@@ -53,9 +57,21 @@ const SignInWrapper = ({
 
   const onSignedIn = React.useCallback(() => {
     if (isSignInWithEmailLink(auth, window.location.href)) {
-      signInWithEmailLink(auth, email, window.location.href).then(() => {
-        onAddMessage({ message: 'You are now signed in', variant: 'success' });
-      });
+      signInWithEmailLink(auth, email, window.location.href).then(
+        async (credential: UserCredential) => {
+          const idToken = await credential.user.getIdToken();
+          // Sets authenticated browser cookies
+          await fetch('/api/login', {
+            headers: {
+              Authorization: `Bearer ${idToken}`,
+            },
+          });
+          onAddMessage({
+            message: 'You are now signed in',
+            variant: 'success',
+          });
+        },
+      );
     }
   }, [email, onAddMessage]);
 
