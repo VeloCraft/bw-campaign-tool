@@ -1,6 +1,6 @@
 import { Tokens, getTokens } from 'next-firebase-auth-edge';
 import { cookies } from 'next/headers';
-import { db } from '@/helpers/firebaseAdmin';
+import { getDoc } from '@/helpers/firebaseAdmin';
 
 const toUser = ({ decodedToken }: Tokens): Partial<User> => {
   const { uid, email, picture: photoURL, name: displayName } = decodedToken;
@@ -29,9 +29,9 @@ const getUser = async (): Promise<User | null> => {
   });
   const currentUser = tokens ? toUser(tokens) : null;
   const user = currentUser
-    ? await db.doc(`users/${currentUser.id}`).get()
+    ? await getDoc<User>(`users/${currentUser.id}`)
     : null;
-  if (user.exists) return { ...user.data(), id: currentUser.id } as User;
+  if (user) return user;
   return null;
 };
 

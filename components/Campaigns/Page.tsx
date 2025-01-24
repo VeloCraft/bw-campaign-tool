@@ -15,15 +15,17 @@ import AddDocument from '@/components/Documents/Add';
 
 type PageProps = {
   user?: User;
+  campaign: Campaign;
 };
 
-const Page = ({ user }: PageProps) => {
+const Page = ({ user, campaign: _campaign }: PageProps) => {
   const { id }: { id: string } = useParams();
-  const { data: campaign, loading } = useFirestoreDoc<Campaign>(
+  const { data, loading: _loading } = useFirestoreDoc<Campaign>(
     `campaigns/${id}`,
     true,
   );
-
+  const campaign = !_loading ? data || _campaign : _campaign;
+  const loading = !_campaign && _loading;
   return (
     <SignInWrapper
       force
@@ -99,13 +101,17 @@ const Page = ({ user }: PageProps) => {
         <Card>
           <Heading size="4">Actions</Heading>
           <ActionList />
-          <AddAction size="1" mt="2" campaign={campaign}>
-            Add action
-          </AddAction>
+          {campaign && (
+            <AddAction size="1" mt="2" campaign={campaign}>
+              Add action
+            </AddAction>
+          )}
         </Card>
 
-        <Heading mt="2" size="4">Relevant documents</Heading>
-        <DocumentList campaignId={campaign?.id} />
+        <Heading mt="2" size="4">
+          Relevant documents
+        </Heading>
+        {campaign && <DocumentList campaignId={campaign?.id} />}
         <AddDocument size="1" mt="2" campaignId={campaign?.id}>
           Add documents
         </AddDocument>
