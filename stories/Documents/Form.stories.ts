@@ -34,7 +34,7 @@ export const Opened = {
   },
 } satisfies Story;
 
-const document = generate('media') as MediaRecord;
+const document = generate('document') as DocumentDoc;
 
 export const WithInitialValues = {
   args: {

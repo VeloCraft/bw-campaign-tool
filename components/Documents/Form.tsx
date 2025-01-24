@@ -4,7 +4,7 @@ import Form, { Field } from '@/components/Form';
 type ComponentProps = ButtonProps & {
   open: boolean;
   setOpen: (open: boolean) => void;
-  initialValues?: Partial<MediaRecord>;
+  initialValues?: Partial<DocumentDoc>;
   onSubmit: (values: FormSubmission) => Promise<void>;
   title: string;
   description: string;
@@ -30,7 +30,8 @@ const Component = ({
           onSubmit={onSubmit}
           initialValues={initialValues}
         >
-          <Field label="File name" name="display_name" type="text" required />
+          <Field label="File" name="file" type="media" required />
+          <Field label="Name" name="name" type="text" required />
           <Field
             label="Key details"
             name="description"

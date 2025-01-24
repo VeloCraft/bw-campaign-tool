@@ -100,27 +100,12 @@ type Media = {
   //[key: string]: any; // Allow for additional properties returned by Cloudinary
 };
 
-type MediaRecord = {
+type DocumentDoc = {
   id: string;
-  notification_type: string; // assuming it's always "upload"
-  original_filename: string;
-  display_name: string;
-  bytes: number;
-  pages?: number;
-  placeholder?: boolean;
-  public_id: string;
-  request_id: string;
-  resource_type: string; // assuming it's always "image"
-  secure_url?: string;
-  signature_key?: string;
-  tags?: string[];
-  timestamp: string; // ISO 8601 date string
-  type: string; // assuming it's always "upload"
-  url?: string;
-  version?: number;
-  version_id?: string;
-  width?: number;
+  file: Media;
+  name?: string;
   description?: string;
+  campaignId: string;
 };
 
 type Contact = {

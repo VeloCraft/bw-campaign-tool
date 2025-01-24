@@ -1,7 +1,7 @@
 'use client';
 
 import { Table } from '@radix-ui/themes';
-import { orderBy, where } from 'firebase/firestore';
+import { where } from 'firebase/firestore';
 import useFirestoreCollection from '@/hooks/useFirestoreCollection';
 import Item from '@/components/Documents/ListItem';
 
@@ -10,11 +10,10 @@ type ListProps = {
 };
 
 const List = ({ campaignId }: ListProps) => {
-  const { data: documents, loading } = useFirestoreCollection<Media>(
-    'media',
+  const { data: documents, loading } = useFirestoreCollection<DocumentDoc>(
+    'documents',
     true,
-    where('tags', 'array-contains', campaignId),
-    orderBy('created_at', 'desc'),
+    where('campaignId', '==', campaignId),
   );
   if (loading) return null;
 
@@ -30,7 +29,7 @@ const List = ({ campaignId }: ListProps) => {
         </Table.Header>
         <Table.Body>
           {documents?.map((document) => (
-            <Item key={document.id} docId={document.id} {...document} />
+            <Item key={document.id} docId={document.id} document={document} />
           ))}
         </Table.Body>
       </Table.Root>

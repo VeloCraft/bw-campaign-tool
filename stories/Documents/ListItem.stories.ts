@@ -15,19 +15,14 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof ListItem>;
 
-export const WithDefaults = {
-  args: {},
-  decorators: [wrapper(Table.Body), wrapper(Table.Root)],
-} satisfies Story;
-
-const media = generate('media') as Media;
+const document = generate('document') as DocumentDoc;
 
 export const WithAction = {
-  ...WithDefaults,
   args: {
-    docId: media.public_id,
-    ...media,
+    docId: document.id,
+    document,
   },
+  decorators: [wrapper(Table.Body), wrapper(Table.Root)],
 } satisfies Story;
 
 export const WithActionDelete = {
