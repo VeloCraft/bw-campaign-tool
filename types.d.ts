@@ -131,7 +131,7 @@ type Contact = {
   organisation: string;
   role: string;
   createdAt: Date;
-}
+};
 
 type Status = {
   message: string;
@@ -160,7 +160,7 @@ type Route = {
 };
 
 type RootRoutes = {
-  updateAt: DateType;
+  updatedAt: DateType;
   [id: string]: Omit<Route, 'id'>;
 };
 

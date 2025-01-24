@@ -1,5 +1,5 @@
 import { db } from '@/helpers/firebaseAdmin';
-import type { DocumentSnapshot, QuerySnapshot } from 'firebase/firestore';
+import type { DocumentSnapshot, QuerySnapshot } from 'firebase-admin/firestore';
 
 export const onLoadData = async () => {
   let result: [DocumentSnapshot, QuerySnapshot] | null = null;

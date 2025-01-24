@@ -9,7 +9,7 @@ type EditProps = ButtonProps & {
 };
 
 const Edit = ({ docId, ...props }: EditProps) => {
-  const { data, loading } = useFirestoreDoc<Contact>(`contacts/${docId}`, true);
+  const { data } = useFirestoreDoc<Contact>(`contacts/${docId}`, true);
   const [open, setOpen] = React.useState(false);
   const [onUpdate] = useUpdateDoc(`contacts/${docId}`, true);
 

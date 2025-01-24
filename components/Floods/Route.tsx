@@ -56,7 +56,7 @@ const RouteComponent = ({
     setPosition(null);
     select(null);
     if (editable) onCancelRoute();
-  }, [setOpen, select]);
+  }, [setOpen, select, editable, onCancelRoute]);
 
   const onSelect = React.useCallback(
     (latLng?: google.maps.LatLng) => {
@@ -67,7 +67,7 @@ const RouteComponent = ({
       const path = geometry.encoding.decodePath(route.path);
       onRequestRoute(path[0], path[path.length - 1]);
     },
-    [setOpen, geometry, route, onRequestRoute],
+    [setOpen, geometry, route, onRequestRoute, editable],
   );
 
   const polyline = usePolyline({
@@ -129,11 +129,11 @@ const RouteComponent = ({
       onUpdate(newDoc);
       onUpdateRoot(route.id, { ...route, ...newDoc });
     }
-  }, [directionsResult]);
+  }, [directionsResult]); // eslint-disable-line
 
   React.useEffect(() => {
     if (open && selected && selected !== route.id) onClose();
-  }, [open, selected]);
+  }, [open, selected, route.id, onClose]);
 
   if (!open || !position || !geometry) return null;
 
