@@ -23,6 +23,7 @@ const Add = (props: ButtonProps) => {
       setOpen={setOpen}
       onSubmit={onSubmit as any}
       title="Add a contact"
+      description="Enter the details of the contact"
       {...props}
     />
   );

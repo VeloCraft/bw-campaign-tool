@@ -10,7 +10,7 @@ type ListItemProps = Contact & {
 
 const ListItem = ({
   email,
-  full_name,
+  fullName,
   phone,
   organisation,
   role,
@@ -18,7 +18,7 @@ const ListItem = ({
 }: Partial<ListItemProps>) => {
   return (
     <Table.Row align="center">
-      <Table.Cell>{full_name}</Table.Cell>
+      <Table.Cell>{fullName}</Table.Cell>
       <Table.Cell>{email}</Table.Cell>
       <Table.Cell>{phone}</Table.Cell>
       <Table.Cell>{organisation}</Table.Cell>

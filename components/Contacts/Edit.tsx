@@ -25,6 +25,7 @@ const Edit = ({ docId, ...props }: EditProps) => {
       setOpen={setOpen}
       onSubmit={onSubmit as any}
       title="Edit contact" //ideally would reference the campaign name if possible
+      description="Update the details of the contact"
       initialValues={data}
       data-testid="edit-contact-button"
       {...props}
