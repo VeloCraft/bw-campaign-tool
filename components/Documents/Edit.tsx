@@ -1,6 +1,6 @@
 import { type ButtonProps } from '@radix-ui/themes';
 import React from 'react';
-import Form from '@/components/Contacts/Form';
+import Form from '@/components/Documents/Form';
 import useUpdateDoc from '@/hooks/useUpdateDoc';
 import useFirestoreDoc from '@/hooks/useFirestoreDoc';
 
@@ -9,16 +9,13 @@ type EditProps = ButtonProps & {
 };
 
 const Edit = ({ docId, ...props }: EditProps) => {
-  const { data } = useFirestoreDoc<Contact>(`contacts/${docId}`, true);
+  const { data } = useFirestoreDoc<DocumentDoc>(`documents/${docId}`, true);
   const [open, setOpen] = React.useState(false);
-  const [onUpdate] = useUpdateDoc(`contacts/${docId}`, true);
-  if (loading) {
-    return null;
-  }
+  const [onUpdate] = useUpdateDoc(`documents/${docId}`, true);
 
   const onSubmit = async (values: Record<string, string>) => {
-    const newContact = { ...values, createdAt: new Date() };
-    await onUpdate(newContact);
+    const newDoc = { ...values, createdAt: new Date() };
+    await onUpdate(newDoc);
     setOpen(false);
   };
 
@@ -27,10 +24,10 @@ const Edit = ({ docId, ...props }: EditProps) => {
       open={open}
       setOpen={setOpen}
       onSubmit={onSubmit as any}
-      title="Edit contact" //ideally would reference the campaign name if possible
-      description="Update the details of the contact"
+      title="Edit document" //ideally would reference the campaign name if possible
+      description="Update the details of the document"
       initialValues={data}
-      data-testid="edit-contact-button"
+      data-testid="edit-document-button"
       {...props}
     />
   );

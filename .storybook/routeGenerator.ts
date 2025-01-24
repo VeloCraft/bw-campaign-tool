@@ -35,8 +35,8 @@ export const rootRoutes = ({ stations }) => {
       const { id, ...rest } = route;
       acc[id] = rest;
       return acc;
-    }, {} as RootRoutes) as Omit<RootRoutes, 'updatedAt'>),
-  } satisfies RootRoutes;
+    }, {} as RootRoutes) as Partial<RootRoutes>),
+  } as RootRoutes;
 };
 
 export const routeReport = () =>

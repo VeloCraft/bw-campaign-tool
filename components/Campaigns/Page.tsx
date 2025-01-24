@@ -19,14 +19,16 @@ import useUpdateDoc from '@/hooks/useUpdateDoc';
 
 type PageProps = {
   user?: User;
+  campaign: Campaign;
 };
 
-const Page = ({ user }: PageProps) => {
+const Page = ({ user, campaign: _campaign }: PageProps) => {
   const { id }: { id: string } = useParams();
-  const { data: campaign, loading } = useFirestoreDoc<Campaign>(
+  const { data, loading: _loading } = useFirestoreDoc<Campaign>(
     `campaigns/${id}`,
     true,
   );
+
 
   const { data: contacts, contactLoading } =
     useFirestoreCollection<Contact>('contacts');
@@ -41,18 +43,18 @@ const Page = ({ user }: PageProps) => {
     await onUpdate(updatedCampaign); // Use the update function procedurally
   };
 
-  console.log('campaign listed', campaign?.contacts);
 
-  // Get contact information for ids in campaign.contacts
-  if (loading || contactLoading) {
-    return <SignInWrapper force user={user} loading />;
-  }
+
   // Get contact information for ids in campaign.contacts
 
   // Safely get contact information for ids in campaign.contacts
   const campaignContacts = Array.isArray(campaign?.contacts)
     ? contacts.filter((contact) => campaign.contacts.includes(contact.id))
     : [];
+
+
+  const campaign = !_loading ? data || _campaign : _campaign;
+  const loading = !_campaign && _loading;
 
   return (
     <SignInWrapper
@@ -129,15 +131,21 @@ const Page = ({ user }: PageProps) => {
         <Card>
           <Heading size="4">Actions</Heading>
           <ActionList />
-          <AddAction size="1" mt="2" campaign={campaign}>
-            Add action
-          </AddAction>
+          {campaign && (
+            <AddAction size="1" mt="2" campaign={campaign}>
+              Add action
+            </AddAction>
+          )}
         </Card>
 
         <Heading mt="2" size="4">
           Relevant documents
         </Heading>
+<<<<<<< HEAD
         <DocumentList campaignId={campaign?.id} />
+=======
+        {campaign && <DocumentList campaignId={campaign?.id} />}
+>>>>>>> 5e613cb9ed023fdd88f37fc5ceafb9614d62a3fb
         <AddDocument size="1" mt="2" campaignId={campaign?.id}>
           Add documents
         </AddDocument>

@@ -184,7 +184,7 @@ const SignInWrapper = ({
   );
 };
 
-const Wrapper = (props: SignInWrapperProps) => {
+const Wrapper = (props: React.PropsWithChildren<SignInWrapperProps>) => {
   return (
     <React.Suspense>
       <SignInWrapper {...props} />

@@ -21,7 +21,7 @@ const TrackSwitch = ({
     (position: GeolocationPosition) => {
       setPosition(position.coords);
     },
-    [enabled, setPosition],
+    [setPosition],
   );
 
   const onError = React.useCallback((error: GeolocationPositionError) => {
@@ -57,7 +57,7 @@ const TrackSwitch = ({
     () => () => {
       if (enabled) navigator.geolocation.clearWatch(enabled);
     },
-    [],
+    [enabled],
   );
 
   return (

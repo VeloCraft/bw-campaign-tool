@@ -4,9 +4,10 @@ import Form, { Field } from '@/components/Form';
 type ComponentProps = ButtonProps & {
   open: boolean;
   setOpen: (open: boolean) => void;
-  initialValues?: Partial<MediaRecord>;
+  initialValues?: Partial<Contact>;
   onSubmit: (values: FormSubmission) => Promise<void>;
   title: string;
+  description: string;
 };
 
 const Component = ({
@@ -15,6 +16,7 @@ const Component = ({
   initialValues = {},
   onSubmit,
   title,
+  description,
   ...props
 }: ComponentProps) => {
   return (
@@ -24,12 +26,13 @@ const Component = ({
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Title>{title}</Dialog.Title>
+        <Dialog.Description>{description}</Dialog.Description>
         <Form
           variant="dialog"
           onSubmit={onSubmit}
           initialValues={initialValues}
         >
-          <Field label="Name" name="full_name" type="text" required />
+          <Field label="Name" name="fullName" type="text" required />
           <Field label="E-mail" name="email" type="text" />
           <Field label="Phone" name="phone" type="text" />
           <Field label="Organisation" name="organisation" type="text" />

@@ -35,7 +35,7 @@ const Track = ({ tracking, setTracking, position }: TrackingProps) => {
       circle.current.setMap(null);
       circle.current = null;
     };
-  }, [map]);
+  }, [map, onCancelTracking]);
 
   React.useEffect(() => {
     if (circle.current && position) {
@@ -56,7 +56,7 @@ const Track = ({ tracking, setTracking, position }: TrackingProps) => {
         }
       }
     }
-  }, [position, tracking]);
+  }, [position, tracking, map]);
 
   return null;
 };

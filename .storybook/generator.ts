@@ -9,13 +9,19 @@ import app from './appGenerator';
 import station from './stationGenerator';
 import route, { rootRoutes } from './routeGenerator';
 import latLng from './latLngGenerator';
+import contact from './contactGenerator';
+import document from './documentGenerator';
 
 const mediaTypes = ['image'];
 
 const itemTypes: { [key: string]: (opts: { [key: string]: any }) => any } = {
   app,
   user,
+  contact,
+  contacts: contact,
   users: user,
+  document,
+  documents: document,
   media,
   date,
   campaign,

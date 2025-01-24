@@ -35,7 +35,7 @@ const Add = ({ campaign, ...props }: AddProps) => {
     dateSet: new Date(),
     status: 'pending',
     assigneeId: 'none',
-  };
+  } as Partial<Action>;
 
   const onClose = () => setOpen(false);
 
