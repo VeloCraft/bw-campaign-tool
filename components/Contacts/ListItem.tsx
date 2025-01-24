@@ -1,8 +1,7 @@
 import React from 'react';
-import { Table, Link, Flex } from '@radix-ui/themes';
-import { Pencil2Icon, TrashIcon } from '@radix-ui/react-icons';
+import { Table, Flex } from '@radix-ui/themes';
+import { Pencil2Icon } from '@radix-ui/react-icons';
 import Edit from '@/Components/Contacts/Edit';
-import Delete from '@/Components/Contacts/Delete';
 
 type ListItemProps = Contact & {
   docId: string;
@@ -28,9 +27,6 @@ const ListItem = ({
           <Edit docId={docId} variant="soft" color="green">
             <Pencil2Icon />
           </Edit>
-          <Delete docId={docId} variant="soft" color="red">
-            <TrashIcon />
-          </Delete>
         </Flex>
       </Table.Cell>
     </Table.Row>

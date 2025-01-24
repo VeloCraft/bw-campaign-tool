@@ -52,6 +52,7 @@ type Campaign = {
   userId: string;
   updatedAt?: Date;
   createdAt: Date;
+  contacts: string[];
 };
 
 /*
@@ -131,7 +132,7 @@ type Contact = {
   organisation: string;
   role: string;
   createdAt: Date;
-}
+};
 
 type Status = {
   message: string;

@@ -12,6 +12,9 @@ const Edit = ({ docId, ...props }: EditProps) => {
   const { data, loading } = useFirestoreDoc<Contact>(`contacts/${docId}`, true);
   const [open, setOpen] = React.useState(false);
   const [onUpdate] = useUpdateDoc(`contacts/${docId}`, true);
+  if (loading) {
+    return null;
+  }
 
   const onSubmit = async (values: Record<string, string>) => {
     const newContact = { ...values, createdAt: new Date() };
