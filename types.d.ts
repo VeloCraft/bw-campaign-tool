@@ -123,6 +123,16 @@ type MediaRecord = {
   description?: string;
 };
 
+type Contact = {
+  id: string;
+  full_name: string;
+  email: string;
+  phone: string;
+  organisation: string;
+  role: string;
+  createdAt: Date;
+}
+
 type Status = {
   message: string;
   variant: 'info' | 'success' | 'error';
