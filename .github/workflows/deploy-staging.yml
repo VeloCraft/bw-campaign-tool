@@ -23,19 +23,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           debug: true
           script: |
-
-            export NVM_DIR=~/.nvm
-            source ~/.nvm/nvm.sh
-
-            # Ensure pm2 is installed
-            npm install -g pm2
-            export PATH=$(npm bin -g):$PATH
-
             # Navigate to the app directory
-            cd sites/bw-campaign-tool
-
-            rm -rf .next
-            rm -rf node_modules
+            mkdir -p ~/sites/bw-campaign-tool-staging
+            cd ~/sites/bw-campaign-tool-staging
 
             # Fetch the latest changes from the staging branch
             git fetch origin staging
@@ -48,8 +38,8 @@ jobs:
             pnpm run build
 
             # Restart the PM2 process
-            if pm2 list | grep -q "${{ secrets.PM2_PROCESS_NAME }}"; then
-              pm2 restart ${{ secrets.PM2_PROCESS_NAME }}
+            if pm2 list | grep -q bw-campaign-tool-staging; then
+              pm2 restart bw-campaign-tool-staging
             else
-              pm2 start npm --name "${{ secrets.PM2_PROCESS_NAME }}" -- run start
+              pm2 start npm --name bw-campaign-tool-staging -- run start
             fi
