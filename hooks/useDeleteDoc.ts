@@ -1,5 +1,5 @@
 import React from 'react';
-import { updateDoc, doc } from 'firebase/firestore';
+import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '@/helpers/firebase';
 import useStatusUpdate from '@/hooks/useStatusUpdate';
 
@@ -9,26 +9,24 @@ const types = {
   listeners: 'listener',
 };
 
-type DataObj = { [key: string]: any };
-
-const useUpdateDoc = (
+const useDeleteDoc = (
   docId: string,
   message?: boolean | string,
-): [(data: DataObj) => Promise<void>, boolean] => {
+): [() => Promise<void>, boolean] => {
   const [saving, setSaving] = React.useState(false);
   const docType = types[docId.split('/')[0] as keyof typeof types];
   const onAddMessage = useStatusUpdate();
 
-  const onUpdate = async (data: DataObj) => {
+  const onDelete = async () => {
     setSaving(true);
     try {
-      await updateDoc(doc(db, docId), data);
+      await deleteDoc(doc(db, docId));
       if (message && docType) {
         onAddMessage({
           message:
             typeof message === 'string'
               ? message
-              : `${docType.substring(0, 1).toUpperCase()}${docType.substring(1)} updated`,
+              : `${docType.substring(0, 1).toUpperCase()}${docType.substring(1)} deleted`,
           variant: 'success',
         });
       }
@@ -44,7 +42,7 @@ const useUpdateDoc = (
     setSaving(false);
   };
 
-  return [onUpdate, saving];
+  return [onDelete, saving];
 };
 
-export default useUpdateDoc;
+export default useDeleteDoc;

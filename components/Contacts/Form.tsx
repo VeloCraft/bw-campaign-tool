@@ -8,6 +8,7 @@ type ComponentProps = ButtonProps & {
   onSubmit: (values: FormSubmission) => Promise<void>;
   title: string;
   description: string;
+  onDelete?: () => Promise<void>;
 };
 
 const Component = ({
@@ -16,6 +17,7 @@ const Component = ({
   initialValues = {},
   onSubmit,
   title,
+  onDelete,
   description,
   ...props
 }: ComponentProps) => {
@@ -31,6 +33,7 @@ const Component = ({
           variant="dialog"
           onSubmit={onSubmit}
           initialValues={initialValues}
+          onDelete={onDelete}
         >
           <Field label="Name" name="fullName" type="text" required />
           <Field label="E-mail" name="email" type="text" />

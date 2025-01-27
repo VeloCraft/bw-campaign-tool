@@ -25,12 +25,15 @@ export const WithValue = {
   args: generate('contact') as Contact,
 } satisfies Story;
 
-export const EditClicked = {
+export const WithEditableValue = {
   ...WithValue,
-  play: click('testId', 'edit-contact-button'),
+  args: {
+    ...WithValue.args,
+    editable: true,
+  },
 } satisfies Story;
 
-export const DeleteClicked = {
-  ...WithValue,
-  play: click('testId', 'delete-contact-button'),
+export const EditClicked = {
+  ...WithEditableValue,
+  play: click('testId', 'edit-contact-button'),
 } satisfies Story;

@@ -13,6 +13,7 @@ const generate = () =>
     userId: faker.string.uuid(),
     updatedAt: generateDate() as Date,
     createdAt: generateDate() as Date,
+    contactIds: arrayOf(() => faker.string.uuid()),
   }) satisfies Campaign;
 
 export default generate;

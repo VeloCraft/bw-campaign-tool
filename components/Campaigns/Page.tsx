@@ -1,7 +1,6 @@
 'use client';
 
 import useFirestoreDoc from '@/hooks/useFirestoreDoc';
-import useFirestoreCollection from '@/hooks/useFirestoreCollection';
 import { Container, Flex, Box, Heading, Card } from '@radix-ui/themes';
 import SignInWrapper from '@/components/SignInWrapper';
 import { useParams } from 'next/navigation';
@@ -13,9 +12,8 @@ import Edit from '@/components/Campaigns/Edit';
 import StatusBadge from '@/components/Campaigns/StatusBadge';
 import DocumentList from '@/components/Documents/List';
 import AddDocument from '@/components/Documents/Add';
-import Select from '@/components/Contacts/Select';
 import ContactList from '@/components/Contacts/List';
-import useUpdateDoc from '@/hooks/useUpdateDoc';
+import Manage from '@/components/Contacts/Manage';
 
 type PageProps = {
   user?: User;
@@ -29,29 +27,7 @@ const Page = ({ user, campaign: _campaign }: PageProps) => {
     true,
   );
 
-
-  const { data: contacts, contactLoading } =
-    useFirestoreCollection<Contact>('contacts');
-
-  // Get the update function from the useUpdateDoc hook
-  //const updateDoc = useUpdateDoc();
-  const [onUpdate] = useUpdateDoc(`campaigns/${id}`, true);
-
-  const onSubmitContacts = async (selectedContactIds) => {
-    //console.log('in submit function', selectedContactIds);
-    const updatedCampaign = { ...campaign, contacts: selectedContactIds };
-    await onUpdate(updatedCampaign); // Use the update function procedurally
-  };
-
-
-
   // Get contact information for ids in campaign.contacts
-
-  // Safely get contact information for ids in campaign.contacts
-  const campaignContacts = Array.isArray(campaign?.contacts)
-    ? contacts.filter((contact) => campaign.contacts.includes(contact.id))
-    : [];
-
 
   const campaign = !_loading ? data || _campaign : _campaign;
   const loading = !_campaign && _loading;
@@ -141,25 +117,14 @@ const Page = ({ user, campaign: _campaign }: PageProps) => {
         <Heading mt="2" size="4">
           Relevant documents
         </Heading>
-<<<<<<< HEAD
-        <DocumentList campaignId={campaign?.id} />
-=======
-        {campaign && <DocumentList campaignId={campaign?.id} />}
->>>>>>> 5e613cb9ed023fdd88f37fc5ceafb9614d62a3fb
+        {campaign && <DocumentList campaignId={campaign.id} />}
         <AddDocument size="1" mt="2" campaignId={campaign?.id}>
           Add documents
         </AddDocument>
         <Card mt="2">
           <Heading size="4">Contacts</Heading>
-          <ContactList contacts={campaignContacts} />
-          <Select
-            onSubmit={onSubmitContacts}
-            contacts={contacts}
-            initialValues={campaign?.contacts || []}
-            mt="2"
-          >
-            Assign/unassign contacts
-          </Select>
+          <ContactList contactIds={campaign?.contactIds} />
+          <Manage campaignId={campaign?.id} contactIds={campaign?.contactIds} />
         </Card>
       </Container>
     </SignInWrapper>

@@ -52,7 +52,7 @@ type Campaign = {
   userId: string;
   updatedAt?: Date;
   createdAt: Date;
-  contacts: string[];
+  contactIds?: string[];
 };
 
 /*

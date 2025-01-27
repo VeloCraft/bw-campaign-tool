@@ -1,37 +1,32 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import faker, { seed, generate } from '@/.storybook/faker';
-import List from '@/components/Contacts/List';
+import Manage from '@/components/Contacts/Manage';
+import { click } from '@/.storybook/play';
 import firestoreResults from '@/decorators/firestoreResults';
 
-seed('Contacts/List');
+seed('Contacts/Manage');
 
 const meta = {
-  title: 'Contacts/List',
-  component: List,
-} satisfies Meta<typeof List>;
+  title: 'Contacts/Manage',
+  component: Manage,
+} satisfies Meta<typeof Manage>;
 
 export default meta;
-type Story = StoryObj<typeof List>;
-
-export const WithDefaults = {
-  args: {},
-} satisfies Story;
+type Story = StoryObj<typeof Manage>;
 
 const contacts = generate('contact', { count: 12 }) as Contact[];
 
 export const WithValue = {
   args: {
+    campaignId: faker.string.uuid(),
     contactIds: contacts
-      .map(({ id }) => id)
-      .filter(() => faker.datatype.boolean()),
+      .filter(() => faker.datatype.boolean())
+      .map(({ id }) => id),
   },
   decorators: firestoreResults({ contacts }),
 } satisfies Story;
 
-export const AsEditable = {
+export const Opened = {
   ...WithValue,
-  args: {
-    ...WithValue.args,
-    editable: true,
-  },
+  play: click('testId', 'manage-contacts-button'),
 } satisfies Story;

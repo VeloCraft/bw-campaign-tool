@@ -7,7 +7,7 @@ export type ComponentProps = BoxProps & {
   label: string;
   required?: boolean;
   disabled?: boolean;
-  defaultValue?: string;
+  defaultValue?: string | string[];
   values?: string[];
   labels: React.ReactNode[];
   placeholder?: string;
@@ -25,10 +25,9 @@ const Component = ({
   ...boxProps
 }: ComponentProps) => {
   const { register } = useFormContext();
-  const {
-    onChange: onChangeSelect,
-    ...selectProps
-  } = register(name, { required });
+  const { onChange: onChangeSelect, ...selectProps } = register(name, {
+    required,
+  });
   const onValueChange = (_value: string) => {
     let value = _value;
     if (value === ' ') value = '';
@@ -45,7 +44,7 @@ const Component = ({
           </Form.Label>
           <Form.Control required={required} asChild>
             <Select.Root
-              defaultValue={defaultValue}
+              defaultValue={defaultValue as string}
               disabled={disabled}
               size="3"
               {...selectProps}

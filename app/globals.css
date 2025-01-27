@@ -1,6 +1,15 @@
 @import '@radix-ui/themes/styles.css';
 
-.dark, .dark-theme {
+html {
+  height: 100dvh;
+}
+body {
+  height: 100dvh;
+  overflow-y: auto;
+}
+
+.dark,
+.dark-theme {
   --green-1: #0e1210;
   --green-2: #141916;
   --green-3: #1d2922;
@@ -33,9 +42,8 @@
   --green-track: #92cba9;
 }
 
-
-
-.light, .light-theme {
+.light,
+.light-theme {
   --green-1: #fbfefc;
   --green-2: #f4fbf6;
   --green-3: #e4f7eb;
@@ -68,8 +76,6 @@
   --green-track: #1ea769;
 }
 
-
 [data-test='uw-iframe'] {
   pointer-events: auto;
 }
-

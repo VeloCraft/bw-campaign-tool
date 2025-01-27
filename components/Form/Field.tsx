@@ -9,6 +9,7 @@ import TextArea from '@/components/Form/TextArea';
 import DefaultField from '@/components/Form/Default';
 import Media from '@/components/Form/Media';
 import CheckboxGroup from '@/components/Form/CheckboxGroup';
+import SelectMultiple from '@/components/Form/SelectMultiple';
 
 export type ComponentProps = BoxProps & {
   name: string;
@@ -39,6 +40,8 @@ export type ComponentProps = BoxProps & {
   step?: number;
   tags?: string[];
   resourceType?: 'image' | 'raw';
+  multiple?: boolean;
+  empty?: string;
 };
 
 const Component = ({ name, type, ...props }: ComponentProps) => {
@@ -51,6 +54,16 @@ const Component = ({ name, type, ...props }: ComponentProps) => {
     case 'select':
       if (!props.values || !props.labels)
         return <>Select fields must have values and labels</>;
+      if (props.multiple)
+        return (
+          <SelectMultiple
+            name={name}
+            defaultValue={defaultValue}
+            {...props}
+            values={props.values}
+            labels={props.labels}
+          />
+        );
       return (
         <Select
           name={name}

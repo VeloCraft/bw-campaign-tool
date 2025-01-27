@@ -6,6 +6,11 @@ export const links = [
     active: (pathname) => pathname.startsWith('/campaigns'),
   },
   {
+    href: '/contacts',
+    label: 'Contacts',
+    active: (pathname) => pathname.startsWith('/contacts'),
+  },
+  {
     href: '/tools',
     label: 'Tools',
     active: (pathname) => pathname.startsWith('/tools'),
