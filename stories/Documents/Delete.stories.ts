@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { title, seed } from '@/.storybook/faker';
-import EditDescription from '@/components/Documents/EditDescription';
+import Delete from '@/components/Documents/Delete';
 
-seed('Documents/EditDescription');
+seed('Documents/Delete');
 
 const meta = {
-  title: 'Documents/EditDescription',
-  component: EditDescription,
-} satisfies Meta<typeof EditDescription>;
+  title: 'Documents/Delete',
+  component: Delete,
+} satisfies Meta<typeof Delete>;
 
 export default meta;
-type Story = StoryObj<typeof EditDescription>;
+type Story = StoryObj<typeof Delete>;
 
 export const WithDefaults = {
   args: {},
